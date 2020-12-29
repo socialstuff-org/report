@@ -14,6 +14,9 @@
 
 \subsection{Services}
 
+The following part of the dossier will describe the different services which have been developed during the time of the project.
+This will include a description of each service, followed by an REST API specification.
+
 \subsubsection{API Service}
 % TODO @joernneumeyer & @mauritsvanderzee
 
@@ -54,35 +57,32 @@
 % TODO @all shall we just briefly mention that this might be a service for future features / development
 
 \subsubsection{Identity Service}
+\label{sec:identitySer}
 % TODO @joernneumeyer
 
 \subsubsection{Settings Service}
 % TODO @maltecastner & tobiasjansen
-
-\subsubsection{Reporting Service}
-% TODO @maltecastner & tobiasjansen
-
-The Settings service provides an interface to the admin panel frontend and carries out the settings to the other services
-As visible from the [Use Case diagram](#Use case diagram) the Settings service carries out a few tasks by itself whilst forwarding certain other request to the [identity service](identity-service.md) and the [reporting service](reporting.md).
+The Settings service provides an interface to the admin panel frontend and carries out the settings to the other services.
+This service was developed in parallel to the admin panel frontend. %TODO @maltecastner insert reference to component, once it has been added
+First only the for the UI neccessary functionality would be added, later on the actual functionality was added (e.g.\ that users can actually be reported for the report reasons added in the settings)
+As visible from the use case diagram~\ref{fig:ucd} the Settings service carries out a few tasks by itself whilst forwarding
+certain other request to the identity ~\ref{sec:identitySer} and the reporting~\ref{sec:reportingSer} service.
 The use cases and their descriptions can be found on in the online documentation.
 
-Use Case Diagram
-%todo insert use case diagram
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/UseCaseDiagramAdminPanel.pdf}
-    \caption{Use case diagram of the admin panel showing responsibility of each AP service~\ref{tab:usecasediagram}}
+    \caption{Use case diagram of the admin panel showing responsibility of each AP service}
     \label{fig:ucd}
 \end{figure}
-![UseCaseDiagram](../../usecases/UseCaseDiagramAdminPanel.png)
 
-###Rest interfaces
+\paragraph{Rest interface}
 The settings service provides the following rest endpoints:
-####Reporting settings
-\begin{verbatim}
 
+\begin{verbatim}
 GET: /settings/report-reason
 \end{verbatim}
+
 Returns all report reasons as a JSON array.
 
 \begin{verbatim}
@@ -115,7 +115,6 @@ headers:
 
 Deletes a report reason with an id that is provided as a header.
 
-####Security settings
 \begin{verbatim}
 GET: /settings/security
 \end{verbatim}
@@ -146,11 +145,20 @@ body:
 }
 }
 \end{verbatim}
-Edits the security settings. The new settings are provided in body.
+Edits the security settings.
+The new settings are provided in body.
 
 ##Example Add Report reason
-![Sequence Diagram](SequenceDiagram_AddReportReason.svg)
-The sequence diagram shows an example of the communication of the settings service with the aforementioned services.
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason.pdf}
+    \caption{Use case diagram of the admin panel showing responsibility of each AP service}
+    \label{fig:addReportReason}
+\end{figure}
+The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the aforementioned services.
 Firstly by checking at the identity service, if the user who sent out the request is in fact an administrator and then adding the reason in the reporting service.
 This way each service has a clearly defined task.
 
+\subsubsection{Reporting Service}
+\label{sec:reportingSer}
+% TODO @maltecastner & tobiasjansen
