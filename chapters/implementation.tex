@@ -57,16 +57,17 @@ This will include a description of each service, followed by an REST API specifi
 % TODO @all shall we just briefly mention that this might be a service for future features / development
 
 \subsubsection{Identity Service}
-\label{sec:identitySer}
+\label{subsubsec:identitySer}
 % TODO @joernneumeyer
 
 \subsubsection{Settings Service}
+\label{subsubsec:settingsSer}
 % TODO @maltecastner & tobiasjansen
 The Settings service provides an interface to the admin panel frontend and carries out the settings to the other services.
 This service was developed in parallel to the admin panel frontend. %TODO @maltecastner insert reference to component, once it has been added
-First only the for the UI neccessary functionality would be added, later on the actual functionality was added (e.g.\ that users can actually be reported for the report reasons added in the settings)
+First only the for the UI necessary functionality would be added, later on the actual functionality was added (e.g.\ that users can actually be reported for the report reasons added in the settings)
 As visible from the use case diagram~\ref{fig:ucd} the Settings service carries out a few tasks by itself whilst forwarding
-certain other request to the identity ~\ref{sec:identitySer} and the reporting~\ref{sec:reportingSer} service.
+certain other request to the identity ~\ref{subsubsec:identitySer} and the reporting~\ref{subsubsec:reportingSer} service.
 The use cases and their descriptions can be found on in the online documentation.
 
 \begin{figure}[!ht]
@@ -125,24 +126,24 @@ returns the current security settings.
 PUT: /settings/security
 body:
 {
-"two_factor_auth": {
-"on" : true,
-"phone": false,
-"email": true
+    "two_factor_auth": {
+    "on" : true,
+    "phone": false,
+    "email": true
 },
-"confirmed_emails_only": true,
-"individual_pwd_req": {
-"on": true,
-"upper_case": true,
-"number": true,
-"special_char": true,
-"reg_ex": false,
-"reg_ex_string": "[]"
+    "confirmed_emails_only": true,
+    "individual_pwd_req": {
+    "on": true,
+    "upper_case": true,
+    "number": true,
+    "special_char": true,
+    "reg_ex": false,
+    "reg_ex_string": "[]"
 },
-"inv_only": {
-"on": false,
-"inv_only_by_adm": false
-}
+    "inv_only": {
+        "on": false,
+        "inv_only_by_adm": false
+    }
 }
 \end{verbatim}
 Edits the security settings.
@@ -160,5 +161,58 @@ Firstly by checking at the identity service, if the user who sent out the reques
 This way each service has a clearly defined task.
 
 \subsubsection{Reporting Service}
-\label{sec:reportingSer}
+\label{subsubsec:reportingSer}
 % TODO @maltecastner & tobiasjansen
+The reporting service handles the reporting system.
+This includes administrative tasks like managing for which reasons
+users can be reported, as well as the reporting system itself (reporting users and banning them).
+The administrative tasks, like adding new report reasons, manually blocking and unblocking users, can be done via the
+settings service~\ref{subsubsec:settingsSer}.
+
+\paragraph{Rest Interface}
+\begin{verbatim}
+POST: /report-reasons
+body:
+{
+    "reason": "some reason",
+    "max_report_violations": 5
+}
+\end{verbatim}
+Adds a new report reason returning the id of the added report reason.
+
+\begin{verbatim}
+PUT: /report-reasons
+body:
+{
+    "id": 12
+    "reason": "some reason",
+    "max_report_violations": 5
+}
+\end{verbatim}
+Edits a report reason by the "id" key and returns the edited reason.
+
+\begin{verbatim}
+GET: /report-reasons
+\end{verbatim}
+Returns all existing report reasons as JSON array
+
+\begin{verbatim}
+DELETE: /report-reasons
+headers
+    - id: 12
+\end{verbatim}
+Deletes a report reason by id which is provided in the header of the request.
+Returns the id of the deleted request in its body.
+
+\begin{verbatim}
+Headers:
+    - user_token
+Body:
+{
+    "username": "userHashOfUserBeingReported",
+    "reason_id": 123
+}
+\end{verbatim}
+Reports a user based of the report reason and the users username hash.
+A user can only be reported by a the same user for the same reason after 15 minutes to prevent spamming.
+Otherwise the report will be processed by the backend and the user set to "blocked" should he exceed the maximum report violation counter.
