@@ -1,3 +1,83 @@
 %!TEX root = ../report.tex
 \chapter{Technology Stack}
-Morbi pharetra ligula integer mollis mi nec neque ultrices vitae volutpat leo ullamcorper. In at tellus magna. Curabitur quis posuere purus. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Suspendisse tristique placerat feugiat. Aliquam vitae est at enim auctor ultrices eleifend a urna. Donec non tincidunt felis. Maecenas at suscipit orci.
+Finding the right technology stack for a project is a major part of the overall process of realizing a project. Multiple
+considerations should be taken into account which we will cover in this section. This section is a detailed of which
+technology stack we have gone with and why.
+
+\section{Keep it simple and agile}
+
+
+Finding a proper technology stack starts with deciding a fitting solution for the actual context in which the project
+should be realized. As the project will be developed in a short-term project of 5 months within software factory (SOFA)
+at Fontys Venlo we had to go with an agile as well as easy to start with technology. This enables all team members to
+get started quickly as well as to adapt accrodingly if something does not work out as planned.
+
+We started with a small concept and some sketches of how the product could look like. The actual set of features was not
+fixed at this point in time. We knew that the project scope would change during the project phase. That’s why it is even
+more important to choose for an agile technology.
+
+\section{Project requirements}
+
+As the project is focussing on secure as well as fast communication between several users across the internet, we wanted
+to choose a technology stack that supports various system platforms as well as easy migration possibilities for a later
+stage of the project. This would allow us to adapt our developed parts to be translated to further platforms and
+devices. As more than 60 \% of all users are accessing the internet via mobile devices the focus should also lie on
+technologies which are fully supported by mobile platforms and devices.
+
+As security and privacy are our core principles we needed to take this into consideration for our technology stack.
+Our focus was set to various technologies which have been around for quite some time already, so we can be sure that
+major security vulnerabilities have been eliminated beforehand.
+
+\section{Open-source technologies}
+
+Going with open-source technologies provides multiple benefits. First it enables to project team to focus on the
+business part of the application. Most of time, there is already a good open-source solution for general tasks like
+front-end frameworks, database systems or encryption algorithms. Those implementations enables the team to safe a lot
+of time as the components do not have to be developed by ourselves. Last but not least are those already implemented
+solutions more secure as more people have their eyes on it and report and fix bugs.
+
+\section{Ecosystem}
+
+As a result of the larger community of open-source technologies a better ecosystem will go along with it. Important
+for using open-source software is, that it is properly documented and that is already known in the community. This
+helps with later bug fixings and solution findings. The more people using a technology the more questions and answers
+will be available on sites like Stackoverflow or Github forums.
+
+Furthermore, there will be more third-party components and solutions available
+(for example via npm (node package manager)).
+
+\section{Long-term trends and support}
+
+Lastly, a detailed look on the long-term development of available technologies should be considered. As said before we
+should aim for mature technologies as they are more robust, reliable and most of the time also more secure which is
+crucial for this project specifically.
+
+\section{Final technology stack}
+
+Taking all the above listed considerations into account we have come up with the following technology stack for our
+SOFA project:
+
+\subsection{Frontend}\label{subsec:frontend}
+
+\begin{itemize}
+    \item \textbf{Electron:} We decided to go with Electron as it enables us to develop one solution which can be
+        deployed across several platforms including Windows, macOS and Linux. As Electron is not that difficult to
+        include into a default setup we decided to utilize the technology as this increases the target group
+        significantly.
+    \item \textbf{Angular:} We decided to go with Angular as major front-end framework. It enables us to handle data
+        efficiently between several components. Furthermore, it comes with useful features, for example to dynamically
+        re-render views if the displayed data changes.
+    \item \textbf{Angular Material:} Angular Material provides us with a comprehensive UI library. The library ships
+        with preconfigured elements such as buttons, menus, navigation options, form fields and many more.
+    \item \textbf{SCSS:} To complete our front-end stack we utilize SCSS. It provides additional functionality like
+        variables, nested operations, and it makes it possible to dynamically render themes for Angular Material.
+\end{itemize}
+
+\subsection{Backend}\label{subsec:backend}
+
+\begin{itemize}
+    \item \textbf{NodeJS:} % TODO @joernneumeyer
+    \item \textbf{Express:} % TODO @joernneumeyer
+    \item \textbf{MongoDB:} % TODO @joernneumeyer
+    \item \textbf{MySQL:} % TODO @joernneumeyer
+\end{itemize}
