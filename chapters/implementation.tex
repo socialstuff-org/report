@@ -157,7 +157,10 @@ The new settings are provided in body.
     \label{fig:addReportReason}
 \end{figure}
 The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the aforementioned services.
-Firstly by checking at the identity service, if the user who sent out the request is in fact an administrator and then adding the reason in the reporting service.
+The event is triggered by a request from the client.
+Firstly the settings service will be verifying the identity of the sender by checking at the identity service, if the user who sent out the request is in fact an administrator.
+Then the request will e forwarded to the reporting service. Here it will be checked if the request format is valid. Should this not be the case, the reporting service will return an error (status 400).
+Otherwise the reason will be added in the reporting database, which will then be returned to the settings service, who will then let the client know by response that the insertion was a success.
 This way each service has a clearly defined task.
 
 \subsubsection{Reporting Service}
