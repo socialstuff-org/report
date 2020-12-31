@@ -6,15 +6,21 @@
 
 \section{Project Charter}\label{sec:project-charter}
 
-\begin{table}[]
-    \begin{tabular}{ll}
+\begin{table}[htp]
+    \centering
+    \caption{Project Charter General Details}
+    \begin{tabular}{@{}|l|l|@{}}
+        \hline
+        \textbf{Activity} & \textbf{Date} \\
+        \toprule
+        \hline
         Project Name & Trale / SocialStuff (former working title) \\
         Submitted by \& date & Dave Hoevenaars, Maurits van der Zee, 28-09-2020 \\
         Strategic Objective & Providing privacy in a centralized social media market. \\
         Project ID & SOFA2020-HOM02-SocialStuff \\
-        Confidentiality & N/A
+        Confidentiality & N/A \\
+        \hline
     \end{tabular}
-    \caption{Project Charter Overview}
     \label{tab:my-table}
 \end{table}
 
@@ -69,17 +75,22 @@ project sequence.
 
 \subsection{Key activities \& dates}\label{subsec:key-activities-and-dates}
 
-\begin{table}[]
-    \begin{tabular}{ll}
-        Activity                & Date       \\
-        Project Kick-off        & 02-9-2020  \\
-        Business case           & 01-10-2020 \\
-        Project Management Plan & 01-10-2020 \\
-        Project Charter         & 15-10-2020 \\
-        Project Scope Baseline  & 25-10-2020 \\
-        WBS                     & 30-10-2020 \\
-        Project Poster          & 06-01-2021 \\
-        Project Handover        & 20-01-2021
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{@{}|l|l|@{}}
+        \hline
+        \textbf{Activity}       & \textbf{Date} \\
+        \toprule
+        \hline
+        Project Kick-off        & 02-9-2020     \\
+        Business case           & 01-10-2020    \\
+        Project Management Plan & 01-10-2020    \\
+        Project Charter         & 15-10-2020    \\
+        Project Scope Baseline  & 25-10-2020    \\
+        WBS                     & 30-10-2020    \\
+        Project Poster          & 06-01-2021    \\
+        Project Handover        & 20-01-2021    \\
+        \hline
     \end{tabular}\label{tab:table2}
 \end{table}
 
@@ -253,12 +264,16 @@ a mobile client as well.
 
 In this section, we will mention the deliverables and which purpose they serve for.
 
-\begin{table}[]
-    \begin{tabular}{lll}
+\begin{table}[htp]
+    \caption{List of deliverables and their corresponding acceptance criteria as well as serving purpose}
+    \begin{tabular}{@{}|l|l|l|@{}}
+        \toprule
         \hline
-        Deliverable &
-        DateAcceptance Criteria &
-        Product Goal \\ \hline
+        \textbf{Deliverable} &
+        \textbf{Acceptance Criteria} &
+        \textbf{Product Goal} \\
+        \hline
+        \hline
         Documentation &
         \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Enables easy extensibility by providing \\ future developer teams to improve \\ certain parts and services of the solution\end{tabular} \\
@@ -298,3 +313,127 @@ One could argue however that in such a competitive market, it is difficult to se
 competition.
 Therefore, further project sequences could include: expanding the platform in terms of features, maximizing security,
 maximizing adaptability, or any other way of differentiating SocialStuff.
+
+\subsection{Project controls}
+
+This section of the document will clarify how the project will be managed.
+Next the risk management will be addressed.
+
+\subsubsection{Stakeholder management}
+
+Stakeholder management is a critical component to the successful delivery of any project.
+A stakeholder is any individual, group or organization that can affect the project.
+In the table below, you can find all the stakeholders of our project.
+The name, role, how much influence do they have from low to high (1, 2, 3), the stakeholders most important goal,
+contribution and the best way to manage.
+
+The following table displays each stakeholder and their corresponding roles, influences and goals and contribution to
+the project.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htp]
+    \caption{List of involved stakeholders, their roles and influence on project}
+    \begin{tabular}{@{}|l|l|l|l|l|@{}}
+        \toprule
+        Stakeholder &
+        Role &
+        Influence &
+        \begin{tabular}[c]{@{}l@{}}Most important\\ goal\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}How will\\ he/she\\ contribute\end{tabular} \\ \midrule
+        \begin{tabular}[c]{@{}l@{}}Jörn\\ Neumeyer\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Product Owner\\ Backend Dev\end{tabular} &
+        3 &
+        \begin{tabular}[c]{@{}l@{}}Properly\\ communicate\\ the\\ requirements \&\\ developing\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Dave\\ Hoevenaars\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Documentation\\ Quality Assurance\\ Front-end dev\end{tabular} &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Make sure the\\ project runs \\ smooth/time\\ management \&\\ developing\\ front-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Tobias\\ Jansen\end{tabular} &
+        Back-end dev &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Developing\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Malte\\ Castner\end{tabular} &
+        Front-end dev &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Developing\\ front-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Maurits\\ van der Zee\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Project \\ management \&\\ back-end dev \& \\ front-end dev\end{tabular} &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Make sure the \\ project runs \\ smooth / time\\ management\\ developing\\ front-end and\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        Gedak GmbH &
+        Client &
+        1 &
+        \begin{tabular}[c]{@{}l@{}}Properly \\ communicate the\\ requirements / \\ make sure we\\ stay on track\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Needs to be\\ informed\\ about project\\ status\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Fontys Tutor\\ Pieter\\ van den Hombergh\end{tabular} &
+        Supervisor &
+        1 &
+        Supervising the project &
+        \begin{tabular}[c]{@{}l@{}}Little but\\ wants to be\\ kept in loop\\ for project\\ status updates\end{tabular}
+    \end{tabular}\label{tab:table6}
+\end{table}
+
+\subsubsection{Risk management}
+
+The following section will address the potential risks which might occur during the development.
+For risk management there will be a list containing all the risks we have identified.
+Together with these risks we will also come up with counter measures to either lower the likelihood of occurrence or
+lower the impact if said risk occurs.
+The risks will be ranked by its exposure, calculated by using the following formula:
+
+\begin{equation}
+    Likelihood*Impact=Risk Exposure\label{eq:risk_exposure}
+\end{equation}
+
+Each risk will have a ranking concerning its likelihood and impact (1 – 5).
+The higher the exposure, the more attention must be paid to said risk.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htp]
+    \caption{List of identified risks related to the project}
+    \begin{tabular}{@{}|l|l|l|l|@{}}
+        \toprule
+        \textbf{ID} &
+        \textbf{Risk} &
+        \textbf{Consequence} &
+        \textbf{Counter measure} \\
+        \hline
+        R1 &
+        \begin{tabular}[c]{@{}l@{}}Due to the lack of \\
+                                    knowledge of coding language,\\
+                                    spending too much time on \\
+                                    researching\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Might not be able to finish \\
+                                    the prototype on time\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make sure the proper resources \\
+                                    are available to use when it is \\
+                                    clear which language, we will be \\
+                                    using\end{tabular} \\
+        R2 &
+        \begin{tabular}[c]{@{}l@{}}End product not satisfying the \\ requirements of the client\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Client not satisfied with the \\result which will lead to a \\failed project\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make sure to show the progress \\and ask for feedback by holding \\demos to the client regularly\end{tabular} \\
+        \hline
+    \end{tabular}\label{tab:table5}
+\end{table}
+
+\begin{table}[htp]
+    \caption{Mapping of risks and their corresponding exposures}
+    \center
+    \begin{tabular}{@{}|l|l|l|l|@{}}
+        \toprule
+        \textbf{Risk ID} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Exposure} \\
+        \hline
+        R1      & 2          & 4      & 8        \\
+        R2      & 2          & 5      & 10 \\
+        \hline
+    \end{tabular}\label{tab:table4}
+\end{table}
+
