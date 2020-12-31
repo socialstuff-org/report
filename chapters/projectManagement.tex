@@ -1,6 +1,8 @@
 %!TEX root = ../report.tex
 
+
 \chapter{Project Management}\label{ch:project-management}
+
 
 \section{Project Charter}\label{sec:project-charter}
 
@@ -119,3 +121,180 @@ Furthermore, to support the completion of the project sequence the following sta
     \item Jörn Neumeyer: Product Owner
 \end{itemize}
 
+
+\section{Project Management Plan}\label{sec:project-management-plan}
+
+\subsection{Management Summary}\label{subsec:management-summary}
+
+The joint collaboration between: Gedak GmbH, SocialStuff and the SoFa Fontys students is resulting in to a project
+sequence.
+The final goal is providing an implementation of an encrypted chat platform which provides privacy for its users by
+providing a decentralized structure in which anonymity can be guaranteed.
+This project is first in the complete project sequence.
+This means that we have to do a lot of analysis to understand and determine how the solution will look like.
+This especially goes for the encryption techniques.
+The current project sequence is mainly focused on providing a working prototype and providing thorough documentation
+of said prototype.
+As this project’s affinity is very close to some Fontys students working on this project, we will have an
+excellent starting point for us to provide documentation which will prove invaluable for future iterations of the
+project.
+As this project is part of sequence, it is important to determine what the scope and justification of this iteration
+will be.
+The project's scope and justification will be discussed in this document.
+
+\subsection{Introduction}\label{subsec:introduction}
+This document will provide an overview over the Social Stuff project.
+To achieve this, the project will briefly explain the project itself, what the final products will be and who the
+stakeholders are.
+Afterwards the document will address, which potential risks could occur during the development and how the team will
+deal with them.
+Next it will be addressed, how the change management will be handled during production and how a high quality can be
+ensured.
+Next the project methodology will be handled.
+Finally, the communication plan will be introduced.
+
+\subsection{SocialStuff}\label{subsec:socialstuff}
+
+This chapter explains the company briefly;
+it also describes the problem description and our tasks within the duration of the project.
+
+\subsubsection{Company description}
+
+GEDAK is an IT company which supports its customers with practical solutions for marketing, sales and customer service.
+Their work focuses on web-based projects such as store systems, sales and CRM solutions, reporting applications as well
+as ERP solutions.
+The office is located near Düsseldorf (DE) with about 50 employees who are supporting projects at large and medium-sized
+companies.
+
+\subsubsection{Problem description}
+
+Social Stuff is a free-software project and is intended to offer an open, decentralized alternative to current
+proprietary and centralized communication and social-media platforms.
+The decentralized model allows for an independent utilization of the software, providing companies (or users in general)
+with more sovereignty and less dependence on large service providers.
+
+\subsubsection{Our Task}
+
+Our task is to analyse current communication services and how a decentralized approach would disrupt the market by
+providing the same features with increased focus on privacy and security.
+Afterwards, we will design how the new decentralized system could look like.
+Lastly, the system shall be implemented using an agile approach.
+During the project the whole project should be managed and monitored properly as well as documented in a detailed and
+structured manner.
+
+\subsection{Project justification}\label{subsec:project-justification}
+
+\subsubsection{Project Objective}
+
+The goal of the Social Stuff project, is to Analyse, Design, Implement \& Test an encrypted chat application which
+resources will be distributed in a decentralized manner, by the users as they have to set up server themselves.
+This application will be deployed in a highly competitive market, which means that Social Stuff will have to
+differentiate itself in order to be successful.
+This is achieved by the decentralized nature of the application which provides users near full control of the
+chat application and various privacy settings.
+However, this alone might not be enough, to set Social Stuff aside from the competition.
+So, an optional goal be to find an additional way of provide differentiation between Social Stuff and its competitors,
+without forgoing the previously mentioned perquisites.
+
+\subsubsection{Project requirements \& resources}
+
+For the project we will need several resources and there are some high-level requirements for this project.
+
+\paragraph{Resources}
+\begin{itemize}
+    \item Trello, for a Kanban style agile project management
+    \item A shared repository on GitHub to do work simultaneously
+    \item MS Teams platform for general communication and team meetings
+    \item Adobe XD for UI design
+    \item Coding Standards
+    \item The Source Code
+\end{itemize}
+
+\paragraph{Required knowledge areas}
+\begin{itemize}
+    \item Programming Languages (TypeScript)
+    \item Frameworks (Express, Angular, UI frameworks (e.g.\ Angular Material))
+    \item Database technologies (SQL (MariaDB), noSQL (MongoDB))
+    \item Agile development (Kanban)
+    \item Encryption (RSA, AES, Diffie Hellman (Elliptic curves))
+    \item Version control (Git)
+\end{itemize}
+
+\subsubsection{Project Scope}
+
+The project scope will describe the activities we will be carrying out but also the activities that will be beyond the
+scope of this project.
+
+\paragraph{In scope}
+\begin{itemize}
+    \item Creation of prototype of decentralized structure of the Social Stuff
+    \item A report explaining our analysis, design and implementation choices
+    \item Creation of front-end of Social Stuff
+    \item Analysis, Design and in-code documentation
+    \item Optional: Customer Website
+\end{itemize}
+
+\paragraph{Out of scope}
+\begin{itemize}
+    \item A fully released version of SocialStuff
+    \item Deploying Social Stuff
+\end{itemize}
+
+\subsection{Project Products}
+
+\subsubsection{Customer quality expectations}
+
+The customer expects high-quality software solutions for decentralized communication via one or multi server network.
+The client expects at least a desktop client.
+However, as we are using cross-platform technologies we try to reuse most of the desktop client solution to implement
+a mobile client as well.
+
+\subsubsection{Customer acceptance criteria}
+
+In this section, we will mention the deliverables and which purpose they serve for.
+
+\begin{table}[]
+    \begin{tabular}{lll}
+        \hline
+        Deliverable &
+        DateAcceptance Criteria &
+        Product Goal \\ \hline
+        Documentation &
+        \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Enables easy extensibility by providing \\ future developer teams to improve \\ certain parts and services of the solution\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Models (part of \\ documentation)\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}All models are \\ written in valid \\ UML\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make the underlying technologies easier \\ to understand\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}OOS: Server \\ installation\\ package\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Package should be \\ easy deployable on \\ a server of the \\ user's choice\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Server package should enable individuals \\ to host their own communication server \\ by making use of docker\end{tabular} \\
+        Desktop Client &
+        \begin{tabular}[c]{@{}l@{}}Fully functional \\ desktop client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Deliver a desktop client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        OOS: Mobile Client &
+        \begin{tabular}[c]{@{}l@{}}Fully functional \\ mobile client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Deliver a mobile client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        Optional: Website &
+        \begin{tabular}[c]{@{}l@{}}Deployable \\ website for \\ trale.org\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Providing a user-friendly website for two \\ main purposes:		\\ - Provide potential users information \\ about the service and how SocialStuff \\ works (should be easily understandable, \\ not to tech sided) 			\\ - Provide (potential) users a download \\ portal for the server as well as the \\ desktop and mobile clients\end{tabular} \\
+        Project Dossier &
+        \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Document SOFA module for \\ reporting purposes\end{tabular} \\
+        &
+        &
+        \\ \hline
+    \end{tabular}\label{tab:table3}
+\end{table}
+
+\subsubsection{Product Opportunities}
+
+Aside from the project goals, Social Stuff has to motivation to become something more than just a one-off project.
+As this project sequence will only last us to January, it’s important to start thinking about future iterations of the
+project sequence and what feature those sequences might bring forth.
+In order to ensure reusability of project sequence artefacts: we will maintain that all documents will be in English.
+The main goal is to develop a prototype chat application, which can address the consumer demand for high privacy
+communication technologies.
+One could argue however that in such a competitive market, it is difficult to set your product aside from the
+competition.
+Therefore, further project sequences could include: expanding the platform in terms of features, maximizing security,
+maximizing adaptability, or any other way of differentiating SocialStuff.
