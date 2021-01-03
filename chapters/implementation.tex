@@ -14,7 +14,7 @@
 
 \subsection{Services}\label{subsec:services}
 
-\subsubsection{API Service}
+\subsubsection{API Service}\label{subsubsec:api-service}
 The API service is a rather small service located in the desktop client.
 The service is responsible for managing the global state of all relevant API information in the desktop application.
 In the current state of development this includes the following information
@@ -22,15 +22,26 @@ In the current state of development this includes the following information
 \begin{itemize}
     \item hostname - the hostname of the server (e.g. trale.org)
     \item port - the default port on which the service is listening for incoming connections (default: 8086)
-    \item the remote endpoint - a constructed string for building a connection to the server (e.g. http://trale.org:8086)
+    \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
     \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
 \end{itemize}
 
 Further, the service provides several helper methods for retrieving and updating the remote endpoint as well as several
 getters and setters for all above mentioned attributes.
 
-\subsubsection{Auth Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+\subsubsection{Auth Service}\label{subsubsec:auth-service}
+The auth service is responsible for managing authentication related tasks such as login, logout, registration and
+minor helper functions (e.g.\ forgot password).
+
+\paragraph{Login function}
+The login takes a username and a password as parameters and executes a post request to the remote endpoint specified in
+the \textbf{\hyperref[subsubsec:api-service]{API service}}.
+On a successful login a token will be provided for future authentication, otherwise an error stating 'Invalid
+credentials - Status code 400' will be returned.
+
+% TODO @joernneumeyer maybe add register / logout etc. here as well? refactor code? not in auth service yet
+
+Due to the mentioned responsibilities, this service is only injected in authentication related components.
 
 \subsubsection{Contact Service}
 % TODO @joernneumeyer & @mauritsvanderzee
