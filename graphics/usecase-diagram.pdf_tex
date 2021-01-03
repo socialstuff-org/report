@@ -1,0 +1,91 @@
+%% Creator: Inkscape 1.0.1 (3bc2e813f5, 2020-09-07), www.inkscape.org
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{600.375bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.88569644)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{usecase-diagram.pdf}}%
+    \put(0.54341037,0.64274279){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Change settings\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{usecase-diagram.pdf}}%
+    \put(0.57089319,0.51782086){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Ban user\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{usecase-diagram.pdf}}%
+    \put(0.52966896,0.75517252){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Delete conversation\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{usecase-diagram.pdf}}%
+    \put(0.54341037,0.83385384){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Delete message\end{tabular}}}}%
+    \put(0.57589007,0.81390531){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}(locally)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{usecase-diagram.pdf}}%
+    \put(0.57214241,0.89258663){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Send file\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=6]{usecase-diagram.pdf}}%
+    \put(0.5259213,0.9550476){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Send voice message\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=7]{usecase-diagram.pdf}}%
+    \put(0.51717676,1.01750856){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Record voice message\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=8]{usecase-diagram.pdf}}%
+    \put(0.55090568,1.07996952){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Start new chat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=9]{usecase-diagram.pdf}}%
+    \put(0.56589631,1.14243048){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Open chat\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=10]{usecase-diagram.pdf}}%
+    \put(0.5321674,1.20489144){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}View profile picture\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=11]{usecase-diagram.pdf}}%
+    \put(0.53841349,1.26735241){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Set profile picture\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=12]{usecase-diagram.pdf}}%
+    \put(0.54715803,0.4553599){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Generate invite\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=13]{usecase-diagram.pdf}}%
+    \put(0.55715178,0.24299263){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Require 2FA\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=14]{usecase-diagram.pdf}}%
+    \put(0.54840725,0.32792005){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Require E-Mail\end{tabular}}}}%
+    \put(0.558401,0.30797152){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}confirmation\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=15]{usecase-diagram.pdf}}%
+    \put(0.55340412,0.39289894){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Require invite\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=16]{usecase-diagram.pdf}}%
+    \put(0.5846346,0.58028182){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Login\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=17]{usecase-diagram.pdf}}%
+    \put(0.53091818,1.32981337){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Toggle read receipt\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=18]{usecase-diagram.pdf}}%
+    \put(0.54341037,1.39227433){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Change settings\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=19]{usecase-diagram.pdf}}%
+    \put(0.0324797,1.33233129){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Regular\end{tabular}}}}%
+    \put(0.04497189,1.31238289){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}User\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=20]{usecase-diagram.pdf}}%
+    \put(0.56589631,1.45473529){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Block user\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=21]{usecase-diagram.pdf}}%
+    \put(0.55965022,1.51719625){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Search user\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=22]{usecase-diagram.pdf}}%
+    \put(0.57339163,1.81700887){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Register\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=23]{usecase-diagram.pdf}}%
+    \put(0.57963773,1.57965721){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Logout\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=24]{usecase-diagram.pdf}}%
+    \put(0.5846346,1.75454791){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Login\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=25]{usecase-diagram.pdf}}%
+    \put(0.5321674,1.67707683){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Send text message\end{tabular}}}}%
+    \put(0.57214241,1.6571283){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}to a user\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=26]{usecase-diagram.pdf}}%
+    \put(0.16989382,1.86324947){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}System (SocialStuff)\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=27]{usecase-diagram.pdf}}%
+    \put(0.00124922,0.38292467){\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Admin\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=28]{usecase-diagram.pdf}}%
+  \end{picture}%
+\endgroup%
