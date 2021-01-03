@@ -4,18 +4,30 @@
 % TODO @all add introduction to implementation
 \lipsum[2-4]
 
-\section{Libraries}
+\section{Libraries}\label{sec:libraries}
 % TODO @all add introduction to libraries
 % -> why libraries?
 % -> advantages?
 % -> disadvantages?
 
-\section{Frontend}
+\section{Frontend}\label{sec:frontend}
 
-\subsection{Services}
+\subsection{Services}\label{subsec:services}
 
 \subsubsection{API Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+The API service is a rather small service located in the desktop client.
+The service is responsible for managing the global state of all relevant API information in the desktop application.
+In the current state of development this includes the following information
+
+\begin{itemize}
+    \item hostname - the hostname of the server (e.g. trale.org)
+    \item port - the default port on which the service is listening for incoming connections (default: 8086)
+    \item the remote endpoint - a constructed string for building a connection to the server (e.g. http://trale.org:8086)
+    \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
+\end{itemize}
+
+Further, the service provides several helper methods for retrieving and updating the remote endpoint as well as several
+getters and setters for all above mentioned attributes.
 
 \subsubsection{Auth Service}
 % TODO @joernneumeyer & @mauritsvanderzee
