@@ -4,24 +4,72 @@
 % TODO @all add introduction to implementation
 \lipsum[2-4]
 
-\section{Libraries}
+\section{Libraries}\label{sec:libraries}
+% TODO rename this chapter to make clear that the libraries are self-developed
 % TODO @all add introduction to libraries
 % -> why libraries?
 % -> advantages?
 % -> disadvantages?
 
-\section{Frontend}
-
-\subsection{Services}
-
-\subsubsection{API Service}
+\subsection{Persistence}\label{subsec:persistence}
 % TODO @joernneumeyer & @mauritsvanderzee
+% TODO add link to npm
 
-\subsubsection{Auth Service}
+\subsection{Transport}\label{subsec:transport}
 % TODO @joernneumeyer & @mauritsvanderzee
+% TODO add link to npm
 
-\subsubsection{Contact Service}
+\subsection{Utilities}\label{subsec:utilities}
 % TODO @joernneumeyer & @mauritsvanderzee
+% TODO add link to npm
+
+\section{Frontend}\label{sec:frontend}
+
+\subsection{Services}\label{subsec:services}
+
+\subsubsection{API Service}\label{subsubsec:api-service}
+The API service is a rather small service located in the desktop client.
+The service is responsible for managing the global state of all relevant API information in the desktop application.
+In the current state of development this includes the following information
+
+\begin{itemize}
+    \item hostname - the hostname of the server (e.g. trale.org)
+    \item port - the default port on which the service is listening for incoming connections (default: 8086)
+    \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
+    \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
+\end{itemize}
+
+Further, the service provides several helper methods for retrieving and updating the remote endpoint as well as several
+getters and setters for all above mentioned attributes.
+
+\subsubsection{Auth Service}\label{subsubsec:auth-service}
+The auth service is responsible for managing authentication related tasks such as login, logout, registration and
+minor helper functions (e.g.\ forgot password).
+
+\paragraph{Login function}
+The login takes a username and a password as parameters and executes a post request to the remote endpoint specified in
+the \textbf{\hyperref[subsubsec:api-service]{API service}}.
+On a successful login a token will be provided for future authentication, otherwise an error stating 'Invalid
+credentials - Status code 400' will be returned.
+
+% TODO @joernneumeyer maybe add register / logout etc. here as well? refactor code? not in auth service yet
+
+Due to the mentioned responsibilities, this service is only injected in authentication related components.
+
+\subsubsection{Contact Service}\label{subsubsec:contact-service}
+
+The contact service is responsible for managing all contact related tasks and corresponding state management.
+It owns a contact array holding all contacts for the currently logged-in user.
+On application startup the contact service will load all contacts from drive by utilizing the
+\textbf{\hyperref[subsubsec:crypto-storage-service]{Crypto Storage Service}}.
+
+Besides providing a loading wrapper for retrieving encrypted contacts from the drive it also manages actions such as
+adding contacts, updating contacts or fetching the latest message of all contacts to display those in the contact list.
+
+Lastly, the contact service provides a function to load the actual chat of a specific contact with the currently
+logged-in user.
+
+% TODO @joernneumeyer any additional remarks / information to be added?
 
 \subsubsection{Debug Service?}
 % TODO @joernneumeyer & @mauritsvanderzee
