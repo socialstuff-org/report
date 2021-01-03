@@ -91,6 +91,8 @@
 % Language
 \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
 \setdefaultlanguage{english}
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
 \usepackage{csquotes}       % language sensitive quotation facilities
 
 % Bibliography (references)
@@ -170,9 +172,9 @@
     \renewcommand*{\chaptitlefont}{\format\fontsize{42}{42}\selectfont}
 
     \renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}
-    \patchcommand{\printchaptername}{\begingroup\color{dtugray}}{\endgroup}
+    \patchcommand{\printchaptername}{\begingroup\color{plumViolot}}{\endgroup}
     \renewcommand*{\chapternamenum}{\space\space}
-    \patchcommand{\printchapternum}{\begingroup\color{dtured}}{\endgroup}
+    \patchcommand{\printchapternum}{\begingroup\color{coralRed}}{\endgroup}
     \renewcommand*{\printchapternonum}{%
         \vphantom{\printchaptername\chapternamenum\chapnumfont 1}
         \afterchapternum
