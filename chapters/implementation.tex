@@ -43,8 +43,20 @@ credentials - Status code 400' will be returned.
 
 Due to the mentioned responsibilities, this service is only injected in authentication related components.
 
-\subsubsection{Contact Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+\subsubsection{Contact Service}\label{subsubsec:contact-service}
+
+The contact service is responsible for managing all contact related tasks and corresponding state management.
+It owns a contact array holding all contacts for the currently logged-in user.
+On application startup the contact service will load all contacts from drive by utilizing the
+\textbf{\hyperref[subsubsec:crypto-storage-service]{Crypto Storage Service}}.
+
+Besides providing a loading wrapper for retrieving encrypted contacts from the drive it also manages actions such as
+adding contacts, updating contacts or fetching the latest message of all contacts to display those in the contact list.
+
+Lastly, the contact service provides a function to load the actual chat of a specific contact with the currently
+logged-in user.
+
+% TODO @joernneumeyer any additional remarks / information to be added?
 
 \subsubsection{Debug Service?}
 % TODO @joernneumeyer & @mauritsvanderzee
