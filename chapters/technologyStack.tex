@@ -77,6 +77,15 @@ SOFA project:
         with preconfigured elements such as buttons, menus, navigation options, form fields and many more.
     \item \textbf{SCSS:} To complete our front-end stack we utilize SCSS. It provides additional functionality like
         variables, nested operations, and it makes it possible to dynamically render themes for Angular Material.
+    \item \textbf{Prisma client:} During development of the settings service, we found the prisma client library. This
+        client functions on the database access layer and makes writing queries easier. Setting up the client was very simple
+        thanks to the excellent documentation of the provider of the library. We kept using this library for the first
+        few weeks of implementation, however it turned out, that the client did not support some very important functions
+        of mysql. We noticed this while trying to write a query with the "LIKE" keyword, which was not availiable in the client.
+        As this made implementation of the query using the client very difficult it was decided to switch the mysql client and use the
+        more straight forward "mysql2" client provided by mysql, which was also used in the existing services. Currently
+        the prisma service is still being used for simple queries in the settings service, however it is planned to replace these queries
+        with the mysql2 client later on to have the same standard everywhere. For time reasons this was not finished yet.
 \end{itemize}
 
 \subsection{Backend}\label{subsec:backend}
