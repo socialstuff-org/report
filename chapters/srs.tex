@@ -1,0 +1,476 @@
+%!TEX root = ../report.tex
+
+
+\chapter{Software Requirements Specification (SRS)}\label{ch:software-requirements-specification-(srs)}
+
+
+\section{Introduction}\label{sec:introduction}
+
+
+\section{Specific Requirements}\label{sec:specific-requirements}
+
+\subsection{External Interface Requirements}\label{subsec:external-interface-requirements}
+
+\subsection{Functional and Performance Requirements}\label{subsec:functional-and-performance-requirements}
+
+This section includes the requirements that specify all fundamental actions of the software system and performance
+requirements the software system should consider.
+This part of the document will describe the use cases of the different user groups of the system.
+
+\begin{table}[ht]
+    \centering
+    \caption{Register}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Register                                    \\
+        \textbf{Actor}        & User                                        \\
+        \textbf{Description}  & Actor registers at a server                 \\
+        \textbf{Precondition} & N/A                                         \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor enters the login page
+            \item The actor chooses to register a new account
+            \item The system directs the actor to the registration form
+            \item The actor enters the server details as well as their username and password
+            \item The actor chooses to confirm their details
+            \item The system registers the user
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The actor has been registered in the system \\
+        \textbf{Exceptions}   & N/A                                         \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table7}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Login}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Login                                                                              \\
+        \textbf{Actor}        & User                                                                               \\
+        \textbf{Description}  & The actor logs in to the system                                                    \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table7]{registered}}                     \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor navigates to the login
+            \item The actor provides their login credentials, and the server details
+            \item The system verifies the login credentials
+            \item The system logs in the actor
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The actor is logged in                                                             \\
+        \textbf{Exceptions}   & if credentials are invalid: the system notifies the actor about invalid credential \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table8}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Send message}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Send message                              \\
+        \textbf{Actor}       & User                                      \\
+        \textbf{Description} & The actor sends a message to another user \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item The actor to send the message to has to be in the actors contact list
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor chooses a user to send a message to
+            \item The system navigates to the chat of the selected user
+            \item The actor enters the message and chooses to send it
+            \item The system sends the message to the chat partner
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & The message has been sent                 \\
+        \textbf{Exceptions}  & N/A                                       \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table9}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Logout}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Logout                                                        \\
+        \textbf{Actor}        & User                                                          \\
+        \textbf{Description}  & The actor chooses to log out of the system                    \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}} \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor navigates to the login
+            \item The actor provides their login credentials, and the server details
+            \item The system verifies the login credentials
+            \item The system logs in the actor
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The actor is logged out                                       \\
+        \textbf{Exceptions}   & N/A                                                           \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table10}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Search User}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Search User                                                   \\
+        \textbf{Actor}        & User                                                          \\
+        \textbf{Description}  & The actor searches for a user to continue a chat with         \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}} \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor enters a username
+            \item The system displays the matching chat partners
+            \item The actor selects a user to start a chat
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The actor selected a chat partner                             \\
+        \textbf{Exceptions} & 3a.
+        The system can not find a chat partner for the provided username.
+        System: "no user found" \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table11}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Block user}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Block user                                                          \\
+        \textbf{Actor}        & User                                                                \\
+        \textbf{Description}  & An actor blocks another user to prevent receiving messages of them  \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}}       \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor chooses a user to block
+            \item The system navigates to the chat of the selected chat partner
+            \item The actor chooses to **view the profile** of the user %TODO add reference
+            \item The system shows the profile of the selected user
+            \item The actor chooses to block the user
+            \item The system acknowledges the decision
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The selected user is not able to send messages to the actor anymore \\
+        \textbf{Exceptions}   & N/A                                                                 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table12}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Change Settings}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Change Settings                                               \\
+        \textbf{Actor}        & User                                                          \\
+        \textbf{Description}  & Actor changes settings                                        \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}} \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item Actor selects the hamburger menu button
+            \item System displays options to interact with
+            \item Actor selects settings
+            \item System displays settings
+            \item Actor selects setting to change
+            \item System displays a confirmation message
+            \item Actor selects confirm changes
+            \item System changed settings
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & Actor has changed the settings                                \\
+        \textbf{Exceptions} & 5.
+        Actor is not authorized to change this setting \\
+        \textbf{Alternate Flow} & 7a.
+        Actor selects cancel changes \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table13}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Set profile picture}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & Set profile picture                                                                            \\
+        \textbf{Actor}        & User                                                                                           \\
+        \textbf{Description}  & The actor can set their own profile picture, so it will be visible for their contacts later on \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}}                                  \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor navigates to settings
+            \item The system shows the settings menu
+            \item The actor navigates to profile settings
+            \item The system shows the profile settings menu
+            \item The actor selects \enquote{change profile picture}
+            \item The actor selects and saves a picture
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The profile picture has been changed to the selected image                                     \\
+        \textbf{Exceptions} & 4.
+        The image file is in an unsupported file format \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table14}
+\end{table}
+
+\begin{table}[ht]
+    \caption{View profile picture}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}         & View profile picture                                          \\
+        \textbf{Actor}        & User                                                          \\
+        \textbf{Description}  & The actor can view their profile picture                      \\
+        \textbf{Precondition} & The actor has to be \textbf{\hyperref[tab:table8]{logged in}} \\
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor navigates to settings
+            \item The system shows the settings menu
+            \item The actor navigates to profile settings
+            \item The system shows the profile settings menu
+            \item The actor selects \enquote{view profile picture}
+            \item The system shows the profile picture
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}       & The profile picture is displayed to the user                  \\
+        \textbf{Exceptions} & 6.
+        If the user does not have a profile picture a placeholder image should be shown \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table15}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Open chat}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Open chat                 \\
+        \textbf{Actor}       & User                      \\
+        \textbf{Description} & Actor opens a chat        \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has chats available
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item Actor selects a chat in the list of recently opened chats
+            \item System displays the chat and corresponding chat history
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & Actor has opened the chat \\
+        \textbf{Exceptions}  & N/A                       \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table16}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Start new chat}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Start new chat               \\
+        \textbf{Actor}       & User                         \\
+        \textbf{Description} & Actor starts a new chat      \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has **searched** for a user % TODO add reference to search
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item Actor selects a contact person to start the chat with in the search result list
+            \item System displays the chat
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & Actor has started a new chat \\
+        \textbf{Exceptions} & 2.
+        Selected user has blocked the actor.
+        The system will reject to start a new chat. \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table17}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Send voice message}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Send voice message                                         \\
+        \textbf{Actor}       & User                                                       \\
+        \textbf{Description} & An actor records a message and sends it to another user    \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has a chat partner selected
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor chooses to send a voice message
+            \item The system starts to record the actors voice
+            \item The actor choose to send the voice message
+            \item The system stops recording
+            \item The system sends the recorded message
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Extensions} & 3a.
+        The actor chooses to cancel the recording.
+        The System stops recording. \\
+        \textbf{Result}      & The voice message of the actor is sent to the chat partner \\
+        \textbf{Exceptions}  & N/A                                                        \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table18}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Send file}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Send file                                           \\
+        \textbf{Actor}       & User                                                \\
+        \textbf{Description} & An actor selects a file and send it to another user \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has a chat partner selected
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor chooses to send a file
+            \item The system shows a file explorer
+            \item The actor selects a file to send
+            \item The system sends the file to the chat partner
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Extensions} & 2a.
+        The actor chooses multiple files.
+        The System sends the files to the chat partner. \\
+        \textbf{Result}      & The file is sent to the chat partner                \\
+        \textbf{Exceptions}  & N/A                                                 \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table19}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Delete message}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Delete message                                     \\
+        \textbf{Actor}       & User                                               \\
+        \textbf{Description} & The actor can delete a message from a conversation \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has a chat partner selected
+            \item There must be at least one message which can be deleted
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor selects a message in the opened chat
+            \item The system displays options to interact with the highlighted message
+            \item The actor decides to delete the message from the conversation
+            \item The system removes the message from the conversation
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & The selected message is deleted                    \\
+        \textbf{Exceptions}  & N/A                                                \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table20}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Delete conversation}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Delete message                               \\
+        \textbf{Actor}       & User                                         \\
+        \textbf{Description} & The actor can delete a complete conversation \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item There must be at least one conversation which can be deleted
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item The actor selects a conversation from the conversation overview
+            \item The system displays options to interact with the highlighted conversation
+            \item The actor decides to delete the conversation from the conversation overview
+            \item The system removes the conversation
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & The selected conversation is deleted         \\
+        \textbf{Exceptions}  & N/A                                          \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table21}
+\end{table}
+
+\begin{table}[ht]
+    \caption{Star message}
+    \begin{tabular}{|L{5cm}|L{10cm}|}
+        \toprule
+        \textbf{Name}        & Star message                \\
+        \textbf{Actor}       & User                        \\
+        \textbf{Description} & Actor stars a message       \\
+        \textbf{Precondition} &
+        \vspace{-0.75cm}
+        \begin{itemize}
+            \setlength\itemsep{-0.5em}
+            \item The actor has to be \textbf{\hyperref[tab:table8]{logged in}}
+            \item Actor has opened a chat
+            \item Message is available
+        \end{itemize} \\[-0.5cm]
+        \textbf{Scenario} &
+        \vspace{-0.75cm}
+        \begin{enumerate}
+            \setlength\itemsep{-0.5em}
+            \item Actor selects a message in the opened chat
+            \item System displays options to interact with the highlighted message
+            \item Actor selects the star button
+            \item System displays that the message is now starred
+        \end{enumerate} \\[-0.5cm]
+        \textbf{Result}      & Actor has starred a message \\
+        \textbf{Exceptions}  & N/A                         \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table22}
+\end{table}

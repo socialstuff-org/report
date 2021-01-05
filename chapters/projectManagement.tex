@@ -1,0 +1,467 @@
+%!TEX root = ../report.tex
+
+
+\chapter{Project Management}\label{ch:project-management}
+
+
+\section{Project Charter}\label{sec:project-charter}
+
+\begin{table}[htp]
+    \centering
+    \caption{Project Charter General Details}
+    \begin{tabular}{@{}|l|l|@{}}
+        \hline
+        \textbf{Activity} & \textbf{Date} \\
+        \toprule
+        \hline
+        Project Name & Trale / SocialStuff (former working title) \\
+        Submitted by \& date & Dave Hoevenaars, Maurits van der Zee, 28-09-2020 \\
+        Strategic Objective & Providing privacy in a centralized social media market. \\
+        Project ID & SOFA2020-HOM02-SocialStuff \\
+        Confidentiality & N/A \\
+        \hline
+    \end{tabular}
+    \label{tab:my-table}
+\end{table}
+
+\subsection{Problem Statement}\label{subsec:problem-statement}
+
+Centralized Social Media platforms has been dominating the market for the last decade, this is a problem because nearly
+everybody who is communicating throughout the internet is relaying on these businesses, and they’re business model
+revolves around selling your private data.
+This can be especially damaging for high-profile individuals which reputation or credibility could be damages by
+providing such data.
+Additionally, the large corporations that host such services are based in countries which can force said businesses to
+provide access to their systems (USA, China \& Russia).
+
+\subsection{Objective}\label{subsec:objective}
+
+The goal of the Social Stuff project sequence is to develop a working prototype of the decentralized chat application
+(front end \& backend) as well as supporting documentation.
+This will be done by 20th January 2021.
+
+\subsection{Critical Success Factors}\label{subsec:critical-success-factors}
+
+In order to prove Social Stuff’s claim of privacy and security, a penetration test should be carried out, and the
+results should be divided in 5 sub-sections: Reconnaissance, Scanning, Gaining Access, Maintaining Access and Covering
+tracks.
+In these categories a risk analysis will be carried out and if the exposure is not greater than 2, the penetration test
+will consider a pass.
+
+\subsection{Risks}\label{subsec:risks}
+
+In the Social Stuff project we identified a few risks which may occur such as:
+
+\begin{itemize}
+    \item Not achieving customer satisfaction due to not meeting the client’s requirements
+    \item Employee capacity decrease because of illness
+    \item Stretching the project’s time scope due to unfamiliarity with programming languages and/or technologies
+\end{itemize}
+
+\subsection{Scope focus}
+
+In scope of the Social Stuff project sequence is: Creation of prototype of decentralized structure of Social Stuff
+
+\begin{itemize}
+    \item A report explaining analysis, design and implementation choices
+    \item Creation of front-end of Social Stuff
+    \item Analysis, Design and in-code documentation artefacts
+    \item Optional: Customer Website
+\end{itemize}
+
+However, in this project sequence we will not have a fully released version of SocialStuff and the chat application
+will not be deployed either, the main goal is to have a working prototype, in order to showcase the potential of the
+project sequence.
+
+\subsection{Key activities \& dates}\label{subsec:key-activities-and-dates}
+
+\begin{table}[htp]
+    \centering
+    \begin{tabular}{@{}|l|l|@{}}
+        \hline
+        \textbf{Activity}       & \textbf{Date} \\
+        \toprule
+        \hline
+        Project Kick-off        & 02-9-2020     \\
+        Business case           & 01-10-2020    \\
+        Project Management Plan & 01-10-2020    \\
+        Project Charter         & 15-10-2020    \\
+        Project Scope Baseline  & 25-10-2020    \\
+        WBS                     & 30-10-2020    \\
+        Project Poster          & 06-01-2021    \\
+        Project Handover        & 20-01-2021    \\
+        \hline
+    \end{tabular}\label{tab:table2}
+\end{table}
+
+\subsection{Deliverables}\label{subsec:deliverables}
+
+\begin{itemize}
+    \item Creation of prototype of decentralized structure of Social Stuff
+    \item A report explaining analysis, design and implementation choices
+    \item Creation of front-end of Social Stuff
+    \item Analysis, Design and in-code documentation artefacts
+    \item Optional: Customer Website
+\end{itemize}
+
+\subsection{Business Case}
+
+The business case in non-financial;
+providing customer satisfaction by delivering a social media platform which is excellent in its privacy standards.
+
+\subsection{Proposed start \& end dates}\label{subsec:proposed-start-and-end-dates}
+
+The Social Stuff project sequence will start at \textbf{2-9-2020} and will end \textbf{20-1-2020}.
+
+\subsection{Stakeholders \& Resources}\label{subsec:stakeholders-and-resources}
+
+The resources we will utilize for the completion of the SocialStuff project sequence includes:
+\begin{enumerate}
+    \item Trello, for a Kanban style agile project management
+    \item A shared repository on GitHub to do work simultaneously
+    \item MS Teams platform for general communication and team meetings
+    \item Adobe XD for UI design
+    \item Coding Standards
+    \item The Source Code
+\end{enumerate}
+
+Furthermore, to support the completion of the project sequence the following stakeholders are involved:
+\begin{itemize}
+    \item Gerhard Bongardt: Business Owner
+    \item Pieter van den Hombergh: Project Governance
+    \item Jörn Neumeyer: Product Owner
+\end{itemize}
+
+
+\section{Project Management Plan}\label{sec:project-management-plan}
+
+\subsection{Management Summary}\label{subsec:management-summary}
+
+The joint collaboration between: Gedak GmbH, SocialStuff and the SoFa Fontys students is resulting in to a project
+sequence.
+The final goal is providing an implementation of an encrypted chat platform which provides privacy for its users by
+providing a decentralized structure in which anonymity can be guaranteed.
+This project is first in the complete project sequence.
+This means that we have to do a lot of analysis to understand and determine how the solution will look like.
+This especially goes for the encryption techniques.
+The current project sequence is mainly focused on providing a working prototype and providing thorough documentation
+of said prototype.
+As this project’s affinity is very close to some Fontys students working on this project, we will have an
+excellent starting point for us to provide documentation which will prove invaluable for future iterations of the
+project.
+As this project is part of sequence, it is important to determine what the scope and justification of this iteration
+will be.
+The project's scope and justification will be discussed in this document.
+
+\subsection{Introduction}\label{subsec:introduction}
+This document will provide an overview over the Social Stuff project.
+To achieve this, the project will briefly explain the project itself, what the final products will be and who the
+stakeholders are.
+Afterwards the document will address, which potential risks could occur during the development and how the team will
+deal with them.
+Next it will be addressed, how the change management will be handled during production and how a high quality can be
+ensured.
+Next the project methodology will be handled.
+Finally, the communication plan will be introduced.
+
+\subsection{SocialStuff}\label{subsec:socialstuff}
+
+This chapter explains the company briefly;
+it also describes the problem description and our tasks within the duration of the project.
+
+\subsubsection{Company description}
+
+GEDAK is an IT company which supports its customers with practical solutions for marketing, sales and customer service.
+Their work focuses on web-based projects such as store systems, sales and CRM solutions, reporting applications as well
+as ERP solutions.
+The office is located near Düsseldorf (DE) with about 50 employees who are supporting projects at large and medium-sized
+companies.
+
+\subsubsection{Problem description}
+
+Social Stuff is a free-software project and is intended to offer an open, decentralized alternative to current
+proprietary and centralized communication and social-media platforms.
+The decentralized model allows for an independent utilization of the software, providing companies (or users in general)
+with more sovereignty and less dependence on large service providers.
+
+\subsubsection{Our Task}
+
+Our task is to analyse current communication services and how a decentralized approach would disrupt the market by
+providing the same features with increased focus on privacy and security.
+Afterwards, we will design how the new decentralized system could look like.
+Lastly, the system shall be implemented using an agile approach.
+During the project the whole project should be managed and monitored properly as well as documented in a detailed and
+structured manner.
+
+\subsection{Project justification}\label{subsec:project-justification}
+
+\subsubsection{Project Objective}
+
+The goal of the Social Stuff project, is to Analyse, Design, Implement \& Test an encrypted chat application which
+resources will be distributed in a decentralized manner, by the users as they have to set up server themselves.
+This application will be deployed in a highly competitive market, which means that Social Stuff will have to
+differentiate itself in order to be successful.
+This is achieved by the decentralized nature of the application which provides users near full control of the
+chat application and various privacy settings.
+However, this alone might not be enough, to set Social Stuff aside from the competition.
+So, an optional goal be to find an additional way of provide differentiation between Social Stuff and its competitors,
+without forgoing the previously mentioned perquisites.
+
+\subsubsection{Project requirements \& resources}
+
+For the project we will need several resources and there are some high-level requirements for this project.
+
+\paragraph{Resources}
+\begin{itemize}
+    \item Trello, for a Kanban style agile project management
+    \item A shared repository on GitHub to do work simultaneously
+    \item MS Teams platform for general communication and team meetings
+    \item Adobe XD for UI design
+    \item Coding Standards
+    \item The Source Code
+\end{itemize}
+
+\paragraph{Required knowledge areas}
+\begin{itemize}
+    \item Programming Languages (TypeScript)
+    \item Frameworks (Express, Angular, UI frameworks (e.g.\ Angular Material))
+    \item Database technologies (SQL (MariaDB), noSQL (MongoDB))
+    \item Agile development (Kanban)
+    \item Encryption (RSA, AES, Diffie Hellman (Elliptic curves))
+    \item Version control (Git)
+\end{itemize}
+
+\subsubsection{Project Scope}
+
+The project scope will describe the activities we will be carrying out but also the activities that will be beyond the
+scope of this project.
+
+\paragraph{In scope}
+\begin{itemize}
+    \item Creation of prototype of decentralized structure of the Social Stuff
+    \item A report explaining our analysis, design and implementation choices
+    \item Creation of front-end of Social Stuff
+    \item Analysis, Design and in-code documentation
+    \item Optional: Customer Website
+\end{itemize}
+
+\paragraph{Out of scope}
+\begin{itemize}
+    \item A fully released version of SocialStuff
+    \item Deploying Social Stuff
+\end{itemize}
+
+\subsection{Project Products}
+
+\subsubsection{Customer quality expectations}
+
+The customer expects high-quality software solutions for decentralized communication via one or multi server network.
+The client expects at least a desktop client.
+However, as we are using cross-platform technologies we try to reuse most of the desktop client solution to implement
+a mobile client as well.
+
+\subsubsection{Customer acceptance criteria}
+
+In this section, we will mention the deliverables and which purpose they serve for.
+
+\begin{table}[htp]
+    \caption{List of deliverables and their corresponding acceptance criteria as well as serving purpose}
+    \begin{tabular}{@{}|l|l|l|@{}}
+        \toprule
+        \hline
+        \textbf{Deliverable} &
+        \textbf{Acceptance Criteria} &
+        \textbf{Product Goal} \\
+        \hline
+        \hline
+        Documentation &
+        \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Enables easy extensibility by providing \\ future developer teams to improve \\ certain parts and services of the solution\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Models (part of \\ documentation)\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}All models are \\ written in valid \\ UML\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make the underlying technologies easier \\ to understand\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}OOS: Server \\ installation\\ package\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Package should be \\ easy deployable on \\ a server of the \\ user's choice\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Server package should enable individuals \\ to host their own communication server \\ by making use of docker\end{tabular} \\
+        Desktop Client &
+        \begin{tabular}[c]{@{}l@{}}Fully functional \\ desktop client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Deliver a desktop client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        OOS: Mobile Client &
+        \begin{tabular}[c]{@{}l@{}}Fully functional \\ mobile client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Deliver a mobile client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        Optional: Website &
+        \begin{tabular}[c]{@{}l@{}}Deployable \\ website for \\ trale.org\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Providing a user-friendly website for two \\ main purposes:		\\ - Provide potential users information \\ about the service and how SocialStuff \\ works (should be easily understandable, \\ not to tech sided) 			\\ - Provide (potential) users a download \\ portal for the server as well as the \\ desktop and mobile clients\end{tabular} \\
+        Project Dossier &
+        \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Document SOFA module for \\ reporting purposes\end{tabular} \\
+        &
+        &
+        \\ \hline
+    \end{tabular}\label{tab:table3}
+\end{table}
+
+\subsubsection{Product Opportunities}
+
+Aside from the project goals, Social Stuff has to motivation to become something more than just a one-off project.
+As this project sequence will only last us to January, it’s important to start thinking about future iterations of the
+project sequence and what feature those sequences might bring forth.
+In order to ensure reusability of project sequence artefacts: we will maintain that all documents will be in English.
+The main goal is to develop a prototype chat application, which can address the consumer demand for high privacy
+communication technologies.
+One could argue however that in such a competitive market, it is difficult to set your product aside from the
+competition.
+Therefore, further project sequences could include: expanding the platform in terms of features, maximizing security,
+maximizing adaptability, or any other way of differentiating SocialStuff.
+
+\subsection{Project controls}
+
+This section of the document will clarify how the project will be managed.
+Next the risk management will be addressed.
+
+\subsubsection{Stakeholder management}
+
+Stakeholder management is a critical component to the successful delivery of any project.
+A stakeholder is any individual, group or organization that can affect the project.
+In the table below, you can find all the stakeholders of our project.
+The name, role, how much influence do they have from low to high (1, 2, 3), the stakeholders most important goal,
+contribution and the best way to manage.
+
+The following table displays each stakeholder and their corresponding roles, influences and goals and contribution to
+the project.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htp]
+    \caption{List of involved stakeholders, their roles and influence on project}
+    \begin{tabular}{@{}|l|l|l|l|l|@{}}
+        \toprule
+        Stakeholder &
+        Role &
+        Influence &
+        \begin{tabular}[c]{@{}l@{}}Most important\\ goal\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}How will\\ he/she\\ contribute\end{tabular} \\ \midrule
+        \begin{tabular}[c]{@{}l@{}}Jörn\\ Neumeyer\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Product Owner\\ Backend Dev\end{tabular} &
+        3 &
+        \begin{tabular}[c]{@{}l@{}}Properly\\ communicate\\ the\\ requirements \&\\ developing\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Dave\\ Hoevenaars\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Documentation\\ Quality Assurance\\ Front-end dev\end{tabular} &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Make sure the\\ project runs \\ smooth/time\\ management \&\\ developing\\ front-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Tobias\\ Jansen\end{tabular} &
+        Back-end dev &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Developing\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Malte\\ Castner\end{tabular} &
+        Front-end dev &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Developing\\ front-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Maurits\\ van der Zee\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Project \\ management \&\\ back-end dev \& \\ front-end dev\end{tabular} &
+        2 &
+        \begin{tabular}[c]{@{}l@{}}Make sure the \\ project runs \\ smooth / time\\ management\\ developing\\ front-end and\\ back-end\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        Gedak GmbH &
+        Client &
+        1 &
+        \begin{tabular}[c]{@{}l@{}}Properly \\ communicate the\\ requirements / \\ make sure we\\ stay on track\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Needs to be\\ informed\\ about project\\ status\end{tabular} \\
+        \begin{tabular}[c]{@{}l@{}}Fontys Tutor\\ Pieter\\ van den Hombergh\end{tabular} &
+        Supervisor &
+        1 &
+        Supervising the project &
+        \begin{tabular}[c]{@{}l@{}}Little but\\ wants to be\\ kept in loop\\ for project\\ status updates\end{tabular}
+    \end{tabular}\label{tab:table6}
+\end{table}
+
+\subsubsection{Risk management}
+
+The following section will address the potential risks which might occur during the development.
+For risk management there will be a list containing all the risks we have identified.
+Together with these risks we will also come up with counter measures to either lower the likelihood of occurrence or
+lower the impact if said risk occurs.
+The risks will be ranked by its exposure, calculated by using the following formula:
+
+\begin{equation}
+    Likelihood \times Impact=Risk\ Exposure\label{eq:risk_exposure}
+\end{equation}
+
+Each risk will have a ranking concerning its likelihood and impact (1 – 5).
+The higher the exposure, the more attention must be paid to said risk.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[htp]
+    \caption{List of identified risks related to the project}
+    \begin{tabular}{@{}|l|l|l|l|@{}}
+        \toprule
+        \textbf{ID} &
+        \textbf{Risk} &
+        \textbf{Consequence} &
+        \textbf{Counter measure} \\
+        \hline
+        R1 &
+        \begin{tabular}[c]{@{}l@{}}Due to the lack of \\
+                                    knowledge of coding language,\\
+                                    spending too much time on \\
+                                    researching\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Might not be able to finish \\
+                                    the prototype on time\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make sure the proper resources \\
+                                    are available to use when it is \\
+                                    clear which language, we will be \\
+                                    using\end{tabular} \\
+        R2 &
+        \begin{tabular}[c]{@{}l@{}}End product not satisfying the \\ requirements of the client\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Client not satisfied with the \\result which will lead to a \\failed project\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Make sure to show the progress \\and ask for feedback by holding \\demos to the client regularly\end{tabular} \\
+        \hline
+    \end{tabular}\label{tab:table5}
+\end{table}
+
+\begin{table}[htp]
+    \caption{Mapping of risks and their corresponding exposures}
+    \center
+    \begin{tabular}{@{}|l|l|l|l|@{}}
+        \toprule
+        \textbf{Risk ID} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Exposure} \\
+        \hline
+        R1      & 2          & 4      & 8        \\
+        R2      & 2          & 5      & 10 \\
+        \hline
+    \end{tabular}\label{tab:table4}
+\end{table}
+
+\subsection{Communication Plan}
+
+\subsubsection{Internal}
+
+The internal documentation will be in English.
+The main internal communication platform that will be used during this project is Microsoft (MS) Teams.
+In MS teams it is possible to chat with each other and share documents.
+Our Kanban task planning, which is updated online in Trello, is integrated in MS Teams.
+Next to MS teams, we have a WhatsApp chat group for small talks.
+For urgent matters we can call each other.
+
+% TODO add table/list of contacts and email addresses here
+
+Next to these communication platforms, we’ll have a daily stand-up with the project team.
+Our SOFA-coach is Pieter van den Hombergh.
+He will join the weekly project meeting on Tuesday.
+Besides, he will be available to answer our questions.
+
+\subsubsection{External}
+
+The external communication will mainly be by E-mail.
+Our main contact person from Gedak Gmbh is Gerhard Bongardt.
+There will be meetings with Mr. Bongardt after each sprint and additional meetings when necessary.
+If there are any questions, Mr. Bongardt will forward the questions to the project manager.
+
+\section{Work breakdown structure (WBS)}\label{sec:work-breakdown-structure-(wbs)}
+
+% TODO @mauritsvanderzee add WBS and explanation

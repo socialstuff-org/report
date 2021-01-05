@@ -91,6 +91,8 @@
 % Language
 \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
 \setdefaultlanguage{english}
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
 \usepackage{csquotes}       % language sensitive quotation facilities
 
 % Bibliography (references)
@@ -123,7 +125,7 @@
 { and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
 
 % Table of contents (TOC)
-\setcounter{tocdepth}{1}              % Depth of table of content
+\setcounter{tocdepth}{3}              % Depth of table of content
 \setcounter{secnumdepth}{2}           % Depth of section numbering
 \setcounter{maxsecnumdepth}{3}        % Max depth of section numbering
 
@@ -163,6 +165,9 @@
     \chapterstyle{default}
     \def\format{\normalfont\sffamily}
 
+    % set font in whole project
+    \renewcommand\familydefault{\sfdefault}
+
     \setlength\beforechapskip{0mm}
 
     \renewcommand*{\chapnamefont}{\format\HUGE}
@@ -170,9 +175,9 @@
     \renewcommand*{\chaptitlefont}{\format\fontsize{42}{42}\selectfont}
 
     \renewcommand*{\printchaptername}{\chapnamefont\MakeUppercase{\@chapapp}}
-    \patchcommand{\printchaptername}{\begingroup\color{dtugray}}{\endgroup}
+    \patchcommand{\printchaptername}{\begingroup\color{plumViolot}}{\endgroup}
     \renewcommand*{\chapternamenum}{\space\space}
-    \patchcommand{\printchapternum}{\begingroup\color{dtured}}{\endgroup}
+    \patchcommand{\printchapternum}{\begingroup\color{coralRed}}{\endgroup}
     \renewcommand*{\printchapternonum}{%
         \vphantom{\printchaptername\chapternamenum\chapnumfont 1}
         \afterchapternum
@@ -306,3 +311,9 @@
     \patchcmd{\@memensuresigpages}{\repeat}{\repeat\frieze}{}{}
 }{}
 \makeatother
+
+% TABLES
+\usepackage{array}
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
