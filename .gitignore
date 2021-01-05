@@ -1,9 +1,15 @@
+# .gitignore
+
+# directories
 appendices/*.aux
 chapters/*.aux
 frontmatter/*.aux
 prefrontmatter/*.aux
 
+# logs
 missfont.log
+
+# report
 report.aux
 report.bbl
 report.bcf
