@@ -1,12 +1,58 @@
 %!TEX root = ../report.tex
+
+
 \chapter{Visual Design}\label{ch:visual-design}
 
 To create a visually aesthetic application we have taken into account several preparation steps upfront. In this chapter
 we will go into more detail on which steps have been accomplished and how they helped us to implement our frontend parts
 later on.
 
+
 \section{Laws of UX}\label{sec:laws-of-ux}
-% TODO @mauritsvanderzee
+
+\enquote{Laws of UX is a collection of the maxims and principles that designers can consider when building user interfaces.
+It was created by Jon Yablonski.}~\cite{lawsofux}.
+
+\subsection{Aesthetic Usability Effect}\label{subsec:aestetic-usability-effect}
+
+Research has shown that aesthetically pleasing design is often perceived as more user-friendly and usable.
+People tend to be more error tolerant in case of small bugs.
+Further, people tent to link positive feelings with aesthetically pleasing things.
+Therefore, if an aesthetically pleasing user interface is present, the user will automatically tend to link a positive
+feeling to the application.
+Down the road this will most-likely lead to more time the user spent with the application which should be the ultimate
+goal of application creators~\cite{lawsofuxAUE}.
+
+\subsection{Doherty Threshold}\label{subsec:doherty-threshold}
+According to a research done by Walter J. Doherty and Ahrvind J. Thadani in 1982, the average response time of a
+computer should not exceed 400 milliseconds.
+The research has shown that if a user interacts with a system responding in 400 milliseconds or less will be perceived
+as a fast and reliable system.
+This outcome has an addictive effect on the user leading to increased time spend within the application.
+Lastly, the more time the users spends using the application, the more effective will be the addictive
+force~\cite{lawsofuxDT}.
+
+\subsection{Fitt's Law}\label{subsec:fitt's-law}
+The psychologist Paul Fitts examined the interaction of humans with targets.
+His study showed that there is a correlation between navigation to a target and its size.
+Moving fast to a small target is more error prone than moving fast to a large target due to the speed-accuracy trade-off.
+This design principle is widely accepted in user experience design and commonly applied when designing user interfaces.
+For instance, interactive buttons to trigger an event are often large to be easily and fast accessible.
+This applies specifically to interfaces which are utilized on touch devices to enable the user to easily interact with
+their fingers.
+Additionally, the distance between objects where the user attention lies, and the task trigger (e.g.\ a button) should be
+as small as possible to eliminate the need of fast interaction which leads to a decreased accuracy~\cite{lawsofuxFL}.
+
+\subsection{Hick's Law}\label{subsec:hick's-law}
+Hick's law is the outcome of a psychologist team that analyzed the correlation of a range of elements, and an
+individual's reaction time.
+The team found out that the more choices we have, the longer it takes to choose on of the available choices.
+In user experience design this should be taken into account.
+For instance, if there are 20 buttons visible to the interacting user, the user would need a significant duration to
+come to a final choice which action he wants to perform.
+Therefore, the user shall only be given the options which are really required.
+Displaying all options possible would only lead to confusion and long reaction times conflicting with the
+\textbf{\hyperref[subsec:doherty-threshold]{Doherty Threshold}}~\cite{lawsofuxHL}.
 
 \section{Styleguide}\label{sec:styleguide}
 % TODO @mauritsvanderzee define initial description what styleguides are
@@ -30,12 +76,12 @@ grid visualization (Figure~\ref{fig:grid}).
     \centering\def\svgwidth{15cm}\input{./graphics/messages.pdf_tex}\label{fig:figure2}
 \end{figure}
 
-
 \subsection{Messages States}\label{subsec:messages-states}
 \begin{figure}[ht]
     \caption{Message States Design Reference}
     \centering\def\svgwidth{15cm}\input{./graphics/message-states.pdf_tex}\label{fig:figure3}
 \end{figure}
+
 
 \section{Color Palette}\label{sec:color-palette}
 
@@ -43,12 +89,12 @@ grid visualization (Figure~\ref{fig:grid}).
     \centering
     \begin{tabular}{|l|l|}
         \hline
-        \textbf{Color Name} & \textbf{Hex Code}\\ \hline
-        Coral red & \color[HTML]{EE4540}\textbf{\#EE4540} \\ \hline
-        French raspberry & \color[HTML]{C72C41}\textbf{\#C72C41} \\ \hline
-        Boysenberry & \color[HTML]{801336}\textbf{\#801336} \\ \hline
-        Plum violet & \color[HTML]{510A32}\textbf{\#510A32} \\ \hline
-        Elderberry & \color[HTML]{21142D}\textbf{\#21142D} \\ \hline
+        \textbf{Color Name} & \textbf{Hex Code}                     \\ \hline
+        Coral red           & \color[HTML]{EE4540}\textbf{\#EE4540} \\ \hline
+        French raspberry    & \color[HTML]{C72C41}\textbf{\#C72C41} \\ \hline
+        Boysenberry         & \color[HTML]{801336}\textbf{\#801336} \\ \hline
+        Plum violet         & \color[HTML]{510A32}\textbf{\#510A32} \\ \hline
+        Elderberry          & \color[HTML]{21142D}\textbf{\#21142D} \\ \hline
     \end{tabular}
     \caption{List of colors of Trale theme}
     \label{tab:colorTable}
@@ -61,8 +107,10 @@ grid visualization (Figure~\ref{fig:grid}).
     \label{fig:colorPalette}
 \end{figure}
 
+
 \section{Typography}\label{sec:typography}
 % TODO @mauritsvanderzee
+
 
 \section{Wireframes}\label{sec:wireframes}
 
