@@ -1,0 +1,79 @@
+%% Creator: Inkscape 1.0.1 (3bc2e813f5, 2020-09-07), www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'messages.pdf' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \newcommand*\fsize{\dimexpr\f@size pt\relax}%
+  \newcommand*\lineheight[1]{\fontsize{\fsize}{#1\fsize}\selectfont}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{585bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,1.08717949)%
+    \lineheight{1}%
+    \setlength\tabcolsep{0pt}%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{messages.pdf}}%
+    \put(0.47564103,0.94230769){\color[rgb]{0.73333333,0.5372549,0.65098039}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:30\end{tabular}}}}%
+    \put(0.47564103,0.75769231){\color[rgb]{0.73333333,0.5372549,0.65098039}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:35\end{tabular}}}}%
+    \put(0.0974359,0.95){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Lorem ipsum dolor sit amet\end{tabular}}}}%
+    \put(0.0974359,0.81282051){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sea takimata sanctus est Loremipsum dolor sit amet.\end{tabular}}}}%
+    \put(0.0974359,0.34230769){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Duis autem vel eum iriure dolor inhendrerit in vulputate velit esse molestieconsequat, vel illum dolore eu feugiatnulla facilisis. Duis autem vel eum iriuredolor in hendrerit in vulputate velit essemolestie consequat, vel illum dolore eufeugiat nulla facilisis.      \end{tabular}}}}%
+    \put(0.47051282,0.90512821){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}At vero eos et accusam et justo duodolores et ea rebum.\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{messages.pdf}}%
+    \put(0.87307692,0.49358974){\color[rgb]{0.17647059,0.07843137,0.17647059}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}➞\end{tabular}}}}}%
+    \put(0.91410256,0.51666667){\color[rgb]{0.17647059,0.07843137,0.17647059}\rotatebox{-90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}➞\end{tabular}}}}}%
+    \put(0.87307692,0.39615385){\color[rgb]{0.17647059,0.07843137,0.17647059}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}➞\end{tabular}}}}}%
+    \put(0.51025641,0.11538462){\color[rgb]{1,1,1}\rotatebox{90}{\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}➞\end{tabular}}}}}%
+    \put(0.47692308,0.62051282){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}Duis autem vel eum iriure dolor inhendrerit in vulputate velit essemolestie consequat, vel illumdolore eu feugiat nulla facilisis.   \end{tabular}}}}%
+    \put(0.47692308,0.45769231){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sea takimata sanctus est Loremipsum dolor sit amet.\end{tabular}}}}%
+    \put(0.47692308,0.72051282){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}sea takimata sanctus est Loremipsum dolor sit amet.\end{tabular}}}}%
+    \put(0.82307692,0.49615385){\color[rgb]{0.17647059,0.07843137,0.17647059}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:36\end{tabular}}}}%
+    \put(0.82307692,0.39871795){\color[rgb]{0.17647059,0.07843137,0.17647059}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:36\end{tabular}}}}%
+    \put(0.46025641,0.11794872){\color[rgb]{1,1,1}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:36\end{tabular}}}}%
+    \put(0.82307692,0.65897436){\color[rgb]{0.17647059,0.07843137,0.17647059}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:36\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{messages.pdf}}%
+    \put(0.82307692,0.84615385){\color[rgb]{0.17647059,0.07843137,0.17647059}\makebox(0,0)[lt]{\lineheight{1.25}\smash{\begin{tabular}[t]{l}12:34\end{tabular}}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{messages.pdf}}%
+  \end{picture}%
+\endgroup%
