@@ -54,8 +54,18 @@ Therefore, the user shall only be given the options which are really required.
 Displaying all options possible would only lead to confusion and long reaction times conflicting with the
 \textbf{\hyperref[subsec:doherty-threshold]{Doherty Threshold}}~\cite{lawsofuxHL}.
 
+\subsection{Laws of UX Conclusion}\label{subsec:laws-of-ux-conclusion}
+The laws of \ac{ux} are the most recognized and utilizable laws of designing a sophisticated and ingenious \ac{ux}
+along with an aesthetically pleasing \ac{ui}.
+Jon Yablonski created a collection of the most important psychological tricks and behaviours and applied them to
+\ac{ux} and \ac{ui}.
+We tried to apply the above mentioned laws in any way possible as we designed the \ac{ui} for Trale Messenger.
+The next section will go into more detail on how we approached the visual design.
+
 \section{Styleguide}\label{sec:styleguide}
-% TODO @mauritsvanderzee define initial description what styleguides are
+A styleguide is a useful resource for front-end developers to start the implementation of the \ac{ui}.
+It is a collection of information, rules, restrictions and hints on how the \ac{ui} should be implemented.
+The following sub sections will dive into the actual guidelines we defined for the front-end developers.
 
 \subsection{Grid \& Measurements}\label{subsec:grid-and-measurements}
 
@@ -64,7 +74,7 @@ grid visualization (Figure~\ref{fig:grid}).
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/grid.pdf}
+    \includegraphics[width=1.0\textwidth]{./graphics/grid}
     \caption{Grid and Measurements visualization}
     \label{fig:grid}
 \end{figure}
@@ -73,17 +83,16 @@ grid visualization (Figure~\ref{fig:grid}).
 
 \begin{figure}[ht]
     \caption{Message Styling Design Reference}
-    \centering\def\svgwidth{15cm}\input{./graphics/messages.pdf_tex}\label{fig:figure2}
+    \includegraphics[width=1.0\textwidth]{./graphics/messages}\label{fig:figure2}
 \end{figure}
 
 \subsection{Messages States}\label{subsec:messages-states}
 \begin{figure}[ht]
     \caption{Message States Design Reference}
-    \centering\def\svgwidth{15cm}\input{./graphics/message-states.pdf_tex}\label{fig:figure3}
+    \includegraphics[width=1.0\textwidth]{./graphics/message-states}\label{fig:figure3}
 \end{figure}
 
-
-\section{Color Palette}\label{sec:color-palette}
+\subsection{Color Palette}\label{subsec:color-palette}
 
 \begin{table}[hb]
     \centering
@@ -102,17 +111,34 @@ grid visualization (Figure~\ref{fig:grid}).
 
 \begin{figure}
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/colorPalette.png}
+    \includegraphics[width=1.0\textwidth]{./images/colorPalette}
     \caption{Color Palette of Trale Messenger}
     \label{fig:colorPalette}
 \end{figure}
 
+\subsection{Typography}\label{subsec:typography}
+Typography is more than just selecting a good-looking typeface.
+Typography is the foundation of how we communicate to other human beings.
+It is about contrast, clarity, visual interest drawing the attention of viewers to the important things.
+We determined that we should look for a typeface that is great for digital purposes, available in multiple weights, so
+we could utilize it in various ways and easily readable.
 
-\section{Typography}\label{sec:typography}
-% TODO @mauritsvanderzee
+We decided to go with \textbf{Helvetica Neue} - a sans-serif typeface.
+The typeface has been developed in 1957 by Max Miedinger and Eduard Hoffmann and is as of today a widely used font
+across print and digital assets as it is perfectly readable.
+It is available in various weights and variations as shown in~\ref{fig:figure4}.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=1.0\textwidth]{./images/helvetica-neue}
+    \caption{Font: Helvetica Neue}
+    \label{fig:figure4}
+\end{figure}
+
+Typography is also about spacing of letters, line distance, alignment of text and much more.
+In most cases we decided to stick with the default properties and left aligned text as it is the easiest to read.
 
 \section{Wireframes}\label{sec:wireframes}
 
 Based on our preceding analysis we have created several wireframes which match with our guidelines.
-Please refer to our Appendix section for a detailed view of our wireframes. %TODO add link to wireframes appendix
+Please refer to our \hyperref[ch:wireframes]{\textbf{appendix}} section for a detailed view of our wireframes.

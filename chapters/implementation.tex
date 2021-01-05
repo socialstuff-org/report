@@ -1,8 +1,11 @@
 %!TEX root = ../report.tex
+
+
 \chapter{Implementation}\label{ch:implementation}
 
 % TODO @all add introduction to implementation
 \lipsum[2-4]
+
 
 \section{Libraries}\label{sec:libraries}
 % TODO rename this chapter to make clear that the libraries are self-developed
@@ -24,11 +27,12 @@
 % TODO @joernneumeyer & @mauritsvanderzee
 % TODO add link to npm
 
+
 \section{Frontend}\label{sec:frontend}
 
 \subsection{Services}\label{subsec:services}
 
- % TODO rework introduction section
+% TODO rework introduction section
 The following part of the dossier will describe the different services which have been developed during the time of the project.
 This will include a description of each service, followed by an REST API specification.
 
@@ -95,6 +99,7 @@ logged-in user.
 
 \subsection{Components}
 
+
 \section{Backend}
 
 \subsection{Database Connections}
@@ -129,43 +134,48 @@ MySQL was used for all the relational data, like the data used in the identity s
 \label{subsubsec:identitySer}
 % TODO @joernneumeyer
 
-\subsubsection{Settings Service}
-\label{subsubsec:settingsSer}
-% TODO @maltecastner & tobiasjansen
-The Settings service provides an interface to the admin panel frontend and carries out the settings to the other services.
+\subsubsection{Settings Service}\label{subsubsec:settingsSer}
+
+The Settings service provides an interface to the admin panel frontend and carries out the settings to the other
+services.
 This service was developed in parallel to the admin panel frontend. %TODO @maltecastner insert reference to component, once it has been added
-First only the for the UI necessary functionality would be added, later on the actual functionality was added (e.g.\ that users can actually be reported for the report reasons added in the settings)
-As visible from the use case diagram~\ref{fig:ucd} the Settings service carries out a few tasks by itself whilst forwarding
-certain other request to the identity ~\ref{subsubsec:identitySer} and the reporting~\ref{subsubsec:reportingSer} service.
-The use cases and their descriptions can be found on in the online documentation.
+First only the for the UI necessary functionality would be added, later on the actual functionality was added
+(e.g.\ that users can actually be reported for the report reasons added in the settings).
+As it can be seen from the use case diagram~\ref{fig:ucd} the settings service carries out a few tasks by itself whilst
+forwarding certain other requests to the \hyperref[subsubsec:identitySer]{\textbf{identity service}} and the
+\hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
+The use cases as well as their descriptions are located in the
+\hyperref[ch:software-requirements-specification-(srs)]{\textbf{\ac{srs}}}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/UseCaseDiagramAdminPanel.pdf}
+    \includegraphics[width=1.0\textwidth]{./images/UseCaseDiagramAdminPanel}
     \caption{Use case diagram of the admin panel showing responsibility of each AP service}
     \label{fig:ucd}
 \end{figure}
 
 \paragraph{Rest interface}
+
 The settings service provides the following rest endpoints:
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting}]
 GET: /settings/report-reason
-\end{verbatim}
+\end{lstlisting}
 
 Returns all report reasons as a JSON array.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting2}]
 POST: /settings/report-reason
 body:
 {
 "reason": "some reason",
 "max_report_violations": 5
 }
-\end{verbatim}
-adds a new report reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Adds a new report reason.
+
+\begin{lstlisting}[label={lst:lstlisting3}]
 PUT: /settings/report-reason
 body:
 {
@@ -173,25 +183,25 @@ body:
 "reason": "some reason",
 "max_report_violations": 5
 }
-\end{verbatim}
+\end{lstlisting}
+
 Edits an existing report reason.
 
-
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting4}]
 DELETE: /settings/report-reason
 headers:
 - "id": 123
-\end{verbatim}
+\end{lstlisting}
 
 Deletes a report reason with an id that is provided as a header.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting5}]
 GET: /settings/security
-\end{verbatim}
+\end{lstlisting}
 
-returns the current security settings.
+Returns the current security settings.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting6}]
 PUT: /settings/security
 body:
 {
@@ -214,47 +224,60 @@ body:
         "inv_only_by_adm": false
     }
 }
-\end{verbatim}
+\end{lstlisting}
+
 Edits the security settings.
 The new settings are provided in body.
 
-Example Add Report reason
+\paragraph{Example add report reason}
+
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason.pdf}
+    \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason}
     \caption{Use case diagram of the admin panel showing responsibility of each AP service}
     \label{fig:addReportReason}
 \end{figure}
-The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the aforementioned services.
+
+The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the
+aforementioned services.
 The event is triggered by a request from the client.
-Firstly the settings service will be verifying the identity of the sender by checking at the identity service, if the user who sent out the request is in fact an administrator.
-Then the request will e forwarded to the reporting service. Here it will be checked if the request format is valid. Should this not be the case, the reporting service will return an error (status 400).
-Otherwise the reason will be added in the reporting database, which will then be returned to the settings service, who will then let the client know by response that the insertion was a success.
+Firstly the settings service will be verifying the identity of the sender by checking at the identity service, if the
+user who sent out the request is in fact an administrator.
+Then the request will e forwarded to the reporting service.
+Here it will be checked if the request format is valid.
+Should this not be the case, the reporting service will return an error (status 400).
+Otherwise, the reason will be added in the reporting database, which will then be returned to the settings service,
+who will then let the client know by response that the insertion was a success.
 This way each service has a clearly defined task.
 
-\subsubsection{Reporting Service}
-\label{subsubsec:reportingSer}
-% TODO @maltecastner & tobiasjansen
+\subsubsection{Reporting Service}\label{subsubsec:reportingSer}
+
 The reporting service handles the reporting system.
-This includes administrative tasks like managing for which reasons users can be reported, as well as the reporting system itself (reporting users and banning them).
+This includes administrative tasks like managing for which reasons users can be reported, as well as the reporting
+system itself (reporting users and banning them).
 The administrative tasks, like adding new report reasons, manually blocking and unblocking users, can be done via the
-settings service~\ref{subsubsec:settingsSer}.
+\hyperref[subsubsec:settingsSer]{\textbf{settings service}}.
 This service was added in the later stages of the project.
-First the entire reporting was handled via the settings service~\ref{subsubsec:settingsSer}, however it was decided that the reporting itseslf should possess its own service.
-Therefore it was necessarry to outsource the report related functionality from the settings service to the reporiting service
+
+First the entire reporting was handled via the \hyperref[subsubsec:settingsSer]{\textbf{settings service}}, however it
+was decided that the reporting itself should possess its own service. % TODO @tobiasjansen --> why? explanation missing
+Therefore, it was necessary to outsource the report related functionality from the
+\hyperref[subsubsec:settingsSer]{\textbf{settings service}} to the
+\hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
 
 \paragraph{Rest Interface}
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting7}]
 POST: /report-reasons
 body:
 {
     "reason": "some reason",
     "max_report_violations": 5
 }
-\end{verbatim}
-Adds a new report reason returning the id of the added report reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Adds a new report reason returning the ID of the added report reason.
+
+\begin{lstlisting}[label={lst:lstlisting8}]
 PUT: /report-reasons
 body:
 {
@@ -262,23 +285,26 @@ body:
     "reason": "some reason",
     "max_report_violations": 5
 }
-\end{verbatim}
-Edits a report reason by the "id" key and returns the edited reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Edits a report reason by the \enquote{ID} key and returns the edited reason.
+
+\begin{lstlisting}[label={lst:lstlisting9}]
 GET: /report-reasons
-\end{verbatim}
+\end{lstlisting}
+
 Returns all existing report reasons as JSON array
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting10}]
 DELETE: /report-reasons
 headers
     - id: 12
-\end{verbatim}
-Deletes a report reason by id which is provided in the header of the request.
-Returns the id of the deleted request in its body.
+\end{lstlisting}
 
-\begin{verbatim}
+Deletes a report reason by ID which is provided in the header of the request.
+Returns the ID of the deleted request in its body.
+
+\begin{lstlisting}[label={lst:lstlisting11}]
 Headers:
     - user_token
 Body:
@@ -286,7 +312,10 @@ Body:
     "username": "userHashOfUserBeingReported",
     "reason_id": 123
 }
-\end{verbatim}
-Reports a user based of the report reason and the users username hash.
-A user can only be reported by a the same user for the same reason after 15 minutes to prevent spamming.
-Otherwise the report will be processed by the backend and the user set to "blocked" should he exceed the maximum report violation counter.
+\end{lstlisting}
+
+Reports a user based of the report reason, and the users' username hash.
+A user can only be reported by the same user for the same reason after 15 minutes to prevent spamming.
+Otherwise, the report will be processed by the backend, and the user will be set to \enquote{blocked} in case one
+exceeds the maximum report violation counter.
+
