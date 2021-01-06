@@ -1,4 +1,6 @@
 %!TEX root = ../report.tex
+
+
 \chapter{Implementation}\label{ch:implementation}
 As Trale is built with decentralization, flexibility, and micro-services in mind, the implementation had to be split into several parts.
 This chapter will explain these parts, their functionality, and why they exist.
@@ -14,6 +16,7 @@ I.e. you may want to store data in an encrypted manner, so the library will take
 
 However, due to some constraints of the TypeScript compiler, working with these libraries didn't work by creating a local connection to the package, but we had to upload them to npm and install them afterwards.
 This lead to some issues in the development process, such as version mismatches between the server and client, where both had to use the newest version, but one was using an older version.
+
 % TODO rename this chapter to make clear that the libraries are self-developed
 % TODO @all add introduction to libraries
 % -> why libraries?
@@ -95,11 +98,12 @@ This functionality includes common helpers for security, express.js, and common 
 % TODO @joernneumeyer & @mauritsvanderzee
 % TODO add link to npm
 
+
 \section{Frontend}\label{sec:frontend}
 
 \subsection{Services}\label{subsec:services}
 
- % TODO rework introduction section
+% TODO rework introduction section
 The following part of the dossier will describe the different services which have been developed during the time of the project.
 This will include a description of each service, followed by an REST API specification.
 
@@ -109,8 +113,8 @@ The API service is a rather small service located in the desktop client.
 The service is responsible for managing the global state of all relevant API information in the desktop application.
 In the current state of development this includes the following information
 
-\begin{itemize}
-    \item hostname - the hostname of the server (e.g. trale.org)
+\begin{itemize}\setlength\itemsep{-0.5em}
+    \item hostname - the hostname of the server (e.g.\ trale.org)
     \item port - the default port on which the service is listening for incoming connections (default: 8086)
     \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
     \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
@@ -164,13 +168,57 @@ logged-in user.
 \subsubsection{Util Service}
 % TODO @mauritsvanderzee
 
-\subsection{Components}
+\subsection{Components}\label{subsec:components}
 
-\section{Backend}
 
-\subsection{Database Connections}
+\section{Backend}\label{sec:backend}
 
-\subsection{Services}
+\subsection{Database Connections}\label{subsec:database-connections}
+
+For the project we used two database management systems, MongoDB and MySQL, depending on the requirements of the backend
+services.
+
+\subsubsection{MongoDB}
+MongoDB is a non-relational, document based database management system.
+This brings a few advantages ad disadvantages, depending on the use case.
+MongoDB is best when you want the flexibility of schema.
+You can easily use replica sets with MongoDB and can take advantage of scalability.
+Expansion plans are flexible and can be easily achieved by adding more machines and RAM to the system.
+It also includes document validations and integrated systems.
+
+A big disadvantage of MongoDB is that over time the data size will increase drastically over time.
+Compared to other DBMS systems the speed is comparatively low.
+
+\paragraph{Why and where was MongoDB used?}
+Mongo DB was used for the messages.
+This is because the messages are non-relational data in the case of SocialStuff.
+The disadvantage of low speed once the data amount increases is neglectable in the case of SocialStuff, as the data will
+only be stored temporarily on the server.
+The data amount is therefore not that high.
+Of course local machines will still store the messages on a longer period, however as only the messages with chat
+partners are stored the amount of data is still comparatively low.
+
+Due to the high scalability of MongoDB it is excellent for SocialStuff, as the entire system is based on users adding
+more servers to the system to increase the security of the system.
+
+\subsubsection{MySQL}
+MySQL is a relational database management system, this also features advantages and disadvantages.
+For starters MySQL provides a high performance and runs on almost every system which is important for SocialStuff as
+users will be able to setup the servers themselves.
+Using MySQL will make this process simpler for them.
+MySQL also provides a high security, because the database administrator can grant appropriate permissions to
+applications that access stored procedures in the database without giving any permissions on the underlying database
+tables.
+A disadvantage of MySQL is that it becomes slower the more data is stored on it due to a high memory usage.
+
+\paragraph{Why and where was MySQL used?}
+MySQL was used for all the relational data, like the data used in the identity service (user data) and reporting
+service.
+This was done as this data is not mere transactional data (like the messages) but data that is meant to stay.
+Furthermore, the high scalability will proof useful once the application will be used by more users and more than our
+one test server is online.
+
+\subsection{Services}\label{subsec:services2}
 
 \subsubsection{Authentication Service}
 % TODO @joernneumeyer
@@ -182,43 +230,48 @@ logged-in user.
 \label{subsubsec:identitySer}
 % TODO @joernneumeyer
 
-\subsubsection{Settings Service}
-\label{subsubsec:settingsSer}
-% TODO @maltecastner & tobiasjansen
-The Settings service provides an interface to the admin panel frontend and carries out the settings to the other services.
+\subsubsection{Settings Service}\label{subsubsec:settingsSer}
+
+The Settings service provides an interface to the admin panel frontend and carries out the settings to the other
+services.
 This service was developed in parallel to the admin panel frontend. %TODO @maltecastner insert reference to component, once it has been added
-First only the for the UI necessary functionality would be added, later on the actual functionality was added (e.g.\ that users can actually be reported for the report reasons added in the settings)
-As visible from the use case diagram~\ref{fig:ucd} the Settings service carries out a few tasks by itself whilst forwarding
-certain other request to the identity ~\ref{subsubsec:identitySer} and the reporting~\ref{subsubsec:reportingSer} service.
-The use cases and their descriptions can be found on in the online documentation.
+First only the for the UI necessary functionality would be added, later on the actual functionality was added
+(e.g.\ that users can actually be reported for the report reasons added in the settings).
+As it can be seen from the use case diagram~\ref{fig:ucd} the settings service carries out a few tasks by itself whilst
+forwarding certain other requests to the \hyperref[subsubsec:identitySer]{\textbf{identity service}} and the
+\hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
+The use cases as well as their descriptions are located in the
+\hyperref[ch:software-requirements-specification-(srs)]{\textbf{\ac{srs}}}
 
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/UseCaseDiagramAdminPanel.pdf}
+    \includegraphics[width=1.0\textwidth]{./images/UseCaseDiagramAdminPanel}
     \caption{Use case diagram of the admin panel showing responsibility of each AP service}
     \label{fig:ucd}
 \end{figure}
 
 \paragraph{Rest interface}
+
 The settings service provides the following rest endpoints:
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting}]
 GET: /settings/report-reason
-\end{verbatim}
+\end{lstlisting}
 
 Returns all report reasons as a JSON array.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting2}]
 POST: /settings/report-reason
 body:
 {
 "reason": "some reason",
 "max_report_violations": 5
 }
-\end{verbatim}
-adds a new report reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Adds a new report reason.
+
+\begin{lstlisting}[label={lst:lstlisting3}]
 PUT: /settings/report-reason
 body:
 {
@@ -226,25 +279,25 @@ body:
 "reason": "some reason",
 "max_report_violations": 5
 }
-\end{verbatim}
+\end{lstlisting}
+
 Edits an existing report reason.
 
-
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting4}]
 DELETE: /settings/report-reason
 headers:
 - "id": 123
-\end{verbatim}
+\end{lstlisting}
 
 Deletes a report reason with an id that is provided as a header.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting5}]
 GET: /settings/security
-\end{verbatim}
+\end{lstlisting}
 
-returns the current security settings.
+Returns the current security settings.
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting6}]
 PUT: /settings/security
 body:
 {
@@ -267,47 +320,60 @@ body:
         "inv_only_by_adm": false
     }
 }
-\end{verbatim}
+\end{lstlisting}
+
 Edits the security settings.
 The new settings are provided in body.
 
-\#\#Example Add Report reason
+\paragraph{Example add report reason}
+
 \begin{figure}[!ht]
     \centering
-    \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason.pdf}
+    \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason}
     \caption{Use case diagram of the admin panel showing responsibility of each AP service}
     \label{fig:addReportReason}
 \end{figure}
-The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the aforementioned services.
+
+The sequence diagram~\ref{fig:addReportReason} shows an example of the communication of the settings service with the
+aforementioned services.
 The event is triggered by a request from the client.
-Firstly the settings service will be verifying the identity of the sender by checking at the identity service, if the user who sent out the request is in fact an administrator.
-Then the request will e forwarded to the reporting service. Here it will be checked if the request format is valid. Should this not be the case, the reporting service will return an error (status 400).
-Otherwise the reason will be added in the reporting database, which will then be returned to the settings service, who will then let the client know by response that the insertion was a success.
+Firstly the settings service will be verifying the identity of the sender by checking at the identity service, if the
+user who sent out the request is in fact an administrator.
+Then the request will e forwarded to the reporting service.
+Here it will be checked if the request format is valid.
+Should this not be the case, the reporting service will return an error (status 400).
+Otherwise, the reason will be added in the reporting database, which will then be returned to the settings service,
+who will then let the client know by response that the insertion was a success.
 This way each service has a clearly defined task.
 
-\subsubsection{Reporting Service}
-\label{subsubsec:reportingSer}
-% TODO @maltecastner & tobiasjansen
+\subsubsection{Reporting Service}\label{subsubsec:reportingSer}
+
 The reporting service handles the reporting system.
-This includes administrative tasks like managing for which reasons users can be reported, as well as the reporting system itself (reporting users and banning them).
+This includes administrative tasks like managing for which reasons users can be reported, as well as the reporting
+system itself (reporting users and banning them).
 The administrative tasks, like adding new report reasons, manually blocking and unblocking users, can be done via the
-settings service~\ref{subsubsec:settingsSer}.
+\hyperref[subsubsec:settingsSer]{\textbf{settings service}}.
 This service was added in the later stages of the project.
-First the entire reporting was handled via the settings service~\ref{subsubsec:settingsSer}, however it was decided that the reporting itseslf should possess its own service.
-Therefore it was necessarry to outsource the report related functionality from the settings service to the reporiting service
+
+First the entire reporting was handled via the \hyperref[subsubsec:settingsSer]{\textbf{settings service}}, however it
+was decided that the reporting itself should possess its own service. % TODO @tobiasjansen --> why? explanation missing
+Therefore, it was necessary to outsource the report related functionality from the
+\hyperref[subsubsec:settingsSer]{\textbf{settings service}} to the
+\hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
 
 \paragraph{Rest Interface}
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting7}]
 POST: /report-reasons
 body:
 {
     "reason": "some reason",
     "max_report_violations": 5
 }
-\end{verbatim}
-Adds a new report reason returning the id of the added report reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Adds a new report reason returning the ID of the added report reason.
+
+\begin{lstlisting}[label={lst:lstlisting8}]
 PUT: /report-reasons
 body:
 {
@@ -315,23 +381,26 @@ body:
     "reason": "some reason",
     "max_report_violations": 5
 }
-\end{verbatim}
-Edits a report reason by the "id" key and returns the edited reason.
+\end{lstlisting}
 
-\begin{verbatim}
+Edits a report reason by the \enquote{ID} key and returns the edited reason.
+
+\begin{lstlisting}[label={lst:lstlisting9}]
 GET: /report-reasons
-\end{verbatim}
+\end{lstlisting}
+
 Returns all existing report reasons as JSON array
 
-\begin{verbatim}
+\begin{lstlisting}[label={lst:lstlisting10}]
 DELETE: /report-reasons
 headers
     - id: 12
-\end{verbatim}
-Deletes a report reason by id which is provided in the header of the request.
-Returns the id of the deleted request in its body.
+\end{lstlisting}
 
-\begin{verbatim}
+Deletes a report reason by ID which is provided in the header of the request.
+Returns the ID of the deleted request in its body.
+
+\begin{lstlisting}[label={lst:lstlisting11}]
 Headers:
     - user_token
 Body:
@@ -339,7 +408,10 @@ Body:
     "username": "userHashOfUserBeingReported",
     "reason_id": 123
 }
-\end{verbatim}
-Reports a user based of the report reason and the users username hash.
-A user can only be reported by a the same user for the same reason after 15 minutes to prevent spamming.
-Otherwise the report will be processed by the backend and the user set to "blocked" should he exceed the maximum report violation counter.
+\end{lstlisting}
+
+Reports a user based of the report reason, and the users' username hash.
+A user can only be reported by the same user for the same reason after 15 minutes to prevent spamming.
+Otherwise, the report will be processed by the backend, and the user will be set to \enquote{blocked} in case one
+exceeds the maximum report violation counter.
+

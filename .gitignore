@@ -1,3 +1,4 @@
+
 *.aux
 *.bbl
 *.bcf
@@ -10,6 +11,5 @@
 *.toc
 *.fls
 *.fdb_latexmk
-
 .idea/
 .vscode/
