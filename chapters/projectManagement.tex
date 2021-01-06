@@ -10,17 +10,16 @@
     \centering
     \caption{Project Charter General Details}
     \begin{tabular}{@{}|l|l|@{}}
-        \hline
-        \textbf{Activity} & \textbf{Date} \\
         \toprule
-        \hline
+        \textbf{Activity} & \textbf{Date} \\
+        \midrule
         Project Name & Trale / SocialStuff (former working title) \\
         Submitted by \& date & Dave Hoevenaars, Maurits van der Zee, 28-09-2020 \\
         Strategic Objective &
         \parbox[t]{8cm}{Providing a decentralized, privacy focussed messenger as competitor to currently present centralized alternatives.} \\
         Project ID & SOFA2020-HOM02-SocialStuff \\
         Confidentiality & N/A \\
-        \hline
+        \bottomrule
     \end{tabular}
     \label{tab:my-table}
 \end{table}
@@ -82,10 +81,9 @@ The main goal is to have a working prototype, in order to showcase the potential
 \begin{table}[htp]
     \centering
     \begin{tabular}{@{}|l|l|@{}}
-        \hline
-        \textbf{Activity}       & \textbf{Date} \\
         \toprule
-        \hline
+        \textbf{Activity}       & \textbf{Date} \\
+        \midrule
         Project Kick-off        & 09/02/2020     \\
         Business case           & 10/01/2020    \\
         Project Management Plan & 10/01/2020    \\
@@ -94,7 +92,7 @@ The main goal is to have a working prototype, in order to showcase the potential
         WBS                     & 10/30/2020    \\
         Project Poster          & 01/06/2021    \\
         Project Handover        & 01/20/2021    \\
-        \hline
+        \bottomrule
     \end{tabular}\label{tab:table2}
 \end{table}
 
@@ -135,6 +133,7 @@ The resources we will utilize for the completion of the Trale project includes:
 
 Furthermore, to support the completion of the project the following stakeholders are involved:
 \begin{itemize}
+    \setlength\itemsep{-0.5em}
     \item Gerhard Bongardt: Business Owner
     \item Pieter van den Hombergh: Project Governance
     \item Malte Castner
@@ -215,6 +214,7 @@ For the project we will need several resources and there are some high-level req
 
 \paragraph{Resources}
 \begin{itemize}
+\setlength\itemsep{-0.5em}
     \item Trello, for a Kanban style agile project management
     \item A shared repository on GitHub to do work simultaneously
     \item MS Teams platform for general communication and team meetings
@@ -226,6 +226,7 @@ For the project we will need several resources and there are some high-level req
 
 \paragraph{Required knowledge areas}
 \begin{itemize}
+    \setlength\itemsep{-0.5em}
     \item Programming Languages (TypeScript)
     \item Frameworks (Express, Angular, \ac{ui} frameworks (i.e.\ Angular Material w.\ SCSS))
     \item Database technologies (SQL (MariaDB), NoSQL (MongoDB))
@@ -241,6 +242,7 @@ scope of this project.
 
 \paragraph{In scope}
 \begin{itemize}
+    \setlength\itemsep{-0.5em}
     \item Creation of prototype of Trale Messenger
     \item A report explaining our analysis, design and implementation choices
     \item Creation of frontend and backend of Trale
@@ -250,6 +252,7 @@ scope of this project.
 
 \paragraph{Out of scope}
 \begin{itemize}
+    \setlength\itemsep{-0.5em}
     \item A fully released version of Trale
     \item Mobile Client
     \item Deploying Trale
@@ -272,36 +275,41 @@ In this section, we will mention the deliverables and which purpose they serve f
     \caption{List of deliverables and their corresponding acceptance criteria as well as serving purpose}
     \begin{tabular}{@{}|l|l|l|@{}}
         \toprule
-        \hline
         \textbf{Deliverable} &
         \textbf{Acceptance Criteria} &
         \textbf{Product Goal} \\
-        \hline
-        \hline
+        \midrule
         Documentation &
-        \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Detailed, structured, \\ consistent, cohesive, easy \\ understandable\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Enables easy extensibility by providing \\ future developer teams to improve \\ certain parts and services of the solution\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Models (part of \\ documentation)\end{tabular} &
-        \begin{tabular}[c]{@{}l@{}}All models are \\ written in valid \\ UML\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}All models are written in \\ valid UML\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Make the underlying technologies easier \\ to understand\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}OOS: Server \\ installation\\ package\end{tabular} &
-        \begin{tabular}[c]{@{}l@{}}Package should be \\ easy deployable on \\ a server of the \\ user's choice\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Package should be easy \\ deployable on a server of the \\ user's choice\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Server package should enable individuals \\ to host their own communication server \\ by making use of docker\end{tabular} \\
+        \midrule
         Desktop Client &
-        \begin{tabular}[c]{@{}l@{}}Fully functional \\ desktop client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Fully functional desktop  client \\which should be able to \\ register and login to a \\ server and communicate with \\ several chat partners either \\ on the same server or a \\ different server\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Deliver a desktop client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        \midrule
         OOS: Mobile Client &
-        \begin{tabular}[c]{@{}l@{}}Fully functional \\ mobile client \\ which should be \\ able to register \\ and login to a \\ server and \\ communicate with \\ several chat \\ partners either on \\ the same server or \\ a different server\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Fully functional mobile client \\which should be able to \\ register and login to a \\ server and communicate with \\ several chat partners either on \\ the same server or a \\ different server\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Deliver a mobile client to individuals \\ which can easily be used to communicate \\ privately and securely\end{tabular} \\
+        \midrule
         Optional: Website &
-        \begin{tabular}[c]{@{}l@{}}Deployable \\ website for \\ trale.org\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}Deployable website for \\ trale.org\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Providing a user-friendly website for two \\ main purposes:		\\ - Provide potential users information \\ about the service and how SocialStuff \\ works (should be easily understandable, \\ not to tech sided) 			\\ - Provide (potential) users a download \\ portal for the server as well as the \\ desktop and mobile clients\end{tabular} \\
+        \midrule
         Project Dossier &
         \begin{tabular}[c]{@{}l@{}}Detailed, \\ structured, \\ consistent, \\ cohesive, easy \\ understandable\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Document \ac{sofa} module for \\ reporting purposes\end{tabular} \\
         &
         &
-        \\ \hline
+        \\
+        \bottomrule
     \end{tabular}\label{tab:table3}
 \end{table}
 
@@ -335,46 +343,54 @@ important goal(s), as well as their contribution.
     \caption{List of involved stakeholders, their roles and influence on project}
     \begin{tabular}{@{}|l|l|l|l|l|@{}}
         \toprule
-        Stakeholder &
-        Role &
-        Influence &
-        \begin{tabular}[c]{@{}l@{}}Most important\\ goal\end{tabular} &
-        \begin{tabular}[c]{@{}l@{}}How will\\ he/she\\ contribute\end{tabular} \\ \midrule
+        \textbf{Stakeholder} &
+        \textbf{Role} &
+        \textbf{Influence} &
+        \begin{tabular}[c]{@{}l@{}}\textbf{Most important}\\ \textbf{goal}\end{tabular} &
+        \begin{tabular}[c]{@{}l@{}}\textbf{How will}\\ \textbf{he/she}\\ \textbf{contribute}\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Jörn\\ Neumeyer\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Product Owner\\ Backend Dev\end{tabular} &
         3 &
         \begin{tabular}[c]{@{}l@{}}Properly\\ communicate\\ the\\ requirements \&\\ developing\\ back-end\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Dave\\ Hoevenaars\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Documentation\\ Quality Assurance\\ Front-end dev\end{tabular} &
         2 &
         \begin{tabular}[c]{@{}l@{}}Make sure the\\ project runs \\ smooth/time\\ management \&\\ developing\\ front-end\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Tobias\\ Jansen\end{tabular} &
         Back-end dev &
         2 &
         \begin{tabular}[c]{@{}l@{}}Developing\\ back-end\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Malte\\ Castner\end{tabular} &
         Front-end dev &
         2 &
         \begin{tabular}[c]{@{}l@{}}Developing\\ front-end\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}High, \\ 3 times a \\ week active\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Maurits\\ van der Zee\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Project \\ management \&\\ back-end dev \& \\ front-end dev\end{tabular} &
         2 &
         \begin{tabular}[c]{@{}l@{}}Make sure the \\ project runs \\ smooth / time\\ management\\ developing\\ front-end and\\ back-end\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}High,\\ 3 times a\\ week active\end{tabular} \\
+        \midrule
         Gedak GmbH &
         Client &
         1 &
         \begin{tabular}[c]{@{}l@{}}Properly \\ communicate the\\ requirements / \\ make sure we\\ stay on track\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Needs to be\\ informed\\ about project\\ status\end{tabular} \\
+        \midrule
         \begin{tabular}[c]{@{}l@{}}Fontys Tutor\\ Pieter\\ van den Hombergh\end{tabular} &
         Supervisor &
         1 &
         Supervising the project &
-        \begin{tabular}[c]{@{}l@{}}Little but\\ wants to be\\ kept in loop\\ for project\\ status updates\end{tabular}
+        \begin{tabular}[c]{@{}l@{}}Little but\\ wants to be\\ kept in loop\\ for project\\ status updates\end{tabular} \\
+        \bottomrule
     \end{tabular}\label{tab:table6}
 \end{table}
 
@@ -401,7 +417,7 @@ The higher the exposure, the more attention must be paid to said risk.
         \textbf{Risk} &
         \textbf{Consequence} &
         \textbf{Counter measure} \\
-        \hline
+        \midrule
         R1 &
         \begin{tabular}[c]{@{}l@{}}Due to the lack of \\
                                     knowledge of coding language,\\
@@ -413,11 +429,12 @@ The higher the exposure, the more attention must be paid to said risk.
                                     are available to use when it is \\
                                     clear which language, we will be \\
                                     using\end{tabular} \\
+        \midrule
         R2 &
         \begin{tabular}[c]{@{}l@{}}End product not satisfying the \\ requirements of the client\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Client not satisfied with the \\result which will lead to a \\failed project\end{tabular} &
         \begin{tabular}[c]{@{}l@{}}Make sure to show the progress \\and ask for feedback by holding \\demos to the client regularly\end{tabular} \\
-        \hline
+        \bottomrule
     \end{tabular}\label{tab:table5}
 \end{table}
 
@@ -427,10 +444,11 @@ The higher the exposure, the more attention must be paid to said risk.
     \begin{tabular}{@{}|l|l|l|l|@{}}
         \toprule
         \textbf{Risk ID} & \textbf{Likelihood} & \textbf{Impact} & \textbf{Exposure} \\
-        \hline
+        \midrule
         R1      & 2          & 4      & 8        \\
+        \midrule
         R2      & 2          & 5      & 10 \\
-        \hline
+        \bottomrule
     \end{tabular}\label{tab:table4}
 \end{table}
 
