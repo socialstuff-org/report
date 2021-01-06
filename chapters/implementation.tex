@@ -36,10 +36,24 @@ Although the content, and most meta data (e.g. time sent, sender name) of messag
 
 In order to establish a secure connection between a client and a server, both parties must be in possession of the following things:
 \begin{itemize}
-  \item a \ac{ECDH} public and private key pair
-  \item a RSA public and private key pair
+  \item an \ac{ECDH} public and private key pair of curve P-384 \parencite{nist-digital-signature-standard}
+  \item an RSA public and private key pair of length 4096-bit
 \end{itemize}
 
+The \ac{ECDH} keys are used to negotiate a common key, which can be used to encrypt data using AES.
+The RSA keys are used to verify one's identity by means of digital signatures, so the other party knows that the handshake message hasn't been tampered with.
+
+How the handshake works:
+\begin{enumerate}
+  \item Client connects to server.
+  \item Client sends initial message: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
+  \item Server calculates shared secret.
+  \item Server sends reply: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
+  \item Client verifies the server's \ac{ECDH} signature. If the verification fails, the handshake and connection will be terminated.
+  \item Client calculates shared secret and sends their username.
+  \item Server loads the proper client RSA public key and verifies their identity. If the verification fails, the handshake and connection will be terminated.
+  \item If the handshake/connection haven't been terminated due to prior errors, a secure connection has been established, via which all future data will be sent.
+\end{enumerate}
 
 \subsection{Persistence}\label{subsec:persistence}
 Security by means of encryption does not only apply to the transport step of data, but also to the way data is persisted.
@@ -252,7 +266,7 @@ body:
 Edits the security settings.
 The new settings are provided in body.
 
-##Example Add Report reason
+\#\#Example Add Report reason
 \begin{figure}[!ht]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason.pdf}
