@@ -3,6 +3,7 @@
 
 \chapter{Design}\label{ch:design}
 
+
 \section{Design artefacts}\label{sec:design-artefacts}
 
 This part of the document will present the artefacts which have been developed during the design phase.
@@ -80,6 +81,7 @@ The sender at a later point in time will read the message and forward this statu
 The server will check if the sender is online which he in this case again is not.
 Once the sender is logged in the sender will then be forwarded the read receipt status by the server.
 
+
 \section{Network Design}\label{sec:network-design}
 
 \subsection{Application Layers}\label{subsec:application-layers}
@@ -92,13 +94,20 @@ Once the sender is logged in the sender will then be forwarded the read receipt 
 \subsection{Port distribution}\label{subsec:port-distribution}
 
 % TODO @all add descrptions to table
-\begin{table}[]
-    \begin{tabular}{lll}
-        \textbf{Port} & \textbf{Service}                               & \textbf{Description} \\
-        8086          & Default Application Port                       & TODO @all            \\
-        3000          & Identity Service                               & TODO @all            \\
-        3001          & Chat service over HTTP                         & TODO @all            \\
-        3002          & Chat service over SocialStuff/Trale connection & TODO @all
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \toprule
+        \textbf{Port} & \textbf{Service}                               \\
+        \midrule
+        8086          & Default Application Port                       \\
+        \midrule
+        3000          & Identity Service                               \\
+        \midrule
+        3001          & Chat service over HTTP                         \\
+        \midrule
+        3002          & Chat service over SocialStuff/Trale connection \\
+        \bottomrule
     \end{tabular}\label{tab:table}
 \end{table}
 
