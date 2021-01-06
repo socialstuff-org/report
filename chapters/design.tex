@@ -1,5 +1,8 @@
 %!TEX root = ../report.tex
+
+
 \chapter{Design}\label{ch:design}
+
 
 \section{Design artefacts}\label{sec:design-artefacts}
 
@@ -77,20 +80,39 @@ The recipient at a later point in time will read the message and forward this a 
 The server will check if the sender is online which he in this case again is not.
 Once the sender is logged in the sender will then forward the read receipt status.
 
+
 \section{Network Design}\label{sec:network-design}
+
+This section covers in detail how the actual software components are set up and how they are linked together.
 
 \subsection{Application System Layers}\label{subsec:application-system-layers}
 
+The following visualization (\ref{fig:figure33}) shows the interaction between the different components in the client
+and server application.
+It shows in detail how the different concrete parts depend on and communicate with each other.
+
 \begin{figure}[H]
     \centering
+    \caption{Trale System Layers and Deployment Diagram}
     \hspace*{-2.9cm}
     \includegraphics[width=1.3\textwidth]{./graphics/systemLayers}
-    \caption{Trale System Layers and Deployment Diagram}
     \label{fig:figure33}
 \end{figure}
-
+\textit{*Titp} stands for \ac{titp}, which will be covered in the section
+\hyperref[subsec:transport]{\textbf{transport library}}.
 
 \subsection{Network Architecture}\label{subsec:network-architecture}
+
+The previous diagram (\ref{fig:figure33}) showed how the system is build up in general.
+The following diagram shows how participants on many systems may communicate with one-another.
+
+In the example below (\ref{fig:figure32}), Alice and Bob are connected to the same server (A).
+They can communicate with each other.
+However, they can also communicate with Charly who is located on a different server (B).
+The servers are communicating with each other on the users behalf and forward the messages without fully knowing
+the conversation partners.
+With this approach the sender stays pseudo-anonymous to the receiver and the receiver's server and the opposite way
+around.
 
 \begin{figure}[H]
     \centering
@@ -101,22 +123,26 @@ Once the sender is logged in the sender will then forward the read receipt statu
 
 \subsection{Port distribution}\label{subsec:port-distribution}
 
+The following table shows all utilized ports of the server side.
+External ports are reachable from client applications.
+The internal ports are used for inter-service communication.
 
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|}
         \toprule
-        \textbf{Port} & \textbf{Service}                               \\
+        \textbf{Port} & \textbf{Port Type} & \textbf{Service}                               \\
         \midrule
-        8086          & Default Application Port                       \\
+        8086          & External & Default \ac{http} Port (see~\ref{fig:figure33})     \\
         \midrule
-        3000          & Identity Service                               \\
+        8087          & External & Default \ac{titp} Port (see~\ref{fig:figure33})     \\
         \midrule
-        3001          & Chat service over HTTP                         \\
+        3000          & Internal & Identity Service                               \\
         \midrule
-        3002          & Chat service over SocialStuff/Trale connection \\
+        3001          & Internal & Chat service over \ac{http}                         \\
+        \midrule
+        3002          & Internal & Chat service over Trale connection \\
         \bottomrule
     \end{tabular}\label{tab:table}
 \end{table}
 
-\lipsum[2-4]
