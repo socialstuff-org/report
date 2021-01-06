@@ -23,7 +23,7 @@ Figure~\ref{tab:table23} is a mapping of all use cases and the corresponding act
         \textbf{List of related use cases} \\
         \midrule
         User &
-        User description &
+        \parbox[t]{2.2cm}{An end-user of the Trale Messenger app} &
         \begin{tabular}[t]{@{}l@{}}
             register,  login,  send message,  logout,  search user,  block user,\\
             change settings,  toggle read receipt,  set profile picture,\\
@@ -32,7 +32,7 @@ Figure~\ref{tab:table23} is a mapping of all use cases and the corresponding act
         \end{tabular} \\
         \hline
         Admin &
-        Admin description &
+        \parbox[t]{2.2cm}{An administrator of a Trale server system} &
         \begin{tabular}[t]{@{}l@{}}
             \textbf{Settings Service:} \\
             change settings, add report reason, ban user, block user, login,\\
@@ -54,12 +54,19 @@ Figure~\ref{tab:table23} is a mapping of all use cases and the corresponding act
 
 \section{Use Case Diagram}\label{sec:use-case-diagram}
 % the detailed use cases are located in the SRS
-Figure~\ref{fig:figure} shows the use case diagram of Trale Messenger of the current state of development.
+% Figure~\ref{fig:figure} shows the use case diagram of Trale Messenger of the current state of development.
 
-\begin{figure}[htp]
-    \caption{Use case diagram Trale Messenger}
-    \centering\def\svgwidth{15cm}\input{./graphics/usecase-diagram.pdf_tex}\label{fig:figure}
+
+\begin{figure}[H]
+  \vspace{-2em}
+  \caption{Use case diagram Trale Messenger}
+  \centering
+  \def
+  % \svgwidth{15cm}
+  \svgscale{.7}
+  \input{./graphics/usecase-diagram.pdf_tex}\label{fig:figure}
 \end{figure}
+
 
 
 \section{Entity relationship diagram (ERD)}\label{sec:entity-relationship-diagram-(erd)}
