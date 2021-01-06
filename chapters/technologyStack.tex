@@ -82,7 +82,14 @@ Taking all the above listed considerations into account we have come up with the
 \subsection{Backend}\label{subsec:backend}
 
 \begin{itemize}
-    \item \textbf{NodeJS:}
+    \item \textbf{NodeJS:} 
+    Node.js is a JavaScript-based application framework, allowing to develop fast, scalable network applications. At its heart is Google's V8 JavaScript engine, which was originally developed for Chrome. The engine increases performance by compiling JavaScript directly into native machine code (just-in-time compilation).
+    A decisive special feature of the framework is also its ability to communicate with events as well as to process multiple client connections simultaneously, which makes Node.js particularly interesting for web server development.
+    
+    Traditionally, servers are not event-driven, but thread-based. The best way to think of it is like the queue in a fast food restaurant: with a thread-based server, you place your order and then continue to wait at your place in the queue until your order arrives; during this time, however, the queue does not move any further because the waitress does not have the opportunity to serve the next customer.
+    With an event-driven server, on the other hand, you place your order and then step aside to make room for the next customer. Meanwhile, your order is processed in the background and brought to you or made available for collection as soon as it is ready.
+    The crucial point here is that the acceptance of new orders, i.e. the input-output operation of the server, is not hindered - this is why we also speak of non-blocking I/O (in contrast to blocking I/O in classic, thread-based servers).
+    In the case of server requests, it is really only a matter of microseconds - but microseconds are also important, especially with highly scalable servers and many simultaneous, data-intensive requests.
     \item \textbf{Express:} % TODO @joernneumeyer
     \item \textbf{MongoDB:} % TODO @joernneumeyer
     \item \textbf{MySQL:} % TODO @joernneumeyer
