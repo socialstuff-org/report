@@ -1,8 +1,7 @@
 %!TEX root = ../report.tex
 \chapter{Implementation}\label{ch:implementation}
-
-% TODO @all add introduction to implementation
-\lipsum[2-4]
+As Trale is built with decentralization, flexibility, and micro-services in mind, the implementation had to be split into several parts.
+This chapter will explain these parts, their functionality, and why they exist.
 
 \section{Trale Libraries}\label{sec:libraries}
 In the project, we tried to re-use as much code as possible.
@@ -36,6 +35,7 @@ Although the content, and most meta data (e.g. time sent, sender name) of messag
 
 In order to establish a secure connection between a client and a server, both parties must be in possession of the following things:
 \begin{itemize}
+  \setlength\itemsep{-.5em}
   \item an \ac{ECDH} public and private key pair of curve P-384 \parencite{nist-digital-signature-standard}
   \item an RSA public and private key pair of length 4096-bit
 \end{itemize}
@@ -44,7 +44,9 @@ The \ac{ECDH} keys are used to negotiate a common key, which can be used to encr
 The RSA keys are used to verify one's identity by means of digital signatures, so the other party knows that the handshake message hasn't been tampered with.
 
 How the handshake works:
+\vspace{-.75em}
 \begin{enumerate}
+  \setlength\itemsep{-.5em}
   \item Client connects to server.
   \item Client sends initial message: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
   \item Server calculates shared secret.
@@ -87,6 +89,9 @@ If no are requested, no data will be loaded and the machines memory will not be 
 % TODO add link to npm
 
 \subsection{Utilities}\label{subsec:utilities}
+The utilities library contains various functionality which is of general use and not as specific as logic contained in prior libraries.
+It basically serves as a collection of shared code, which is used in all backend services as well as the frontend client.
+This functionality includes common helpers for security, express.js, and common data types;
 % TODO @joernneumeyer & @mauritsvanderzee
 % TODO add link to npm
 
