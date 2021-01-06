@@ -1,15 +1,247 @@
 %!TEX root = ../report.tex
-
-
 \chapter{Software Requirements Specification (SRS)}\label{ch:software-requirements-specification-(srs)}
 
 
 \section{Introduction}\label{sec:introduction}
+The first section of the document will describe the scope of the project as well as provide an overview of the items
+contained in this SRS document.
+In addition to this it will provide a purpose to this document as well as a list of abbreviations.
 
+\subsection{Purpose}\label{subsec:purpose}
+This document has been developed to build a fully encrypted chat application called SocialStuff or as of now Trale with
+localized data storage and to provide you, as the lecturer, with an overview of this project.
+The requirements for the Trale application have been derived from the provided pdf file on Sharepoint as well as
+interviews and personal meetings with J\"orn Neumeyer who came up with the project and was in close contact with Gedak
+GmbH who submitted the project for the software factory.
+This document has been developed to allow you, as the lecturer, to get an understanding of the requirements for an
+elevator API specification.
+
+\subsection{Scope of project}\label{subsec:scope-of-project}
+The product is a chat application, which is intended to offer an open, decentralized alternative to current proprietary
+and centralized communication and social media platforms.
+The decentralized model allows for an independent utilization of the software, providing companies as well as normal
+users with more sovereignty and less dependence on large service providers.
+Some parts of the system are already provided but might need to be extended upon for further functionality.
+
+The development will be split in frontend and backend development.
+The following part of the SRS will specify the scope for each of the components which are to be developed, to achieve
+the overarching goal of a functioning application.
+
+\subsubsection{Backend Scope}
+\begin{itemize}
+    \item \textbf{Identity Service}
+    The identity service will handle the identity management for the users and handle the permissions each of the users
+    will have.
+    \item \textbf{File Service}
+    The file service will handle the forwarding of the files which can be sent via the chat application.
+    \item \textbf{Reporting Service}
+    The reporting service will handle the reporting mechanic of the chat application.
+    The application will be able to allow the reporting of users.
+    The service will be able to handle administrative tasks, such as adding reasons which users can be reported for,
+    (un)blocking users and the reporting itself.
+    \item \textbf{Settings Service}
+    The Settings service provides an interface to the admin panel frontend and carries out the settings to the other
+    services (e.g.\ reporting settings will be affecting the reporting service, creating invite codes to a server will
+    affect the identity service).
+    \item
+\end{itemize}
+
+\subsubsection{Frontend Scope}
+% TODO add scope of frontend
+
+\begin{enumerate}
+    \item Admin
+    The Admin Panel offers the administrators of the application many setting options.
+    When an admin logs in, he or she is redirected directly to the Admin Panel.
+    \begin{enumerate}
+        \item Dashboard
+        The Dashboard gives the administrators an overview of the Data which is saved on the server.
+        Due to the aim of this project to protect the user’s privacy, the data depth will be limited.
+        \item Security settings
+        This Component gives the opportunity, to change the security settings of the chat application.
+        The way of authentication and the format of the password can be decided.
+        It will also be possible to set an option for only letting users with an invite code onto the server.
+        \item Create invites
+        This Component shows a list of all invite codes existing on the server and the possibility to delete them.
+        It is also possible to add a new invite code with all attributes needed for it.
+        An invite code could also be generated.
+        \item Report Settings
+        On this component the administrators can create report reasons which can be used by the application’s users
+        to report their chat partners.
+        The report reasons created can be changed or deleted.
+        All reasons are shown in a list.
+        In addition, it can be set if the system should automatically block users.
+        \item Reported Users
+        The Reported Users component shows a list of all users which have been reported by other users.
+        The list will also show the reasons including the times the user was reported because of it.
+        The times a user was reported for each reason are added up, showing a total number of reports.
+        \item Banned Users
+        This Component will show all users which where banned from the web service.
+        Like the Reported Users component, described in 1.6, the reasons and the total number of reports are shown.
+        The administrators have the possibility to unban a user, giving him or her back access to the site.
+    \end{enumerate}
+\end{enumerate}
+
+\subsection{Definitions}\label{subsec:definitions}
+
+\begin{table}[ht]
+    \begin{tabular}{|l|l|}
+        \toprule
+        \textbf{Term} & \textbf{Definition}                                                                                     \\
+        \midrule
+        SRS           & Software Requirements Specification                                                                     \\
+        Must &
+        \begin{tabular}[c]{@{}l@{}}
+            This word, or the terms "REQUIRED" or "SHALL", mean that the definition is an\\  absolute requirement of the specification.
+        \end{tabular}          \\
+        Will & Must be implemented, cannot be verified. \\
+        Should   &
+        \begin{tabular}[c]{@{}l@{}}
+            This word, or the adjective "RECOMMENDED", mean that there \\ may exist valid reasons in particular circumstances to ignore\\ a particular item, but the full implications must be understood \\ and carefully weighed before choosing a different course.
+        \end{tabular} \\
+        Stakeholder & A stakeholder is a party with an interest in an enterprise or project.                                     \\
+        Administrator   & \begin{tabular}[c]{@{}l@{}}
+                              The user which has access to settings related to the functioning of the chat\\ application.
+        \end{tabular}   \\
+        Invite Code   & \begin{tabular}[c]{@{}l@{}}
+                            A set of characters giving a new user the possibility to register to the web\\ service.
+        \end{tabular}   \\
+        Report Reason   & A reason any user can choose for another user, blaming one for bad behavior.     \\
+        Reported User   & A user for which a report reason has been chosen by a chat partner.     \\
+        Banned User   & \begin{tabular}[c]{@{}l@{}}
+                            A user which who was taken away of the ability to login to the chat\\ application.
+        \end{tabular}   \\
+        Admin Panel   & \begin{tabular}[c]{@{}l@{}}
+                            Part of the web application where administrators can change the settings\\ of the server.
+        \end{tabular} \\
+        \bottomrule
+    \end{tabular}
+    \label{tab:table24}
+\end{table}
+
+\subsection{Overview of Document}\label{subsec:overview-of-document}
+The next chapter of this document gives an overview of the functionality of the product.
+It describes the informal requirements and is used to establish a context for the technical requirements specification.
+In the next chapter different stakeholders will be introduced.
+The third chapter, requirements specification section, of this document is written primarily for the developers and
+describes in technical terms the details of the functionality of the product.
+
+\section{Overall Description}\label{sec:overall-description}
+This section will give a general overview of the whole system and the main stakeholders of the elevator API
+specification.
+
+\subsection{Product Perspective}\label{subsec:product-perspective}
+The Application is a chat application that requires user interaction.
+This means the application will contain a frontend, that is easy to understand for the end user and does not require a
+huge amount of technical knowledge.
+The main encryption and decryption will take place automatically without the user even noticing that such a thing
+exists in the background.
+To make future development easier, the project will also include a proper documentation of the parts of the software
+that were developed in this semester.
+
+The following main features will exist in the end of the project:
+\begin{itemize}
+    \item A user-friendly user interface
+    \item A backend that prevents tracing of messages and provides the necessary features for the frontend
+    \item An administrator interface that allows configurating the server
+    \item A documentation of everything that has been created this semester.
+\end{itemize}
+
+\subsection{Product Functions}\label{subsec:product-functions}
+With the chat application, users will be certain, that the information they share will only be readable by the intended
+receiver, no third party will be able to access the information.
+The user however should still have the maximum amount of comfort possible, while using the application to prevent him
+from going back to existing, non-encrypted chat services for comfort reasons.
+Setting up the server of the application might require some basic IT-knowledge, but it shouldn’t be too excessive
+(No programming knowledge, but proper software setup knowledge).
+The result of using the system is that the sharing of information sharing will become more secure and less transparent,
+whilst keeping user comfort at a maximum.
+
+\subsection{User Characteristics}\label{subsec:user-characteristics}
+
+There are two types of users using the system:
+
+\paragraph{Regular User}
+The regular user is a normal person. They use the system as a normal chat application without having to think about the
+complicated processes happening in the background.
+They will just use the main frontend.
+
+\paragraph{Administrator}
+The Administrator sets up the server.
+He requires some basic IT knowledge.
+He will setup the server and use the Admin panel which can be used to conduct configurations.
+
+~\ref{fig:figure5} shows the use case diagram for the admin panel.
+It also separates the system into the different backend services, therewith showing the responsibility for each use
+case.
+As can be derived from this diagram, the admin can conduct administrative tasks whilst the user can only conduct tasks
+that are end user related.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/UseCaseDiagramAdminPanel}
+    \caption{Use case diagram for admin panel}
+    \label{fig:figure5}
+\end{figure}
+
+\subsection{Constraints}
+% TODO which constraints exist for the project… find more
+
+This Subsection provides a general description of some of the limitations of the chat application which should be taken
+into consideration by developers.
+Currently the system has limitations on the following areas:
+
+\paragraph{Control Functions}
+The system should contain certain access control functionality.
+This means normal users should not be able to conduct administrative tasks, whilst admin users should not be able to
+access the chat system itself but only conduct administrative tasks.
+
+\paragraph{Safety and Security Considerations}
+The chat service should be fully end-to-end encrypted and secure from third parties.
+
+\paragraph{Registration}
+If the Administrators have set that invite codes are mandatory to register to the web service, users without an invite
+could should not be able to gain access into the chat application.
+
+\paragraph{Banned Users}
+If an admin decides to ban a user, the user should not have the possibility to get access to the application.
+All data locally stored on the user’s device should be deleted after the first try of login, after the user was banned.
+This guarantees that no banned user is in the possession of private chat data.
+
+\paragraph{Received Receipts}
+Received receipts are only send if the receiver set to show them.
+
+\paragraph{Read Receipts}
+Read receipts are only send if the receiver set to show them.
 
 \section{Specific Requirements}\label{sec:specific-requirements}
+This section of the SRS will contain all of functional and quality requirements and will also give a detailed
+description of what features the system will have.
 
 \subsection{External Interface Requirements}\label{subsec:external-interface-requirements}
+This section provides a detailed description of all inputs and outputs from the elevator system and gives a description
+of software and communication interfaces.
+
+\paragraph{User Interfaces}
+\begin{itemize}
+    \item The user Interface will consist of a chat application.
+    Here the user will be able to log in to/ out of the application.
+    Once logged in, the user will be able to see all his contacts, add new contacts, send chat/voice messages to their
+    contacts, send files to their contacts, view contact details, report contacts.
+    % TODO frontend team: check if every UI feature has been mentioned here
+    \item The admin interface/admin panel will allow the admin user to conduct administrative settings for the server.
+    This will include general server settings, like duo authentication, password requirements for users, whether users
+    require an invitation in the first place to join the server, etc.
+    Furthermore, the admin can handle the reporting system here, meaning they will be able to add and remover reasons
+    for which a normal user can be reported for.
+    It will provide a list with an anonymous overview of all users that are currently reported and or blocked.
+    Users will be able to be unblocked via the admin panel.
+    Lastly the panel will contain a dashboard with some information of the server (e.g.\ traffic, amounts of reports in
+    the past etc.)
+\end{itemize}
+
+\paragraph{Software Interfaces}
+% TODO Jörn Neumeyer: maybe say a few words to the encryption protocol, what it could be used for in the future, etc. (?)
 
 \subsection{Functional and Performance Requirements}\label{subsec:functional-and-performance-requirements}
 
