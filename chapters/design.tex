@@ -2,7 +2,27 @@
 
 
 \chapter{Design}\label{ch:design}
+%TODO @maurits image is not inserted at correct location and citation text is only possible above of figure, couldnt figure out a way around that
+\subsection{Design artefacts}
+This part of the document will present the artefacts which have been developed during the design phase.
 
+\begin{figure}[h]
+	\centering
+	\caption{Service interaction concept designed for admin panel}
+	\includegraphics[width=1.0\textwidth]{./images/component_interaction.pdf}
+	\label{fig:componentInteraction}
+\end{figure}
+
+Figure~\ref{fig:componentInteraction} shows a concept for the components that will have to be added for the admin panel. The Settings service will function as the rest interface to the Admin panel. To this point it will interact with the identity service for verifying if the settings are actually being changed by an administrator user. It will also work with the reporting service, which is also another new service in charge of handling the reporting system, to conduct administrative tasks like changing the reasons people can be reported for. 
+
+\begin{figure}[h]
+	\centering
+	\caption{Service interaction concept designed for admin panel}
+	\includegraphics[width=1.0\textwidth]{./images/SequenceDiagram_AddReportReason.pdf}
+	\label{fig:sequenceDiagramAddReportReason}
+\end{figure}
+
+Figure~\ref{fig:sequenceDiagramAddReportReason} shows the sequence diagram for conducting the administrative task of adding a report reason. This diagram has been created in order to further visualize the responsibility and interaction between the existing identity service and the two new services (settings and reporting)
 
 \section{Network Design}\label{sec:network-design}
 
