@@ -156,17 +156,15 @@ The project is mainly focused on providing a working prototype and providing tho
 The project's scope and justification will be discussed in this document.
 
 \subsection{Introduction}\label{subsec:introduction}
-This document will provide an overview over the Social Stuff project.
-To achieve this, the project will briefly explain the project itself, what the final products will be and who the
-stakeholders are.
+This document will provide an overview over the Trale project.
+To achieve this, the project will be briefly explained, what the final products will be and who the stakeholders are.
 Afterwards the document will address, which potential risks could occur during the development and how the team will
-deal with them.
-Next it will be addressed, how the change management will be handled during production and how a high quality can be
+mitigate with them.
+Next it will be addressed, how the change management will be handled during development and how a high quality can be
 ensured.
-Next the project methodology will be handled.
 Finally, the communication plan will be introduced.
 
-\subsection{SocialStuff}\label{subsec:socialstuff}
+\subsection{Trale}\label{subsec:trale}
 
 This chapter explains the company briefly;
 it also describes the problem description and our tasks within the duration of the project.
@@ -175,39 +173,41 @@ it also describes the problem description and our tasks within the duration of t
 
 GEDAK is an IT company which supports its customers with practical solutions for marketing, sales and customer service.
 Their work focuses on web-based projects such as store systems, sales and CRM solutions, reporting applications as well
-as ERP solutions.
-The office is located near Düsseldorf (DE) with about 50 employees who are supporting projects at large and medium-sized
-companies.
+as \ac{erp} solutions.
+The office is located near D\"usseldorf (DE) with about 50 employees who are supporting projects at large and
+medium-sized companies.
 
 \subsubsection{Problem description}
 
-Social Stuff is a free-software project and is intended to offer an open, decentralized alternative to current
+Trale is a free-software project and is intended to offer an open, decentralized alternative to current
 proprietary and centralized communication and social-media platforms.
 The decentralized model allows for an independent utilization of the software, providing companies (or users in general)
 with more sovereignty and less dependence on large service providers.
 
 \subsubsection{Our Task}
 
-Our task is to analyse current communication services and how a decentralized approach would disrupt the market by
+Our task is to analyze current communication services and how a decentralized approach would disrupt the market by
 providing the same features with increased focus on privacy and security.
 Afterwards, we will design how the new decentralized system could look like.
-Lastly, the system shall be implemented using an agile approach.
-During the project the whole project should be managed and monitored properly as well as documented in a detailed and
+Lastly, the system shall be implemented using an agile approach (Kanban).
+During \ac{sofa} the whole project should be managed and monitored properly as well as documented in a detailed and
 structured manner.
 
 \subsection{Project justification}\label{subsec:project-justification}
 
+This section will cover the project justification.
+
 \subsubsection{Project Objective}
 
-The goal of the Social Stuff project, is to Analyse, Design, Implement \& Test an encrypted chat application which
+The goal of the Trale project, is to analyze, design, implement \& test an encrypted chat application which
 resources will be distributed in a decentralized manner, by the users as they have to set up server themselves.
-This application will be deployed in a highly competitive market, which means that Social Stuff will have to
+This application will be deployed in a highly competitive market, which means that Trale will have to
 differentiate itself in order to be successful.
-This is achieved by the decentralized nature of the application which provides users near full control of the
-chat application and various privacy settings.
-However, this alone might not be enough, to set Social Stuff aside from the competition.
-So, an optional goal be to find an additional way of provide differentiation between Social Stuff and its competitors,
-without forgoing the previously mentioned perquisites.
+This is achieved by the decentralized and private nature of the application which provides users near full control of
+the chat application and various privacy settings.
+However, this alone might not be enough, to set Trale aside from the competition.
+So, an optional goal is to find an additional way of providing further differentiation between Trale and its
+competitors, without forgoing the previously mentioned prerequisites.
 
 \subsubsection{Project requirements \& resources}
 
@@ -221,13 +221,14 @@ For the project we will need several resources and there are some high-level req
     \item Adobe XD for UI design
     \item Coding Standards
     \item The Source Code
+    \item Open source libraries
 \end{itemize}
 
 \paragraph{Required knowledge areas}
 \begin{itemize}
     \item Programming Languages (TypeScript)
-    \item Frameworks (Express, Angular, UI frameworks (e.g.\ Angular Material))
-    \item Database technologies (SQL (MariaDB), noSQL (MongoDB))
+    \item Frameworks (Express, Angular, \ac{ui} frameworks (i.e.\ Angular Material w.\ SCSS))
+    \item Database technologies (SQL (MariaDB), NoSQL (MongoDB))
     \item Agile development (Kanban)
     \item Encryption (RSA, AES, Diffie Hellman (Elliptic curves))
     \item Version control (Git)
@@ -240,27 +241,28 @@ scope of this project.
 
 \paragraph{In scope}
 \begin{itemize}
-    \item Creation of prototype of decentralized structure of the Social Stuff
+    \item Creation of prototype of Trale Messenger
     \item A report explaining our analysis, design and implementation choices
-    \item Creation of front-end of Social Stuff
+    \item Creation of frontend and backend of Trale
     \item Analysis, Design and in-code documentation
     \item Optional: Customer Website
 \end{itemize}
 
 \paragraph{Out of scope}
 \begin{itemize}
-    \item A fully released version of SocialStuff
-    \item Deploying Social Stuff
+    \item A fully released version of Trale
+    \item Mobile Client
+    \item Deploying Trale
 \end{itemize}
 
-\subsection{Project Products}
+\subsection{Project Products}\label{subsec:project-products}
 
 \subsubsection{Customer quality expectations}
 
-The customer expects high-quality software solutions for decentralized communication via one or multi server network.
+The customer expects high-quality software solutions for decentralized communication via a one or multi server network.
 The client expects at least a desktop client.
 However, as we are using cross-platform technologies we try to reuse most of the desktop client solution to implement
-a mobile client as well.
+a mobile client as well in the future.
 
 \subsubsection{Customer acceptance criteria}
 
@@ -305,18 +307,18 @@ In this section, we will mention the deliverables and which purpose they serve f
 
 \subsubsection{Product Opportunities}
 
-Aside from the project goals, Social Stuff has to motivation to become something more than just a one-off project.
-As this project sequence will only last us to January, it’s important to start thinking about future iterations of the
-project sequence and what feature those sequences might bring forth.
-In order to ensure reusability of project sequence artefacts: we will maintain that all documents will be in English.
+Aside from the project goals, Trale has to motivation to become something more than just a one-off project.
+As this project will only last until to January, it is important to start thinking about future iterations of the
+project and what features might be added in the future.
+In order to ensure re-usability of project artefacts, we will maintain all documents in English.
 The main goal is to develop a prototype chat application, which can address the consumer demand for high privacy
 communication technologies.
 One could argue however that in such a competitive market, it is difficult to set your product aside from the
 competition.
-Therefore, further project sequences could include: expanding the platform in terms of features, maximizing security,
-maximizing adaptability, or any other way of differentiating SocialStuff.
+Therefore, future project iterations could include: expanding the platform in terms of features, maximizing security,
+maximizing adaptability, or any other way of differentiating Trale.
 
-\subsection{Project controls}
+\subsection{Project controls}\label{subsec:project-controls}
 
 This section of the document will clarify how the project will be managed.
 Next the risk management will be addressed.
@@ -325,15 +327,10 @@ Next the risk management will be addressed.
 
 Stakeholder management is a critical component to the successful delivery of any project.
 A stakeholder is any individual, group or organization that can affect the project.
-In the table below, you can find all the stakeholders of our project.
-The name, role, how much influence do they have from low to high (1, 2, 3), the stakeholders most important goal,
-contribution and the best way to manage.
+In the table below, one can find all the stakeholders of this project.
+The name, role, how much influence the mentioned stakeholders have from low to high (1, 2, 3), the stakeholders most
+important goal(s), as well as their contribution.
 
-The following table displays each stakeholder and their corresponding roles, influences and goals and contribution to
-the project.
-
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
 \begin{table}[htp]
     \caption{List of involved stakeholders, their roles and influence on project}
     \begin{tabular}{@{}|l|l|l|l|l|@{}}
@@ -393,11 +390,9 @@ The risks will be ranked by its exposure, calculated by using the following form
     Likelihood \times Impact=Risk\ Exposure\label{eq:risk_exposure}
 \end{equation}
 
-Each risk will have a ranking concerning its likelihood and impact (1 – 5).
+Each risk will have a ranking concerning its likelihood and impact (1-5).
 The higher the exposure, the more attention must be paid to said risk.
 
-% Please add the following required packages to your document preamble:
-% \usepackage{booktabs}
 \begin{table}[htp]
     \caption{List of identified risks related to the project}
     \begin{tabular}{@{}|l|l|l|l|@{}}
@@ -439,20 +434,17 @@ The higher the exposure, the more attention must be paid to said risk.
     \end{tabular}\label{tab:table4}
 \end{table}
 
-\subsection{Communication Plan}
+\subsection{Communication Plan}\label{subsec:communication-plan}
 
 \subsubsection{Internal}
 
 The internal documentation will be in English.
-The main internal communication platform that will be used during this project is Microsoft (MS) Teams.
-In MS teams it is possible to chat with each other and share documents.
-Our Kanban task planning, which is updated online in Trello, is integrated in MS Teams.
-Next to MS teams, we have a WhatsApp chat group for small talks.
-For urgent matters we can call each other.
+The main internal communication platform that will be used during this project is \ac{ms} Teams.
+In \ac{ms} teams it is possible to chat with each other and share documents.
+Our Kanban task planning, which is updated online in Trello, is integrated in \ac{ms} Teams.
+Next to \ac{ms} teams, we have a WhatsApp chat group for quick alignments.
 
-% TODO add table/list of contacts and email addresses here
-
-Next to these communication platforms, we'll have a daily stand-up with the project team.
+Next to these communication platforms, we have a daily stand-up with the project team.
 Our \ac{sofa}-coach is Pieter van den Hombergh.
 He will join the weekly project meeting on Tuesday.
 Besides, he will be available to answer our questions.
@@ -461,9 +453,19 @@ Besides, he will be available to answer our questions.
 
 The external communication will mainly be by E-mail.
 Our main contact person from Gedak Gmbh is Gerhard Bongardt.
-There will be meetings with Mr. Bongardt after each sprint and additional meetings when necessary.
+There will be meetings with Mr. Bongardt after each major step and additional meetings when necessary.
 If there are any questions, Mr. Bongardt will forward the questions to the project manager.
 
 \section{Work breakdown structure (WBS)}\label{sec:work-breakdown-structure-(wbs)}
 
-% TODO @mauritsvanderzee add WBS and explanation
+In order to establish a common understanding about this project scope and its deliverables, we developed a \ac{wbs}.
+In this \ac{wbs} you can see a hierarchical representation of what deliverables need to be met in order to complete
+the project.
+Please note that we make a distinction in deliverables when it comes to which category they belong to.
+For instance the initiation phase category holds deliverables that are geared towards gathering requirements and
+justifying the project existence.
+Subsequently, the planning phase will start and gave the project team a good estimate how much time each deliverable
+should take in development.
+In the execution phase we made a distinction between frontend and backend deliverables the latter which also holds
+some very crucial services which completion signified the end of the execution phase and start of the preparation of
+the handover document which will enable us to finish this project.
