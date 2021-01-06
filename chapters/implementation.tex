@@ -71,7 +71,7 @@ Given a base directory, one can now easily perform operations relative to that d
 The two most fundamental operation revolve around saving files in an encrypted manner and loading them from the local storage and retrieving the encrypted data in plain text again.
 Additionally, another API for so called \enquote{TextRecordStorage}s is provided to stream the content of a file containing multiple sub-records.
 
-\subsubsection{Streaming File Content - TextRecordStorage}
+\paragraph{Streaming File Content - TextRecordStorage}
 A \enquote{TextRecordStorage} is a helper, which stores multiple pieces of data in a text based format in one file.
 This functionality could also be achieved using functions of the \enquote{CryptoStorage}, but the \enquote{TextRecordStorage} provides an important feature, which is missing in the \enquote{CryptoStorage}: streaming the content of a file instead of fully loading it in one go.
 But why is this important?
