@@ -6,6 +6,7 @@
 *.log
 *.out
 *.pdf
+!graphics/*.pdf
 !graphics/*/*.pdf
 *.run.xml
 *.synctex.gz
