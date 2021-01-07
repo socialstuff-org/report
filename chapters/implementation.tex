@@ -591,13 +591,13 @@ The use cases as well as their descriptions are located in the
 
 The settings service provides the following \ac{rest} endpoints:
 
-\begin{lstlisting}[label={lst:lstlisting}]
+\begin{lstlisting}
 GET: /settings/report-reason
 \end{lstlisting}
 
 Returns all report reasons as a JSON array.
 
-\begin{lstlisting}[label={lst:lstlisting2}]
+\begin{lstlisting}
 POST: /settings/report-reason
 body:
 {
@@ -608,7 +608,7 @@ body:
 
 Adds a new report reason.
 
-\begin{lstlisting}[label={lst:lstlisting3}]
+\begin{lstlisting}
 PUT: /settings/report-reason
 body:
 {
@@ -620,7 +620,7 @@ body:
 
 Edits an existing report reason.
 
-\begin{lstlisting}[label={lst:lstlisting4}]
+\begin{lstlisting}
 DELETE: /settings/report-reason
 headers:
 - "id": 123
@@ -628,13 +628,13 @@ headers:
 
 Deletes a report reason with an id that is provided as a header.
 
-\begin{lstlisting}[label={lst:lstlisting5}]
+\begin{lstlisting}
 GET: /settings/security
 \end{lstlisting}
 
 Returns the current security settings.
 
-\begin{lstlisting}[label={lst:lstlisting6}]
+\begin{lstlisting}
 PUT: /settings/security
 body:
 {
@@ -702,7 +702,7 @@ Therefore, it was necessary to outsource the report related functionality from t
 \hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
 
 \paragraph{Rest Interface}
-\begin{lstlisting}[label={lst:lstlisting7}]
+\begin{lstlisting}
 POST: /report-reasons
 body:
 {
@@ -713,7 +713,7 @@ body:
 
 Adds a new report reason returning the ID of the added report reason.
 
-\begin{lstlisting}[label={lst:lstlisting8}]
+\begin{lstlisting}
 PUT: /report-reasons
 body:
 {
@@ -725,13 +725,13 @@ body:
 
 Edits a report reason by the \enquote{ID} key and returns the edited reason.
 
-\begin{lstlisting}[label={lst:lstlisting9}]
+\begin{lstlisting}
 GET: /report-reasons
 \end{lstlisting}
 
 Returns all existing report reasons as JSON array
 
-\begin{lstlisting}[label={lst:lstlisting10}]
+\begin{lstlisting}
 DELETE: /report-reasons
 headers
     - id: 12
@@ -740,7 +740,7 @@ headers
 Deletes a report reason by ID which is provided in the header of the request.
 Returns the ID of the deleted request in its body.
 
-\begin{lstlisting}[label={lst:lstlisting11}]
+\begin{lstlisting}
 Headers:
     - user_token
 Body:

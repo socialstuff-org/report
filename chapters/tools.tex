@@ -25,12 +25,12 @@ went into the application.
     \item \textbf{Create a new repository} \\
     First step is to create a new local directory.
     Open the directory in the console and perform following command:
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git init
     \end{lstlisting}
     \item \textbf{Checkout a repository} \\
     The repository for this project already have been created, you can check it out with the following command:
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git clone https://github.com/socialstuff-org/socialstuff.git
     \end{lstlisting}
     \item \textbf{Create a branch} \\
@@ -48,7 +48,7 @@ went into the application.
     Next to the master, many branches for the features that are currently being worked on exists.
     For every new feature, a branch is created.
     No work is ever done directly on the master, the master branch only contains fully finalised features.
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git checkout -b feature_1
     \end{lstlisting}
     \item \textbf{Add and commit} \\
@@ -66,7 +66,7 @@ went into the application.
     If new files were created and you want to commit them, it is important to first add them to the index, so they are
     recognized during your commit to the HEAD. Every commit needs to have a commit message.
     Be wise and choose a message which shows which functionalities you added to the branch.
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git add <name of the file>
 		git add *
 		git commit -m "Commit Message"
@@ -74,13 +74,13 @@ went into the application.
     \item \textbf{Push Changes} \\
     Right now, all changes are in the HEAD of the local repository.
     To send them to the remote repository run the following command:
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git push
 		git push origin <branchname>
     \end{lstlisting}
     \item \textbf{Update} \\
     To update the local repository and getting the newest commits made to the remote repository run the command:
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git pull
 		git pull origin <branchname>
     \end{lstlisting}
@@ -89,7 +89,7 @@ went into the application.
     This happens for example, when there are differences in same part of the code between the local and the remote
     repository.
     Two avoid conflicts, all differences between two branches can be priviously be checked: \\
-    \begin{lstlisting}[label={lst:lstlisting2}]
+    \begin{lstlisting}
 		git diff <branch1> <branch2>
     \end{lstlisting}
 
