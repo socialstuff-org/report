@@ -258,7 +258,7 @@ The creating, editing and deleting of report reasons are done in the embedded re
 
 The report-reasons component is responsible for showing all report reasons previously created.
 They are loaded with the method \textit{getReportReason} and stored inside the variable reportReasons.
-Through this array the ngFor Method itterates, embedding for each ReportReason Object inside the array a
+Through this array the ngFor Method iterates, embedding for each ReportReason Object inside the array a
 report-reason-entry component inside the HTML.
 The TypeScript File holds a second variable called \textit{reload}.
 Here an instance of a new EventEmitter is created.
@@ -269,10 +269,10 @@ emits can be detected.
 If any emit is done inside another component holding the same instance, the getReportReasons function is called which
 will lead to an update of the Array of ReportReasons.
 This is important to trigger an update as soon as a report reason has been edited.
-Next to the ngFor loop the the HTML file embeds another report-reason-entry component and passing over the input
+Next to the ngFor loop the HTML file embeds another report-reason-entry component and passing over the input
 directive \textit{newEntry} a true.
 This will change the behaviour of the component so that it can be used to create a new report reason.
-So now we have a list of all report reasons and the possibility to add a new one.
+So now we have a list of all report reasons, and the possibility to add a new one.
 Next, it will be explained how the report-reason-entry component works.
 
 \begin{figure}[h]
