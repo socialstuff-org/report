@@ -1,0 +1,518 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>16</zoom_level>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1056</x>
+      <y>480</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+private key
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1392</x>
+      <y>480</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>480</y>
+      <w>352</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Public parameters for
+ECDH key exchange
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>496</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
++
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>496</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+=
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>528</x>
+      <y>608</y>
+      <w>352</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Public parameters for
+ECDH key exchange
+bg=yellow</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>624</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
++
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>624</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+=
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1056</x>
+      <y>608</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+private key
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1392</x>
+      <y>608</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>704</x>
+      <y>736</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1056</x>
+      <y>736</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+private key
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1392</x>
+      <y>736</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Secret
+bg=#805f56</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>752</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+=
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>752</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
++
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>816</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Alice
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>560</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Alice
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1488</x>
+      <y>560</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Alice
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>688</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Bob
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1488</x>
+      <y>688</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Bob
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>816</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Bob
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1472</x>
+      <y>816</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Shared
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1056</x>
+      <y>864</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+private key
+bg=red</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>704</x>
+      <y>864</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>944</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Bob
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>944</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Alice
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>880</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
++
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>880</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+=
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1392</x>
+      <y>864</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Secret
+bg=#805f56</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1472</x>
+      <y>944</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Shared
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>704</x>
+      <y>992</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=orange</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1056</x>
+      <y>992</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>ECDH
+public key
+bg=green</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>944</x>
+      <y>1008</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
++
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>800</x>
+      <y>1072</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Alice
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1152</x>
+      <y>1072</y>
+      <w>64</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Bob
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1008</y>
+      <w>64</w>
+      <h>64</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+=
+fontsize=30</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1392</x>
+      <y>992</y>
+      <w>176</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>Garbage
+bg=#809600</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1472</x>
+      <y>1072</y>
+      <w>80</w>
+      <h>32</h>
+    </coordinates>
+    <panel_attributes>halign=center
+valign=center
+Shared
+fontsize=12</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
