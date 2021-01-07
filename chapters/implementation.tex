@@ -93,16 +93,73 @@ well as the base directory and underlying crypto storage instance.
 
 The key registry service implements both the conversation key registry, and the user key registry (\ref{fig:figure34}).
 
+\paragraph{User Key Registration Implementation}
+The user key registry is responsible for retrieving \ac{rsa} public keys from users.
+It always tries to load the requested key from a build in cache for optimal performance.
+In case the cache does not know the requested key, it will try to fetch the key from the contact service by loading
+the corresponding contact.
+If this operation succeeds the key will be added to the cache and returned to the one requesting it.
+If the contact service is unable to provide the requested key, the user key registry will request the key from the
+identity backend service.
 
+This procedure saves a lot of time and resources, as it always tries to fetch the key in the best performant way
+possible.
+
+\paragraph{Conversation Key Registration Implementation}
+The conversation key registry serves two main purposes.
+Firstly, it is responsible for temporarily storing \ac{ecdh} private keys for key negotiation (handshake).
+This is necessary because one may start a handshake with another user who is currently offline so the \ac{ecdh} private
+key has to be temporarily stored since they are always regenerated, for security reasons, if the application is
+restarted.
+
+Secondly, storing of negotiated conversation keys with other users.
+Assuming a contact already exists, this function will simply load the contact overwrite the conversation key and saves
+the contact.
+If that contact does not exist, the method will automatically create a new contact for the given username and
+conversation key, and it also automatically loads the \ac{rsa} public key via the previously described
+\textit{fetchRSA()} method.
 
 \subsubsection{Titp Service}
-% TODO @joernneumeyer & @mauritsvanderzee
 
-\subsubsection{Util Service}
-% TODO @mauritsvanderzee
+The \ac{titp} service is technically a wrapper around the \ac{titp} client from
+the~\hyperref[subsec:transport]{\textbf{transport library}}.
+It is mainly responsible for initializing said instance with concrete parameters (i.e.\ username, \ac{rsa} key pair,
+\ac{ecdh} key pair and key registries).
+
+Additionally, it provides a \textit{connect()} method which is responsible for establishing a connection to the
+\ac{titp} server.
+Todo so it either loads existing / known values (e.g.\ the servers \ac{rsa} public key) or generates needed values like
+the \ac{ecdh} key pair.
+After establishing a connection to the \ac{titp} server, the underlying \ac{titp} client instance may be used to send
+and receive data (i.e.\ messages).
+The client also automatically notifies the consumer about connection state changes (going online or offline).
 
 \subsection{Components}\label{subsec:components}
 
+\subsubsection{Chat App Component}
+The chat app component combines nearly all services with each other to an actual working chat application.
+It listens to incoming messages from the \ac{titp} client via the \ac{titp} service.
+This is done in order to properly add the incoming messages to the appropriate chat log if the sender of the message
+exists as a contact.
+It will also trigger push notifications in the frontend with a minimum of five seconds between the notifications if a
+new message has been received.
+This push notification will contain an adequate summary of the message (e.g.\ the beginning of a text message, or the
+length of a voice message).
+
+\subsubsection{Chat View Component}
+The chat view component is contains the actual chat view, displaying all fetched chat messages from a chat log as well
+as the sub-component \enquote{message box} which contains the actual logic of writing or recording (voice) a message.
+However, it does not send the message directly, but it passes the full message to the chat view, which makes use of the
+\ac{titp} service.
+
+If a new incoming message is recognized, it will be added the chat view component and therefore displayed to the user.
+
+\subsubsection{Sidenav Component}
+The sidenav component displays all present contacts including the latest message of the corresponding chat log.
+On an incoming message, the sidenav will update automatically, displaying the latest message.
+
+
+% TODO @maltecastner admin panel components?
 
 \section{Backend}\label{sec:backend}
 
