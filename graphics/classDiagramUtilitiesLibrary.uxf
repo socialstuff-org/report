@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>110</x>
+      <y>320</y>
+      <w>590</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;top-level functions&gt;&gt;
+--
++passwordIssues(password: String): Dictionary&lt;String, String&gt;
++hashHmac(data: BinaryLike, key: Buffer): String
++hashUnique(data: any, secret: buffer): Promise&lt;String&gt;
++verifyHashUnique(h: string, plain: String, secret: Buffer): Promise&lt;boolean&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>70</x>
+      <y>240</y>
+      <w>670</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>Utility Library</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>90</x>
+      <y>280</y>
+      <w>630</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Security</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

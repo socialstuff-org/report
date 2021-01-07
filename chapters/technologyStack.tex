@@ -16,7 +16,7 @@ planned.
 We started with a small concept, and some sketches of how the product could look like.
 The actual set of features was not fixed at this point in time.
 We knew that the project scope would change during the project phase.
-That's why it is even more important to choose for an agile technology.
+That's why it is even more important to choose for an agile approach.
 
 \section{Project requirements}\label{sec:project-requirements}
 
@@ -25,7 +25,8 @@ to choose a technology stack that supports various system platforms as well as e
 stage of the project.
 This would allow us to adapt our developed parts to be translated to further platforms and devices.
 As more than 60\% of all users are accessing the internet via mobile devices the focus should also lie on technologies
-which are fully supported by mobile platforms and devices.
+which are fully supported by mobile platforms.
+So we can easily port the logic to a mobile client as we only have to adapt the \ac{ui} later on.
 
 As security and privacy are our core principles we needed to take this into consideration for our technology stack.
 Our focus was set to various technologies which have been around for quite some time already, so we can be sure that
@@ -34,8 +35,8 @@ major security vulnerabilities have been eliminated beforehand.
 \section{Open-source technologies}\label{sec:open-source-technologies}
 
 Going with open-source technologies provides multiple benefits.
-First it enables to project team to focus on the business part of the application.
-Most of the time, there is already a good open-source solution for general tasks like front-end frameworks, database
+First, it enables to project team to focus on the business part of the application.
+Most of the time, there is already a good open-source solution for general tasks like frontend frameworks, database
 systems or encryption algorithms.
 Those implementations enable the team to safe a lot of time as the components do not have to be developed by ourselves.
 Last but not least are those already implemented solutions more secure as more people have their eyes on it and report
@@ -45,9 +46,9 @@ and fix bugs.
 
 As a result of the larger community of open-source technologies a better ecosystem will go along with it.
 Important for using open-source software is, that it is properly documented and that is already known in the community.
-This helps with later bug fixings and solution findings.
+This helps with later bug fixing and solution finding.
 The more people using a technology the more questions and answers will be available on sites like Stackoverflow or
-Github forums.
+GitHub forums.
 
 Furthermore, there will be more third-party components and solutions available
 (for example via npm (node package manager)).
@@ -55,7 +56,7 @@ Furthermore, there will be more third-party components and solutions available
 \section{Long-term trends and support}\label{sec:long-term-trends-and-support}
 
 Lastly, a detailed look on the long-term development of available technologies should be considered.
-As said before we should aim for mature technologies as they are more robust, reliable and most of the time also more
+As said before, we should aim for mature technologies as they are more robust, reliable and most of the time also more
 secure which is crucial for this project specifically.
 
 \section{Final technology stack}\label{sec:final-technology-stack}
@@ -67,17 +68,36 @@ Taking all the above listed considerations into account we have come up with the
 
 \begin{itemize}
     \item \textbf{Electron:} We decided to go with Electron as it enables us to develop one solution which can be
-        deployed across several platforms including Windows, macOS and Linux. As Electron is not that difficult to
-        include into a default setup we decided to utilize the technology as this increases the target group
-        significantly.
-    \item \textbf{Angular:} We decided to go with Angular as major front-end framework. It enables us to handle data
-        efficiently between several components. Furthermore, it comes with useful features, for example to dynamically
-        re-render views if the displayed data changes.
-    \item \textbf{Angular Material:} Angular Material provides us with a comprehensive UI library. The library ships
-        with preconfigured elements such as buttons, menus, navigation options, form fields and many more.
-    \item \textbf{SCSS:} To complete our front-end stack we utilize SCSS. It provides additional functionality like
-        variables, nested operations, and it makes it possible to dynamically render themes for Angular Material.
+        deployed across several platforms including Windows, macOS, and Linux.
+        As Electron is not that difficult to include into a default setup we decided to utilize the technology as this
+        increases the target group significantly.
+    \item \textbf{Angular:} We decided to go with Angular as major frontend framework.
+        It enables us to handle data efficiently between several components.
+        Furthermore, it comes with useful features, for example to dynamically re-render views if the displayed data
+        changes.
+        Additionally, it is compatible with multiple mobile application frameworks like NativeScript.
+    \item \textbf{Angular Material:} Angular Material provides us with a comprehensive \ac{ui} library.
+        The library ships with preconfigured elements such as buttons, menus, navigation options, form fields and many
+        more.
+    \item \textbf{SCSS:} To complete our frontend stack we utilize SCSS. It provides additional functionality to
+        standard CSS like variables, nested operations, and it makes it possible to dynamically render themes for
+        Angular Material.
     \item \textbf{NPM:} is the package manager for \hyperref[subsec:backend]{\textbf{Node.js.}} NPM gives us access to many useful open source modules. In many cases, this saves us from writing code for well-known use cases for which there are already many solutions.
+    \item \textbf{Prisma client:} During development of the settings service, we found the prisma client library.
+        This client functions on the database access layer and makes writing queries easier.
+        Setting up the client was very simple thanks to the excellent documentation of the library provider.
+        We kept using this library for the first few weeks of implementation phase, however, it turned out that the
+        client did not support some very important functions of MySQL.
+        We noticed this while trying to write a query with the \enquote{LIKE} keyword, which was not available in the
+        client.
+        As this made implementation of the query using the client very difficult, it was decided to switch the MySQL
+        client and use the more straight forward \enquote{mysql2} client provided by MySQL, which was also used in the
+        existing services.
+        Currently, the prisma service is still being used for simple queries in the
+        \hyperref[subsubsec:settingsSer]{settings service}.
+        However, it is planned to replace these queries with the mysql2 client later on, to have the same standard
+        everywhere.
+        For time reasons this has not been finished yet.
 \end{itemize}
 
 \subsubsection{Angular}

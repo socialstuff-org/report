@@ -2,31 +2,110 @@
 
 
 \chapter{Implementation}\label{ch:implementation}
+As Trale is designed with decentralization, flexibility, and micro-services in mind, the implementation had to be split
+into several parts.
+This chapter will explain these parts as well as their functionalities.
 
-% TODO @all add introduction to implementation
-\lipsum[2-4]
+\section{Trale Libraries}\label{sec:libraries}
+In the project, we tried to re-use as much code as possible.
+Since the client and server-side projects are both implemented in TypeScript, we moved shared logic between the projects
+into separate libraries.
 
+Each library serves a different purpose in the Trale system, and is in-fact independent of each other.
+Code contained in the libraries is more of a general approach to solve a certain problem.
+Through delegation of specific tasks, the library stays flexible, while the concrete way of performing a task is
+implemented in the actual client application.
+I.e\  you may want to store data in an encrypted manner, so the library will take care of applying an encryption
+algorithm, while the consumer of the library provides the specific algorithm to be used.
 
-\section{Libraries}\label{sec:libraries}
-% TODO rename this chapter to make clear that the libraries are self-developed
-% TODO @all add introduction to libraries
-% -> why libraries?
-% -> advantages?
-% -> disadvantages?
-
-\subsection{Persistence}\label{subsec:persistence}
-
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
+However, due to some constraints of the TypeScript compiler, working with these libraries didn't work by creating a
+local connection to the package, but we had to upload them to npm and install them afterwards.
+This lead to some issues in the development process, such as version mismatches between the server and client, where
+both had to use the newest version, but one was using an older version.
 
 \subsection{Transport}\label{subsec:transport}
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
+One of the big questions during the project was: \textit{how can we get data (messages) from one client to another one
+and temporarily save data, which shall be sent to a user who is currently offline?}
+The former part of this question will be addressed by the transport library, whilst the latter part is delegated to the
+library consumer, i.e.\ the node.js based chat server.
 
-\subsection{Utilities}\label{subsec:utilities}
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
+The transport library, as the name suggests, is responsible for transporting data from one client to another
+(technically from a client to a server, and then to another client).
+It only provides transport security for client-server connections!
+The actual content of a message packet has to be properly encrypted by the client.
 
+\paragraph{Establishing a Secure Client-Server Connection}
+Although the content, and most metadata (e.g.\ time sent, sender name) of messages shall be encrypted by clients, some
+data has to be apparent to the server, in order to have the ability to forward the message to the proper recipient.
+
+In order to establish a secure connection between a client and a server, both parties must be in possession of the
+following things:
+
+\begin{itemize}
+  \setlength\itemsep{-.5em}
+  \item an \ac{ecdh} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
+  \item an \ac{rsa} public and private key pair of length 4096-bit
+\end{itemize}
+
+The \ac{ecdh} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
+The \ac{rsa} keys are used to verify one's identity by means of digital signatures, so the other party knows that a
+message has not been tampered with.
+
+How the handshake works:
+\vspace{-.75em}
+\begin{enumerate}
+  \setlength\itemsep{-.5em}
+  \item Client connects to server.
+  \item Client sends initial message: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+  \item Server calculates shared secret.
+  \item Server sends reply: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+  \item Client verifies the server's \ac{ecdh} signature.
+    If the verification fails, the handshake and connection will be terminated.
+  \item Client calculates shared secret and sends their username in \ac{utf8}.
+  \item Server loads the proper client \ac{rsa} public key and verifies their identity.
+    If the verification fails, the handshake and connection will be terminated.
+  \item If the handshake/connection have not been terminated due to prior errors, a secure connection has been
+    established, via which all future data will be sent.
+\end{enumerate}
+
+\subsection{Persistence}\label{subsec:persistence}
+Security by means of encryption does not only apply to the transport step of data, but also to the way data is
+persisted.
+However, it would be quite redundant to always manually specify the full path to a file one wants to operate on, or the
+way data should be encrypted and decrypted.
+Therefore, we created an abstraction to address these issues.
+
+The persistence library offers a simple \ac{api} to instantiate a so called \enquote{CryptoStorage}, which performs its
+operations on a given base directory with user-specifiable encryption algorithms.
+Given a base directory, one can now easily perform operations relative to that directory without being bothered to know
+the actual full path.
+
+The two most fundamental operation revolve around saving files in an encrypted manner and loading them from the local
+storage as well as retrieving the encrypted data in plain text again.
+Additionally, another \ac{api} for so called \enquote{TextRecordStorage}s is provided to stream the content of a file
+containing multiple sub-records.
+
+\paragraph{Streaming File Content - TextRecordStorage}
+A \enquote{TextRecordStorage} is a helper, which stores multiple pieces of data in a text based format in one file.
+This functionality could also be achieved using functions of the \enquote{CryptoStorage}, but the
+\enquote{TextRecordStorage} provides an important feature, which is missing in the \enquote{CryptoStorage}: streaming
+the content of a file instead of fully loading it in one go.
+But why is this important?
+
+One implication of a messenger, which is frequently used by a user, is, that over time a lot of messages will be
+accumulated in chat logs one has with varying chat partners.
+These chat logs may become so large in filesize that they will not fit into a client's memory (\ac{ram}) at once.
+Therefore, the need to load message on an on-demand basis.
+
+To achieve this on-demand loading, the \enquote{TextRecordStorage} loads the specified file in chunks (meaning smaller
+parts).
+Next, each chunk will be checked, if it contains a full record.
+If that is not the case, the next chunk will be loaded and concatenated with the previous one.
+This process is repeated until the next record has been fully loaded.
+As soon as this happens, the new record will be returned.
+
+One important remark: all the described (record) loading will only take place if a new record is requested.
+If no records are requested, no data will be loaded, and the machine's memory will not be utilized unnecessarily.
 
 \section{Frontend}\label{sec:frontend}
 
@@ -34,16 +113,16 @@
 
 % TODO rework introduction section
 The following part of the dossier will describe the different services which have been developed during the time of the project.
-This will include a description of each service, followed by an REST API specification.
+This will include a description of each service, followed by an \ac{rest} \ac{api} specification.
 
 \subsubsection{API Service}\label{subsubsec:api-service}
 
-The API service is a rather small service located in the desktop client.
-The service is responsible for managing the global state of all relevant API information in the desktop application.
+The \ac{api} service is a rather small service located in the desktop client.
+The service is responsible for managing the global state of all relevant \ac{api} information in the desktop application.
 In the current state of development this includes the following information
 
-\begin{itemize}
-    \item hostname - the hostname of the server (e.g. trale.org)
+\begin{itemize}\setlength\itemsep{-0.5em}
+    \item hostname - the hostname of the server (e.g.\ trale.org)
     \item port - the default port on which the service is listening for incoming connections (default: 8086)
     \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
     \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
@@ -97,7 +176,7 @@ logged-in user.
 \subsubsection{Util Service}
 % TODO @mauritsvanderzee
 
-\subsection{Components}
+\subsection{Components}\label{subsec:components}
 
 \subsubsection{Admin Panel}
 
@@ -219,11 +298,55 @@ This feature includes two main component, which again are splitted up in smaller
 	\end{itemize}	
 \end{enumerate}
 
-\section{Backend}
+\section{Backend}\label{sec:backend}
 
-\subsection{Database Connections}
 
-\subsection{Services}
+\subsection{Database Connections}\label{subsec:database-connections}
+
+For the project we used two database management systems, MongoDB and MySQL, depending on the requirements of the backend
+services.
+
+\subsubsection{MongoDB}
+MongoDB is a non-relational, document based database management system.
+This brings a few advantages ad disadvantages, depending on the use case.
+MongoDB is best when you want the flexibility of schema.
+You can easily use replica sets with MongoDB and can take advantage of scalability.
+Expansion plans are flexible and can be easily achieved by adding more machines and RAM to the system.
+It also includes document validations and integrated systems.
+
+A big disadvantage of MongoDB is that over time the data size will increase drastically over time.
+Compared to other DBMS systems the speed is comparatively low.
+
+\paragraph{Why and where was MongoDB used?}
+Mongo DB was used for the messages.
+This is because the messages are non-relational data in the case of SocialStuff.
+The disadvantage of low speed once the data amount increases is neglectable in the case of SocialStuff, as the data will
+only be stored temporarily on the server.
+The data amount is therefore not that high.
+Of course local machines will still store the messages on a longer period, however as only the messages with chat
+partners are stored the amount of data is still comparatively low.
+
+Due to the high scalability of MongoDB it is excellent for SocialStuff, as the entire system is based on users adding
+more servers to the system to increase the security of the system.
+
+\subsubsection{MySQL}
+MySQL is a relational database management system, this also features advantages and disadvantages.
+For starters MySQL provides a high performance and runs on almost every system which is important for SocialStuff as
+users will be able to setup the servers themselves.
+Using MySQL will make this process simpler for them.
+MySQL also provides a high security, because the database administrator can grant appropriate permissions to
+applications that access stored procedures in the database without giving any permissions on the underlying database
+tables.
+A disadvantage of MySQL is that it becomes slower the more data is stored on it due to a high memory usage.
+
+\paragraph{Why and where was MySQL used?}
+MySQL was used for all the relational data, like the data used in the identity service (user data) and reporting
+service.
+This was done as this data is not mere transactional data (like the messages) but data that is meant to stay.
+Furthermore, the high scalability will proof useful once the application will be used by more users and more than our
+one test server is online.
+
+\subsection{Services}\label{subsec:services2}
 
 \subsubsection{Authentication Service}
 % TODO @joernneumeyer
@@ -361,7 +484,9 @@ The administrative tasks, like adding new report reasons, manually blocking and 
 This service was added in the later stages of the project.
 
 First the entire reporting was handled via the \hyperref[subsubsec:settingsSer]{\textbf{settings service}}, however it
-was decided that the reporting itself should possess its own service. % TODO @tobiasjansen --> why? explanation missing
+was decided that the reporting itself should possess its own service. The reason for this being that we early on decided
+to build the application in a modular manner, so users can decide which services they want to have and which once they do not.
+It could be that some users do not want to have a reporting service.
 Therefore, it was necessary to outsource the report related functionality from the
 \hyperref[subsubsec:settingsSer]{\textbf{settings service}} to the
 \hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
