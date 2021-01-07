@@ -7,6 +7,7 @@ In the context of a chat application which aims to fulfill those requirements we
 principles:
 
 \begin{itemize}
+    \setlength\itemsep{-.5em}
     \item End-to-end encryption of messages
     \item Verification of a sender's identity
 \end{itemize}
@@ -15,6 +16,7 @@ principles:
 
 To be compliant with those two principles we needed research answers to the following problem statements:
 \begin{itemize}
+    \setlength\itemsep{-.5em}
     \item How to set up end-to-end encryption between two parties who have never met?
     \item How to verity that a message is really from a certain sender?
 \end{itemize}
@@ -57,35 +59,44 @@ same key which has been used to encrypt the data~\cite{aes}.
 This introduces our next question: How can we establish a common key between to parties via an unsecure connection?
 
 \paragraph{ECDH}
-
-
-
-- ECDH --> asynchronous encryption procedure for key exchange only -->public private key
---> based on diffie hellman --> clock arithmetic
---> clock arithmetic to elliptic curves --> clock exchanged with elliptic curves, 'jump on curves'
---> both parties share their public keys and create a common shared secret
-
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=1.0\textwidth]{./graphics/encryption}
-    \caption{Trale Network Architecture}
-    \label{fig:figure45}
-\end{figure}
-
-
-
+\ac{ecdh} is an asymmetric key exchange algorithm by which two parties may negotiate a common secret which may be used
+for symmetric encryption (e.g. \ac{aes}).
+It offers improved security over regular Diffie-Hellman (DH), and it does not rely on regular clock arithmetic, but a
+variation based on elliptic curves (EC).
+The computationally more expensive elliptic curve arithmetic allows for shorted keys which provide the same security as
+larger keys in regular Diffie-Hellman.
+The calculation of the said shared secret works by mixing key $Priv_A$ with key $Pub_B$ which will result in the same
+key as by mixing $Priv_B$ with key $Pub_A$ (\ref{fig:figure46}).
+However, only mixing $Pub_A$ with $Pub_B$ will result in an invalid key so by monitoring the public keys it is not
+possible to regenerate the shared secret (\ref{fig:figure46}).
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=1.0\textwidth]{./graphics/encryptionPattern.pdf}
-    \caption{Trale Network Architecture}
+    \includegraphics[width=1.0\textwidth]{./graphics/encryptionPattern}
+    \caption{ECDH key exchange illustrated by mixing colors}
     \label{fig:figure46}
 \end{figure}
 
-% TODO @joernneumeyer LG3:
-% Define a research topic relevant to the project, do the research, report on it and care for adequate
-% application of the results in the project
+One problem that is not been solved by \ac{ecdh} is the verification, that a certain public key actually belongs to the
+one who claims to send it.
+But since \ac{rsa} offers such a mechanism, it is used to compromise for that weakness.
 
-% Encryption algorithms --> AES, RSA, ECDH --> which one is best for Trale? Why? Draw decision process...
-% related to LG 1: [...] criteria-based decision-making [...]
+\section{Final Cryptographic Setup}\label{sec:final-cryptographic-setup}
+
+After taking the knowledge described into the upper section into account, we came up with the following cryptographic
+setup:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[height=.8\textheight]{./graphics/encryption}
+    \caption{Example key exchange between Alice and Bob}
+    \label{fig:figure45}
+\end{figure}
+
+\ac{ecdh} public and private keys are used to establish a shared secret.
+In order to verify the validity of that secret, \ac{rsa} signatures are used to verify the identity of both Alice and
+Bob.
+After establishing a common shared secret, Alice and Bob will use \ac{aes} to send data in an encrypted and performant
+way to one another.
+This way we established an end-to-end encrypted communication channel which is secured against any monitoring of the
+conversation content.
