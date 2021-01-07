@@ -146,3 +146,85 @@ The internal ports are used for inter-service communication.
     \end{tabular}\label{tab:table}
 \end{table}
 
+\subsection{Trale Library Design}\label{subsec:trale-library-design}
+
+This section will cover a detailed overview over all self-developed libraries.
+The trale library utilizes a combination of synchronous encryption, \ac{aes} and asynchronous encryption \ac{rsa}.
+
+\subsubsection{Transport Library}
+
+\paragraph{User Key Registry}
+The user key registry is a functional interface.
+It only provides one method to fetch a user's \ac{rsa} public key.
+It is used for end-to-end encryption where no shared secret is available (i.e.\ there has not been a key negotiation
+yet).
+In other cases synchronous encryption is not applicable (e.g.\ sender name in a message), so for secure asymmetric
+encryption the public key of the recipient needs to be fetched.
+
+\paragraph{Conversation Key Registry}
+The conversation key registry serves multiple purposes in the realm of managing various keys needed for conversation
+initialization.
+Mainly, it is responsible for loading and updating synchronous conversation keys.
+Additionally, it takes care of temporarily storing ECDH key pairs during handshake initialization.
+This is necessary in case one starts a handshake with another user who is currently not reachable, so the handshake can
+be completed later on.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibraryDiverse}
+    \vspace*{-0.5cm}
+    \caption{Trale key registry interfaces}
+    \label{fig:figure34}
+\end{figure}
+
+\paragraph{Message abstraction}
+The following diagram~\ref{fig:figure35} shows the abstraction layer for Trale messages.
+Since we have to work with network connections, which do not support transmitting high-level objects, we instead have
+to send binary data.
+This package aims to make handling messages in either format easier by providing a simple yet powerful \ac{api} to
+easily convert between high-level message objects and raw binary data.
+By utilizing enumerations we save a bunch of resources since we only have to send an integer to indicate a message type
+but are able to use an expressive name in our code to avoid confusion and provide easy extensibility.
+This enables us to later implement further message types (e.g.\ file transfers(e.g.\ .pdf), videos, photos, etc.).
+
+It also, provides the ability for senders to attach their own signature so that the receiver is able to verify that the
+message has not been modified during transportation and originates from the proper sender.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale message abstraction for low-level operations}
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibrary-Message}
+    \label{fig:figure35}
+\end{figure}
+
+\paragraph{Trale Server}
+The following diagram~\ref{fig:figure36} shows the Trale server, and the corresponding client bus.
+
+The Trale server package serves two main purposes.
+First, the \ac{titp} server itself, which is responsible for verifying incoming connections and establishing a secure
+tunnel with those new connections.
+
+Second, the client bus, which is responsible for distributing messages to users who are online and notifying the library
+consumer to persist the messages of users who are offline.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale server library package}
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibrary-Server}
+    \label{fig:figure36}
+\end{figure}
+
+\paragraph{Trale Client}
+
+
+
+
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale client library package}
+    \hspace*{-2.9cm}
+    \includegraphics[width=1.3\textwidth]{./graphics/classDiagramTransportLibrary-TitpClient}
+    \label{fig:figure37}
+\end{figure}
+
