@@ -7,8 +7,7 @@
 \newcommand{\papersizeswitch}[3]{\ifnum\strcmp{\papersize}{#1}=0#2\else#3\fi}
 \papersizeswitch{b5paper}{\def\classfontsize{10pt}}{\def\classfontsize{12pt}}
 
-\documentclass[\classfontsize,\papersize,twoside,showtrims,extrafontsizes]{memoir}
-\usepackage{graphicx}
+\documentclass[\classfontsize,\papersize,oneside,showtrims,extrafontsizes]{memoir}
 
 \input{preamble/general}
 \input{preamble/fonts}

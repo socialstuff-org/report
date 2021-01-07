@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>340</y>
+      <w>510</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/CryptoProvider/
+--
+
+--
++encrypt: (data: BinaryLike) =&gt; Buffer | Promise&lt;Buffer&gt;
++decrypt: (encrypted: Buffer) =&gt; Buffer | Promise&lt;Buffer&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>490</y>
+      <w>510</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>CryptoStorage
+--
+-_storageDirectory: String
+-_crypt: CryptoProvider
++storageDirectory: String
+--
++openTextRecordStorage(
+    file: String [] | FileHandle,
+    chunkSize: number = 16
+): TextRecordStorage
++loadFileContent(file: String [] | FileHandle): Promise&lt;Buffer&gt;
++persistFileContent(file: String[], content: Buffer): Promise&lt;void&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>240</x>
+      <y>690</y>
+      <w>510</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>TextRecordStorage
+--
+-_handle: FileHandle
+-_crypt: CryptoProvider
+-_chunkSize: Number
+--
++records(): AsyncIterator&lt;Buffer&gt;
++addRecord(data: Buffer): Promise&lt;void&gt;
++close(): Promise&lt;void&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>140</x>
+      <y>350</y>
+      <w>120</w>
+      <h>440</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;10.0;10.0;420.0;100.0;420.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>400</y>
+      <w>100</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0;10.0;170.0;80.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>160</x>
+      <y>590</y>
+      <w>100</w>
+      <h>180</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;160.0;10.0;160.0;10.0;10.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>130</x>
+      <y>300</y>
+      <w>640</w>
+      <h>550</h>
+    </coordinates>
+    <panel_attributes>CryptoStorage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>110</x>
+      <y>260</y>
+      <w>680</w>
+      <h>610</h>
+    </coordinates>
+    <panel_attributes>Persistence Library</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
