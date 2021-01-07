@@ -364,7 +364,9 @@ The administrative tasks, like adding new report reasons, manually blocking and 
 This service was added in the later stages of the project.
 
 First the entire reporting was handled via the \hyperref[subsubsec:settingsSer]{\textbf{settings service}}, however it
-was decided that the reporting itself should possess its own service. % TODO @tobiasjansen --> why? explanation missing
+was decided that the reporting itself should possess its own service. The reason for this being that we early on decided
+to build the application in a modular manner, so users can decide which services they want to have and which once they do not.
+It could be that some users do not want to have a reporting service.
 Therefore, it was necessary to outsource the report related functionality from the
 \hyperref[subsubsec:settingsSer]{\textbf{settings service}} to the
 \hyperref[subsubsec:reportingSer]{\textbf{reporting service}}.
