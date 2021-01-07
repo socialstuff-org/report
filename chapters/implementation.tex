@@ -10,29 +10,34 @@ This chapter will explain these parts as well as their functionalities.
 
 \subsection{Services}\label{subsec:services}
 
-% TODO rework introduction section
-The following part of the dossier will describe the different services which have been developed during the time of the project.
-This will include a description of each service, followed by an \ac{rest} \ac{api} specification.
+The following part of the report will cover the different frontend services which have been developed during the
+project.
+By \textit{service} we refer to Angular services which enable automated dependency injection as well as application
+wide state management.
 
 \subsubsection{API Service}\label{subsubsec:api-service}
 
 The \ac{api} service is a rather small service located in the desktop client.
-The service is responsible for managing the global state of all relevant \ac{api} information in the desktop application.
-In the current state of development this includes the following information
+The service is responsible for managing the global state of all relevant \ac{api} information in the desktop
+application.
+In the current state of development this includes the following information:
 
 \begin{itemize}\setlength\itemsep{-0.5em}
     \item hostname - the hostname of the server (e.g.\ trale.org)
-    \item port - the default port on which the service is listening for incoming connections (default: 8086)
-    \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
-    \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
+    \item port - the default \ac{http} port on which the other services and comments may perform \ac{rest} calls
+        (default: 8086)
+    \item the remote endpoint - a constructed string for building a connection to the server
+        (e.g.\ https://trale.org:8086)
+    \item trale port - the default port on which the server is listening for encrypted connections (default: 8087)
 \end{itemize}
 
 Further, the service provides several helper methods for retrieving and updating the remote endpoint as well as several
 getters and setters for all above mentioned attributes.
 
-\subsubsection{Auth Service}\label{subsubsec:auth-service}
-The auth service is responsible for managing authentication related tasks such as login, logout, registration and
-minor helper functions (e.g.\ forgot password).
+\subsubsection{Authentication Service}\label{subsubsec:auth-service}
+
+The authentication service is responsible for managing authentication related tasks such as login, logout, registration
+and minor helper functions (e.g.\ forgot password).
 
 \paragraph{Login function}
 The login takes a username and a password as parameters and executes a post request to the remote endpoint specified in
@@ -40,9 +45,23 @@ the \textbf{\hyperref[subsubsec:api-service]{API service}}.
 On a successful login a token will be provided for future authentication, otherwise an error stating 'Invalid
 credentials - Status code 400' will be returned.
 
-% TODO @joernneumeyer maybe add register / logout etc. here as well? refactor code? not in auth service yet
+\paragraph{Register function}
+The registration takes username, a password and an optional invitation code (depending on the server settings) as
+parameters.
+Firstly, a new \ac{rsa} key pair is being generated with a length of 4096 bits.
+A post request to the remote endpoint specified in the \textbf{\hyperref[subsubsec:api-service]{API service}} will be
+performed containing the username, password, \ac{rsa} public key and invite code if one is necessary.
 
-Due to the mentioned responsibilities, this service is only injected in authentication related components.
+If the post request fails an error message will be displayed, and the function is done.
+If its succeeds, the client will receive a response containing a token.
+This token is a piece of data which has been encrypted by the server using the given \ac{rsa} public key, and it will
+be decrypted by the client in order to prove ownership of the \ac{rsa} public key.
+
+Secondly, a second \ac{rest} call will be made in order to confirm the registration (i.e.\ ownership of the \ac{rsa}
+public key).
+This is achieved by posting the decrypted token to the identity service.
+If the registration is completed, the local crypto storage will be initialized and the \ac{rsa} public and private keys
+are stored.
 
 \subsubsection{Contact Service}\label{subsubsec:contact-service}
 
@@ -51,23 +70,30 @@ It owns a contact array holding all contacts for the currently logged-in user.
 On application startup the contact service will load all contacts from drive by utilizing the
 \textbf{\hyperref[subsubsec:crypto-storage-service]{Crypto Storage Service}}.
 
-Besides providing a loading wrapper for retrieving encrypted contacts from the drive it also manages actions such as
-adding contacts, updating contacts or fetching the latest message of all contacts to display those in the contact list.
+Besides, providing a loading wrapper for retrieving encrypted contacts from the drive, it also manages actions such as
+adding contacts, updating contacts or fetching the latest message of all contacts to display those in the sidenav.
 
-Lastly, the contact service provides a function to load the actual chat of a specific contact with the currently
-logged-in user.
-
-% TODO @joernneumeyer any additional remarks / information to be added?
-
-\subsubsection{Debug Service?}
-% TODO @joernneumeyer & @mauritsvanderzee
-% @joernneumeyer shall we include debug service?
+Lastly, the contact service provides a function to load the actual chat (a text record storage) of a specific contact
+with the currently logged-in user.
 
 \subsubsection{Crypto Storage Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+
+The crypto storage service implements a crypto provider (\ref{fig:figure38}) which specifies an encryption via \ac{aes}
+with a 256bit key in cbc mode.
+The service itself is a wrapper around the crypto storage library (\ref{fig:figure38}).
+In addition, it provides a load function to initialize the underlying crypto storage instance for the user who is
+currently logged in.
+It also automatically generates a master password which is used for the actual encryption.
+The user password however, is used to encrypt and decrypt that master password.
+
+The service also provides several getters for retrieving the mentioned master key for external encryption operations as
+well as the base directory and underlying crypto storage instance.
 
 \subsubsection{Key Registry Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+
+The key registry service implements both the conversation key registry, and the user key registry (\ref{fig:figure34}).
+
+
 
 \subsubsection{Titp Service}
 % TODO @joernneumeyer & @mauritsvanderzee
@@ -79,6 +105,9 @@ logged-in user.
 
 
 \section{Backend}\label{sec:backend}
+
+The following part of the report will cover the different services which have been developed during the project.
+This will include a description of each service, followed by a \ac{rest} \ac{api} specification.
 
 \subsection{Database Connections}\label{subsec:database-connections}
 
@@ -159,7 +188,7 @@ The use cases as well as their descriptions are located in the
 
 \paragraph{Rest interface}
 
-The settings service provides the following rest endpoints:
+The settings service provides the following \ac{rest} endpoints:
 
 \begin{lstlisting}[label={lst:lstlisting}]
 GET: /settings/report-reason
