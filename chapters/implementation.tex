@@ -2,102 +2,110 @@
 
 
 \chapter{Implementation}\label{ch:implementation}
-As Trale is built with decentralization, flexibility, and micro-services in mind, the implementation had to be split into several parts.
-This chapter will explain these parts, their functionality, and why they exist.
+As Trale is designed with decentralization, flexibility, and micro-services in mind, the implementation had to be split
+into several parts.
+This chapter will explain these parts as well as their functionalities.
 
 \section{Trale Libraries}\label{sec:libraries}
 In the project, we tried to re-use as much code as possible.
-Sine the client and server-side projects are both implemented in TypeScript, we moved shared logic between the projects into separate libraries.
+Since the client and server-side projects are both implemented in TypeScript, we moved shared logic between the projects
+into separate libraries.
 
-Each library serves a different purpose in the Trale system, and is in-fact independent from each other.
+Each library serves a different purpose in the Trale system, and is in-fact independent of each other.
 Code contained in the libraries is more of a general approach to solve a certain problem.
-Through delegation of specific tasks, the library stays flexible, while the concrete way of performing a task is implemented in the actual client application.
-I.e. you may want to store data in an encrypted manner, so the library will take care of applying an encryption algorithm, while the consumer of the library provides the specific algorithm to be used.
+Through delegation of specific tasks, the library stays flexible, while the concrete way of performing a task is
+implemented in the actual client application.
+I.e\  you may want to store data in an encrypted manner, so the library will take care of applying an encryption
+algorithm, while the consumer of the library provides the specific algorithm to be used.
 
-However, due to some constraints of the TypeScript compiler, working with these libraries didn't work by creating a local connection to the package, but we had to upload them to npm and install them afterwards.
-This lead to some issues in the development process, such as version mismatches between the server and client, where both had to use the newest version, but one was using an older version.
-
-% TODO rename this chapter to make clear that the libraries are self-developed
-% TODO @all add introduction to libraries
-% -> why libraries?
-% -> advantages?
-% -> disadvantages?
+However, due to some constraints of the TypeScript compiler, working with these libraries didn't work by creating a
+local connection to the package, but we had to upload them to npm and install them afterwards.
+This lead to some issues in the development process, such as version mismatches between the server and client, where
+both had to use the newest version, but one was using an older version.
 
 \subsection{Transport}\label{subsec:transport}
-One of the big questions during the project was: how can we get data (messages) from one client to another one and temporarily save data, which shall be sent to a user who is currently offline?
-The former part of this question will be addressed by the Transport library, whilst the latter part is delegated to the library consumer, i.e. the node.js based chat server.
+One of the big questions during the project was: \textit{how can we get data (messages) from one client to another one
+and temporarily save data, which shall be sent to a user who is currently offline?}
+The former part of this question will be addressed by the transport library, whilst the latter part is delegated to the
+library consumer, i.e.\ the node.js based chat server.
 
-The Transport library, as the name suggests, is responsible for getting transporting data from one client to another (technically from a client to a server, and then to another client).
+The transport library, as the name suggests, is responsible for transporting data from one client to another
+(technically from a client to a server, and then to another client).
 It only provides transport security for client-server connections!
-The actual content of a message packet has to be properly encrypted by the client!
+The actual content of a message packet has to be properly encrypted by the client.
 
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
 \paragraph{Establishing a Secure Client-Server Connection}
-Although the content, and most meta data (e.g. time sent, sender name) of messages shall be encrypted by clients, some data has to be apparent to the server, in order to have the ability to forward the message to the proper recipient.
+Although the content, and most metadata (e.g.\ time sent, sender name) of messages shall be encrypted by clients, some
+data has to be apparent to the server, in order to have the ability to forward the message to the proper recipient.
 
-In order to establish a secure connection between a client and a server, both parties must be in possession of the following things:
+In order to establish a secure connection between a client and a server, both parties must be in possession of the
+following things:
+
 \begin{itemize}
   \setlength\itemsep{-.5em}
-  \item an \ac{ECDH} public and private key pair of curve P-384 \parencite{nist-digital-signature-standard}
-  \item an RSA public and private key pair of length 4096-bit
+  \item an \ac{ecdh} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
+  \item an \ac{rsa} public and private key pair of length 4096-bit
 \end{itemize}
 
-The \ac{ECDH} keys are used to negotiate a common key, which can be used to encrypt data using AES.
-The RSA keys are used to verify one's identity by means of digital signatures, so the other party knows that the handshake message hasn't been tampered with.
+The \ac{ecdh} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
+The \ac{rsa} keys are used to verify one's identity by means of digital signatures, so the other party knows that a
+message has not been tampered with.
 
 How the handshake works:
 \vspace{-.75em}
 \begin{enumerate}
   \setlength\itemsep{-.5em}
   \item Client connects to server.
-  \item Client sends initial message: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
+  \item Client sends initial message: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
   \item Server calculates shared secret.
-  \item Server sends reply: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
-  \item Client verifies the server's \ac{ECDH} signature. If the verification fails, the handshake and connection will be terminated.
-  \item Client calculates shared secret and sends their username.
-  \item Server loads the proper client RSA public key and verifies their identity. If the verification fails, the handshake and connection will be terminated.
-  \item If the handshake/connection haven't been terminated due to prior errors, a secure connection has been established, via which all future data will be sent.
+  \item Server sends reply: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+  \item Client verifies the server's \ac{ecdh} signature.
+    If the verification fails, the handshake and connection will be terminated.
+  \item Client calculates shared secret and sends their username in \ac{utf8}.
+  \item Server loads the proper client \ac{rsa} public key and verifies their identity.
+    If the verification fails, the handshake and connection will be terminated.
+  \item If the handshake/connection have not been terminated due to prior errors, a secure connection has been
+    established, via which all future data will be sent.
 \end{enumerate}
 
 \subsection{Persistence}\label{subsec:persistence}
-Security by means of encryption does not only apply to the transport step of data, but also to the way data is persisted.
-However, it would be quite redundant to always manually specify the full path to a file one wants to operate on or the way data should be encrypted and decrypted.
+Security by means of encryption does not only apply to the transport step of data, but also to the way data is
+persisted.
+However, it would be quite redundant to always manually specify the full path to a file one wants to operate on, or the
+way data should be encrypted and decrypted.
 Therefore, we created an abstraction to address these issues.
 
-The persistence library offers a simple API to instantiate a so called \enquote{CryptoStorage}, which performs its operations on a given base directory with user-specifiable encryption algorithms.
-Given a base directory, one can now easily perform operations relative to that directory without being bothered to know the actual full path.
+The persistence library offers a simple \ac{api} to instantiate a so called \enquote{CryptoStorage}, which performs its
+operations on a given base directory with user-specifiable encryption algorithms.
+Given a base directory, one can now easily perform operations relative to that directory without being bothered to know
+the actual full path.
 
-The two most fundamental operation revolve around saving files in an encrypted manner and loading them from the local storage and retrieving the encrypted data in plain text again.
-Additionally, another API for so called \enquote{TextRecordStorage}s is provided to stream the content of a file containing multiple sub-records.
+The two most fundamental operation revolve around saving files in an encrypted manner and loading them from the local
+storage as well as retrieving the encrypted data in plain text again.
+Additionally, another \ac{api} for so called \enquote{TextRecordStorage}s is provided to stream the content of a file
+containing multiple sub-records.
 
 \paragraph{Streaming File Content - TextRecordStorage}
 A \enquote{TextRecordStorage} is a helper, which stores multiple pieces of data in a text based format in one file.
-This functionality could also be achieved using functions of the \enquote{CryptoStorage}, but the \enquote{TextRecordStorage} provides an important feature, which is missing in the \enquote{CryptoStorage}: streaming the content of a file instead of fully loading it in one go.
+This functionality could also be achieved using functions of the \enquote{CryptoStorage}, but the
+\enquote{TextRecordStorage} provides an important feature, which is missing in the \enquote{CryptoStorage}: streaming
+the content of a file instead of fully loading it in one go.
 But why is this important?
 
-One implication of a messenger, which is frequently used by a user, is, that over time a lot of messages will be accumulated in chat logs one has with varying chat partners.
-These chat logs may become so large that they won't fit into a client's memory (RAM) at once.
-Therefore the need to load message on an on-demand basis.
+One implication of a messenger, which is frequently used by a user, is, that over time a lot of messages will be
+accumulated in chat logs one has with varying chat partners.
+These chat logs may become so large in filesize that they will not fit into a client's memory (\ac{ram}) at once.
+Therefore, the need to load message on an on-demand basis.
 
-To achieve this on-demand loading, the \enquote{TextRecordStorage} loads the specified file in chunks (meaning smaller parts).
+To achieve this on-demand loading, the \enquote{TextRecordStorage} loads the specified file in chunks (meaning smaller
+parts).
 Next, each chunk will be checked, if it contains a full record.
-If that's not the case, the next chunk will be loaded and concatenated with the previous one.
+If that is not the case, the next chunk will be loaded and concatenated with the previous one.
 This process is repeated until the next record has been fully loaded.
 As soon as this happens, the new record will be returned.
 
-One important remark: all of the described (record) loading will only take place if a new record is requested.
-If no are requested, no data will be loaded and the machines memory will not be utilized unnecessarily.
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
-
-\subsection{Utilities}\label{subsec:utilities}
-The utilities library contains various functionality which is of general use and not as specific as logic contained in prior libraries.
-It basically serves as a collection of shared code, which is used in all backend services as well as the frontend client.
-This functionality includes common helpers for security, express.js, and common data types;
-% TODO @joernneumeyer & @mauritsvanderzee
-% TODO add link to npm
-
+One important remark: all the described (record) loading will only take place if a new record is requested.
+If no records are requested, no data will be loaded, and the machine's memory will not be utilized unnecessarily.
 
 \section{Frontend}\label{sec:frontend}
 
@@ -105,12 +113,12 @@ This functionality includes common helpers for security, express.js, and common 
 
 % TODO rework introduction section
 The following part of the dossier will describe the different services which have been developed during the time of the project.
-This will include a description of each service, followed by an REST API specification.
+This will include a description of each service, followed by an \ac{rest} \ac{api} specification.
 
 \subsubsection{API Service}\label{subsubsec:api-service}
 
-The API service is a rather small service located in the desktop client.
-The service is responsible for managing the global state of all relevant API information in the desktop application.
+The \ac{api} service is a rather small service located in the desktop client.
+The service is responsible for managing the global state of all relevant \ac{api} information in the desktop application.
 In the current state of development this includes the following information
 
 \begin{itemize}\setlength\itemsep{-0.5em}

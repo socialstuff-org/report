@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>430</y>
+      <w>550</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/UserKeyRegistry/
+--
+
+--
++fetchRsa(username: string): Promise&lt;KeyObject&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>880</x>
+      <y>610</y>
+      <w>550</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+/ConversationKeyRegistry/
+--
+
+--
++fetchConversationKey(username: String): Promise&lt;Buffer&gt;
++saveConversationKey(username: String, key: Buffer): Promise&lt;void&gt;
++saveEcdhForHandshake(username: String, ecdh: ECDH): Promise&lt;void&gt;
++loadEcdhForHandshake(username: String): Promise&lt;ECDH | false&gt;
++removeEcdhForHandshake(username: String): Promise&lt;void&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>860</x>
+      <y>390</y>
+      <w>590</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>UserKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>860</x>
+      <y>570</y>
+      <w>590</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>ConversationKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

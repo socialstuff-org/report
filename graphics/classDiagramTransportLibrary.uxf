@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>60</x>
+      <y>760</y>
+      <w>245</w>
+      <h>300</h>
+    </coordinates>
+    <panel_attributes>TitpClient
+--
+-_rsa: {priv: KeyObject, pub: KeyObject}
+-_ecdh: ECDH
+#_key: Buffer
+#_onIncomingMessage: Subject&lt;ChatMessage&gt;
+-_hostname: String
+-_keyRegistry: UserKeyRegistry &amp; ConversationKeyRegistry
++hostname: String
++userHandle: String
+--
++constructor(
+    username: String, 
+    rsa: {priv: KeyObject, pub: KeyObject} | string, 
+    ecdh: ECDH, 
+    _keyRegistry: UserKeyRegistry &amp; ConversationKeyRegistry
+)
++rsaPublicKey(): KeyObject
++connect(
+    hostRsaPub: KeyObject, 
+    host: string, 
+    port: number = 8087
+): Promise&lt;void&gt; 
++end(): Promise&lt;void&gt;
++sendChatMessageTo(
+    message: ChatMessage, 
+    recipients: string[], 
+    groupId?: string
+): Promise&lt;void&gt;
++incomingMessage(): Observable&lt;ChatMessage&gt;
++_parseChatMessage(data: Buffer): Promise&lt;ChatMessage&gt;
++negotiateKeyWith(
+username: string, 
+type: ChatMessageType = ChatMessageType.handshakeInitialization
+): Promise&lt;ChatMessage&gt;
+-_parseInitialHandshake(data: Buffer): Promise&lt;ChatMessage&gt;
+-_interpretIncomingData(data: Buffer): Promise&lt;void&gt;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>565</y>
+      <w>190</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>/CommonTitpClient/
+--
+/#_key: Buffer/
+#_onData: Subject&lt;Buffer&gt;
+#_onDisconnect: Subject&lt;boolean&gt;
+#_username: String
+#_socket: Socket
+--
+#constructor(_username: string, _socket: Socket)
++onDisconnect(): Observable&lt;boolean&gt;
++key(): Buffer
++username(): String
+#_init(): void
++data(): Observable&lt;Buffer&gt;
++write(data: BinaryLike): Promise&lt;void&gt;
+#_write(data: BinaryLike): Promise&lt;void&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>690</y>
+      <w>15</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>475</x>
+      <y>660</y>
+      <w>155</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>/HandshakeState/
+--
+
+--
++enter(handshake: Handshake): void
++exit(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>545</x>
+      <y>830</y>
+      <w>165</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>Handshake
+--
++_syncKey: Buffer
++_handshakeResult = Subject&lt;void&gt;
++username: String
++socket: Socket
++ecdh: ECDH
++rsa: { priv: KeyObject, pub: KeyObject }
++serverRsaPublicKey: KeyObject
+-_state: HandshakeState = Initial
+--
++constructor(
+    username: String,
+    socket: Socket,
+    ecdh: ECDH,
+    rsa: { priv: KeyObject, pub: KeyObject },
+    serverRsaPublicKey: KeyObject
+)
++write(data: BinaryLike): Promise&lt;void&gt;
++_goToState(state: HandshakeState): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>555</x>
+      <y>730</y>
+      <w>155</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Initial
+--
+
+--
++enter(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>545</x>
+      <y>705</y>
+      <w>95</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;170.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>375</x>
+      <y>730</y>
+      <w>155</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>WaitForEcdh
+--
+
+--
++enter(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>395</x>
+      <y>705</y>
+      <w>150</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>280.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>525</x>
+      <y>750</y>
+      <w>40</w>
+      <h>15</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>620</x>
+      <y>770</y>
+      <w>15</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>795</y>
+      <w>305</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>590.0;70.0;590.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>50</x>
+      <y>535</y>
+      <w>710</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>Titp Client</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>355</x>
+      <y>630</y>
+      <w>380</w>
+      <h>390</h>
+    </coordinates>
+    <panel_attributes>Name</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>11</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>671</x>
+      <y>605</y>
+      <w>275</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ChatMessageType
+--
+text = 0
+voice = 1
+handshakeInitialization = 2
+handshakeReply = 3</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1001</x>
+      <y>583</y>
+      <w>374</w>
+      <h>88</h>
+    </coordinates>
+    <panel_attributes>MessageAttachment
+--
++name: String
++content: Buffer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1001</x>
+      <y>737</y>
+      <w>374</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>ChatMessage
+--
++type: ChatMessageType
++senderName: String
++groupId?: String
++content: Buffer
++attachments: MessageAttachment[]
++sentAt: Date</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1155</x>
+      <y>660</y>
+      <w>33</w>
+      <h>99</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>671</x>
+      <y>781</y>
+      <w>275</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;enumeration&gt;&gt;
+ServerMessageType
+--
+chatMessage = 0
+initialHandshake = 1</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1001</x>
+      <y>935</y>
+      <w>374</w>
+      <h>154</h>
+    </coordinates>
+    <panel_attributes>ServerMessage
+--
++type: ServerMessageType;
++content: Buffer;
++recipients: Dictionary&lt;String, Buffer&gt;
++localRecipients: Dictionary&lt;String, Buffer&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>792</x>
+      <y>880</y>
+      <w>231</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;130.0;190.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>935</x>
+      <y>682</y>
+      <w>187</w>
+      <h>77</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;150.0;10.0;150.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>671</x>
+      <y>132</y>
+      <w>704</w>
+      <h>429</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;top-level functions&gt;&gt;
+--
++serializeChatMessage(message: ChatMessage): Buffer
++serializeServerMessage(message: ServerMessage): Buffer
++deserializeChatMessage(serialized: Buffer): ChatMessage
++deserializeServerMessage(serialized: Buffer): ServerMessage
++buildServerMessage(
+    message: ChatMessage,
+    senderPrivateKey: KeyObject,
+    key: Buffer,
+    recipients: { name: string, publicKey: KeyObject }[],
+    messageType: ServerMessageType = ServerMessageType.chatMessage,
+    _encrypt: (data: Buffer, key: Buffer) =&gt; Buffer = encrypt,
+): ServerMessage
++makeSenderNameSignature(
+    senderName: string, 
+    senderPrivateKey: KeyObject, 
+    recipientPublicKey: KeyObject
+): Buffer
++verifySenderNameSignature(
+    signature: Buffer, 
+    senderPublicKey: KeyObject, 
+    recipientPrivateKey: KeyObject
+): Buffer | false
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>649</x>
+      <y>88</y>
+      <w>748</w>
+      <h>1034</h>
+    </coordinates>
+    <panel_attributes>Message</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
