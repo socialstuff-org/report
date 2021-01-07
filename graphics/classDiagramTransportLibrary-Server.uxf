@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>729</x>
+      <y>486</y>
+      <w>261</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>TitpClientConnection
+--
+#_key: Buffer
+--
++constructor(
+    socket: Socket,
+    username: String
+    _key: Buffer
+)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>936</x>
+      <y>279</y>
+      <w>252</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Titp Client</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>972</x>
+      <y>333</y>
+      <w>162</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>CommonTitpClient</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>981</x>
+      <y>351</y>
+      <w>90</w>
+      <h>216</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>80.0;10.0;80.0;220.0;10.0;220.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>729</x>
+      <y>936</y>
+      <w>531</w>
+      <h>189</h>
+    </coordinates>
+    <panel_attributes>TitpClientBus
+--
+-_clients: Dictionary&lt;String, TitpClientConnection&gt;
+-_onDisconnect = Subject&lt;CommonTitpClient&gt;
+-_onForwardToOfflineUsers = Subject&lt;{ message: Buffer; recipient: string }[]&gt;
++onForwardToOfflineUsers: Observable&lt;{ message: Buffer; recipient: string }[]&gt;
+-_endpoint: String
+--
++constructor(_endpoint: String)
++onDisconnect(): Observable&lt;CommonTitpClient&gt;
++pushClient(client: TitpClientConnection): void
+-_registerNewClient(client: TitpClientConnection): void
+-_onClientData(client TitpClientConn, data: Buffer): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>657</x>
+      <y>522</y>
+      <w>90</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>80.0;10.0;10.0;10.0;10.0;580.0;80.0;580.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>729</x>
+      <y>657</y>
+      <w>531</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>TitpServer
+--
+-_server: Server
+-_ecdh: ECDH
+-_rsa: { priv: KeyObject, pub: KeyObject }
+-_userKeyRegistry: UserKeyRegistry
+-_newConnection: Subject&lt;TitpClientConnection&gt;
+--
++constructor(
+    rsa: { priv: KeyObject, pub: KeyObject },
+    ecdh: ECDH,
+    userKeyRegistry: UserKeyRegistry
+)
++rsaPublicKey(): KeyObject
+-_handleIncomingConnection(socket: Socket): Promise&lt;void&gt;
++newConnection(): Observable&lt;TitpClientConnection&gt;
++listen(options: ListenOptions): Promise&lt;TitpServer&gt;
++close(): Promise&lt;void&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>549</y>
+      <w>72</w>
+      <h>252</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;260.0;60.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>639</x>
+      <y>432</y>
+      <w>648</w>
+      <h>729</h>
+    </coordinates>
+    <panel_attributes>TitpServer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>639</x>
+      <y>279</y>
+      <w>270</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>UserKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>657</x>
+      <y>333</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>UserKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>603</x>
+      <y>333</y>
+      <w>144</w>
+      <h>513</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;550.0;140.0;550.0</additional_attributes>
+  </element>
+</diagram>

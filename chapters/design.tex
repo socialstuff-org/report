@@ -4,29 +4,361 @@
 \chapter{Design}\label{ch:design}
 
 
+\section{Design artefacts}\label{sec:design-artefacts}
+
+This part of the document will present the artefacts which have been developed during the design phase.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/component_interaction}
+    \caption{Service interaction concept designed for admin panel}
+    \label{fig:componentInteraction}
+\end{figure}
+
+The \hyperref[subsubsec:settingsSer]{\textbf{settings service}} will function as the REST interface to the admin panel.
+To this point it will interact with the identity service for verifying if the settings are actually being changed by an
+administrator user.
+It will also work with the \hyperref[subsubsec:reportingSer]{\textbf{reporting service}}: the service in charge of
+handling the reporting system, to conduct administrative tasks like changing the reasons people can be reported for.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/SequenceDiagram_AddReportReason}
+    \caption{Service interaction concept designed for admin panel}
+    \label{fig:sequenceDiagramAddReportReason}
+\end{figure}
+
+Figure~\ref{fig:sequenceDiagramAddReportReason} shows the sequence diagram for conducting the administrative task of
+adding a report reason.
+This diagram has been created in order to further visualize the responsibility and interaction between the existing
+\hyperref[subsubsec:identitySer]{\textbf{identity service}}, and the two other services (settings and reporting).
+Further information on this can be derived from~\hyperref[subsubsec:settingsSer]{\textbf{settings service}}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/stateMachineMessage}
+    \caption{State machine diagram for the message}
+    \label{fig:stateMachineMessage}
+\end{figure}
+
+Figure~\ref{fig:stateMachineMessage} shows the different states of the message.
+First the message will be in the \textit{pending at sender} stage, once the message has been successfully sent to the
+server, it will enter the \textit{received by server} stage.
+From there on it depends on the settings of the user, whether the delivers status report is enabled or not.
+Should this option be disabled, the diagram ends here, otherwise, it will be checked if the receiver is reachable or
+not.
+If he is not reachable the state will be set to \textit{pending at server} until the message has been received by the
+intended user, in which case the state will jump to \textit{received by other user}.
+Should the other user be immediately reachable, the state of the message will directly change to the
+\textit{received by other user state}.
+Next, it again depends on the settings, whether read receipts are enabled or not.
+If they are not enabled the diagram ends here, otherwise the message state will be set to \textit{read by receiver}
+and the diagram ends here.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/sequenceDiagramMessage}
+    \caption{Sequence diagram for sending messages}
+    \label{fig:sequenceDiagramMessage}
+\end{figure}
+
+Figure~\ref{fig:sequenceDiagramMessage} shows the sequence of sending a message.
+This diagram will assume that all the worst cases (receiver is not online for receiving the message and sender is not
+there for receiving status updates on the receipt and read receipt status of the message) in order to present how
+forwarding of this information will be handled.
+The sender sends the message to a certain recipient.
+The server then checks if the receiver is online.
+In this case he is not (receiverIsOnline = false).
+The server will now temporarily store the message (persistMessage) until the recipient has logged in.
+As soon as the recipient has logged in the server will forward the pending messages to the receiver.
+The receiver client will then let the server know that the message has been received.
+The server will now check if the sender is online to forward the delivery update.
+In this case the sender is offline (senderIsOnline = false).
+The server will now temporarily store the delivery update.
+Once the sender has logged in, this will prompt the server to forward the delivery status to the sender.
+The recipient at a later point in time will read the message and forward this a read status to the server.
+The server will check if the sender is online which he in this case again is not.
+Once the sender is logged in the sender will then forward the read receipt status.
+
+
 \section{Network Design}\label{sec:network-design}
 
-\subsection{Application Layers}\label{subsec:application-layers}
-% TODO @joernneumeyer & @mauritsvanderzee
+This section covers in detail how the actual software components are set up and how they are linked together.
+
+\subsection{Application System Layers}\label{subsec:application-system-layers}
+
+The following visualization (\ref{fig:figure33}) shows the interaction between the different components in the client
+and server application.
+It shows in detail how the different concrete parts depend on and communicate with each other.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale System Layers and Deployment Diagram}
+    \hspace*{-2.9cm}
+    \includegraphics[width=1.3\textwidth]{./graphics/systemLayers}
+    \label{fig:figure33}
+\end{figure}
+\textit{*Titp} stands for \ac{titp}, which will be covered in the section
+\hyperref[subsec:transport]{\textbf{transport library}}.
 
 \subsection{Network Architecture}\label{subsec:network-architecture}
-% TODO @joernneumeyer & @mauritsvanderzee
-% Umlet diagrams ..?
 
+The previous diagram (\ref{fig:figure33}) showed how the system is build up in general.
+The following diagram shows how participants on many systems may communicate with one-another.
+
+In the example below (\ref{fig:figure32}), Alice and Bob are connected to the same server (A).
+They can communicate with each other.
+However, they can also communicate with Charly who is located on a different server (B).
+The servers are communicating with each other on the users behalf and forward the messages without fully knowing
+the conversation partners.
+With this approach the sender stays pseudo-anonymous to the receiver and the receiver's server and the opposite way
+around.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/components}
+    \caption{Trale Network Architecture}
+    \label{fig:figure32}
+\end{figure}
+
+\pagebreak
 \subsection{Port distribution}\label{subsec:port-distribution}
 
-% TODO @all add descrptions to table
-\begin{table}[]
-    \begin{tabular}{lll}
-        \textbf{Port} & \textbf{Service}                               & \textbf{Description} \\
-        8086          & Default Application Port                       & TODO @all            \\
-        3000          & Identity Service                               & TODO @all            \\
-        3001          & Chat service over HTTP                         & TODO @all            \\
-        3002          & Chat service over SocialStuff/Trale connection & TODO @all
+The following table shows all utilized ports of the server side.
+External ports are reachable from client applications.
+The internal ports are used for inter-service communication.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|l|l|}
+        \toprule
+        \textbf{Port} & \textbf{Port Type} & \textbf{Service}                               \\
+        \midrule
+        8086          & External & Default \ac{http} Port (see~\ref{fig:figure33})     \\
+        \midrule
+        8087          & External & Default \ac{titp} Port (see~\ref{fig:figure33})     \\
+        \midrule
+        3000          & Internal & Identity Service                               \\
+        \midrule
+        3001          & Internal & Chat service over \ac{http}                         \\
+        \midrule
+        3002          & Internal & Settings Service \\
+        \midrule
+        3003          & Internal & Reporting Service \\
+        \bottomrule
     \end{tabular}\label{tab:table}
 \end{table}
 
-\subsection{Database management system}\label{subsec:database-management-system}
-% TODO @all Which dbms, why, schemas, which tables columns constraints etc.
+\section{Trale Library Design}\label{sec:trale-library-design}
 
-\lipsum[2-4]
+This section will cover a detailed overview over all self-developed libraries.
+The trale library utilizes a combination of synchronous encryption, \ac{aes} and asynchronous encryption \ac{rsa}.
+
+In the project, we tried to re-use as much code as possible.
+Since the client and server-side projects are both implemented in TypeScript, we moved shared logic between the projects
+into separate libraries.
+
+Each library serves a different purpose in the Trale system, and is in-fact independent of each other.
+Code contained in the libraries is more of a general approach to solve a certain problem.
+Through delegation of specific tasks, the library stays flexible, while the concrete way of performing a task is
+implemented in the actual client application.
+I.e\ you may want to store data in an encrypted manner, so the library will take care of applying an encryption
+algorithm, while the consumer of the library provides the specific algorithm to be used.
+
+However, due to some constraints of the TypeScript compiler, working with these libraries did not work by creating a
+local connection to the package, but we had to upload them to npm and install them afterwards.
+This lead to some issues in the development process, such as version mismatches between the server and client, where
+both had to use the newest version, but one was using an older version.
+
+\subsection{Transport Library}\label{subsec:transport-library}
+
+One of the big questions during the project was: \textit{how can we get data (messages) from one client to another one
+and temporarily save data, which shall be sent to a user who is currently offline?}
+The former part of this question will be addressed by the transport library, whilst the latter part is delegated to the
+library consumer, i.e.\ the node.js based chat server.
+
+The transport library, as the name suggests, is responsible for transporting data from one client to another
+(technically from a client to a server, and then to another client).
+It only provides transport security for client-server connections!
+The actual content of a message packet has to be properly encrypted by the client.
+
+\paragraph{User Key Registry}
+The user key registry is a functional interface.
+It only provides one method to fetch a user's \ac{rsa} public key.
+It is used for end-to-end encryption where no shared secret is available (i.e.\ there has not been a key negotiation
+yet).
+In other cases synchronous encryption is not applicable (e.g.\ sender name in a message), so for secure asymmetric
+encryption the public key of the recipient needs to be fetched.
+
+\paragraph{Conversation Key Registry}
+The conversation key registry serves multiple purposes in the realm of managing various keys needed for conversation
+initialization.
+Mainly, it is responsible for loading and updating synchronous conversation keys.
+Additionally, it takes care of temporarily storing \ac{ecdh} key pairs during handshake initialization.
+This is necessary in case one starts a handshake with another user who is currently not reachable, so the handshake can
+be completed later on.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibraryDiverse}
+    \vspace*{-0.5cm}
+    \caption{Trale key registry interfaces}
+    \label{fig:figure34}
+\end{figure}
+
+\paragraph{Message abstraction}
+The following diagram~\ref{fig:figure35} shows the abstraction layer for Trale messages.
+Since we have to work with network connections, which do not support transmitting high-level objects, we instead have
+to send binary data.
+This package aims to make handling messages in either format easier by providing a simple yet powerful \ac{api} to
+easily convert between high-level message objects and raw binary data.
+By utilizing enumerations we save a bunch of resources since we only have to send an integer to indicate a message type
+but are able to use an expressive name in our code to avoid confusion and provide easy extensibility.
+This enables us to later implement further message types (e.g.\ file transfers(e.g.\ .pdf), videos, photos, etc.).
+
+It also, provides the ability for senders to attach their own signature so that the receiver is able to verify that the
+message has not been modified during transportation and originates from the proper sender.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale message abstraction for low-level operations}
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibrary-Message}
+    \label{fig:figure35}
+\end{figure}
+
+\paragraph{Trale Server}
+The following diagram~\ref{fig:figure36} shows the Trale server, and the corresponding client bus.
+
+The Trale server package serves two main purposes.
+First, the \ac{titp} server itself, which is responsible for verifying incoming connections and establishing a secure
+tunnel with those new connections.
+
+Second, the client bus, which is responsible for distributing messages to users who are online and notifying the library
+consumer to persist the messages of users who are offline.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale server library package}
+    \includegraphics[width=1.0\textwidth]{./graphics/classDiagramTransportLibrary-Server}
+    \label{fig:figure36}
+\end{figure}
+
+\paragraph{Trale Transport Client}
+The foundation of the Trale transport client builds the abstract \textit{CommonTitpClient} class (\ref{fig:figure37}).
+It is utilized by the server as well as the client application, as both parts need lots of the same logic.
+This logic mainly includes the secure send and receive procedures for data.
+The \textit{CommonTitpClient} builds a wrapper around a raw socket connection.
+In comparison to regular sockets we are not transferring a continuous stream of data, but rather packages of data.
+Those packages of bytes start with the length of the full package to indicate how many of the following bytes belong to
+one package.
+This is necessary in order to properly decrypt and deserialize the messages that will be transferred via this
+connection.
+
+The \textit{TitpClient} implementation will be utilized in the actual application parts.
+It provides a higher abstraction level on which directly chat messages can be extracted from a connection instead of
+having to manually parse them from the \textit{data()} observable.
+Further, the \textit{TitpClient} provides the option to directly send a message to a set of users.
+The implementation will take care of serialization on its own.
+
+Further, the \textit{TitpClient} is able to initialize the key negotiation via \ac{ecdh} with another user.
+The handshake procedure is designed as a state machine, so it can be easily extended in the future, if further steps will
+become necessary.
+In case the client receives an incoming handshake, it will automatically calculate a shared secret and reply with its
+own \ac{ecdh} public key.
+
+It also provides a \textit{connect()} method which takes care of connecting to the server and performing the handshake
+to establish a secure connection.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale client library package}
+    \hspace*{-2.9cm}
+    \includegraphics[width=1.3\textwidth]{./graphics/classDiagramTransportLibrary-TitpClient}
+    \label{fig:figure37}
+\end{figure}
+
+\paragraph{Establishing a Secure Client-Server Connection}
+Although the content, and most metadata (e.g.\ time sent, sender name) of messages shall be encrypted by clients, some
+data has to be apparent to the server, in order to have the ability to forward the message to the proper recipient.
+
+In order to establish a secure connection between a client and a server, both parties must be in possession of the
+following things:
+
+\begin{itemize}
+    \setlength\itemsep{-.5em}
+    \item an \ac{ecdh} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
+    \item an \ac{rsa} public and private key pair of length 4096-bit
+\end{itemize}
+
+The \ac{ecdh} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
+The \ac{rsa} keys are used to verify one's identity by means of digital signatures, so the other party knows that a
+message has not been tampered with.
+
+\textbf{How the handshake works:}
+\vspace{-.75em}
+\begin{enumerate}
+    \setlength\itemsep{-.5em}
+    \item Client connects to server.
+    \item Client sends initial message: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+    \item Server calculates shared secret.
+    \item Server sends reply: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+    \item Client verifies the server's \ac{ecdh} signature.
+    If the verification fails, the handshake and connection will be terminated.
+    \item Client calculates shared secret and sends their username in \ac{utf8}.
+    \item Server loads the proper client \ac{rsa} public key and verifies their identity.
+    If the verification fails, the handshake and connection will be terminated.
+    \item If the handshake/connection have not been terminated due to prior errors, a secure connection has been
+    established, via which all future data will be sent.
+\end{enumerate}
+
+\subsection{Persistence Library}\label{subsec:persistence-library}
+
+Security by means of encryption does not only apply to the transport step of data, but also to the way data is
+persisted.
+However, it would be quite redundant to always manually specify the full path to a file one wants to operate on, or the
+way data should be encrypted and decrypted.
+Therefore, we created an abstraction to address these issues.
+
+\paragraph{Crypto Storage \ac{api}}
+
+The crypto storage \ac{api} provides a simple and intuitive way to read and write data to a local directory.
+A base directory as the root for all operations is set centrally during the initialization of the crypto storage
+(~/.trale).
+This is very useful in order to abstract away the necessity to know the full path to the file one is trying to access.
+Since our application aims to run on as many platforms as possible, it also removes the necessity to remove the path
+separator on a given operating system (e.g.\ Windows \enquote{\textbackslash} vs.\ Linux \enquote{/}).
+
+Additionally, the crypto storage manages the encryption and decryption of files automatically, while the desired
+mechanism of said encryption and decryption can be set by the one instantiating the crypto storage.
+
+\paragraph{Text Record Storage}
+
+In addition to the crypto storage \ac{api}, the text record storage is able to load files partially line by line.
+The lines are accessed as last-in first-out (LIFO).
+This is especially useful in our use-case, since we are going to use the text record storage to save and load chat
+messages.
+The most important reason to do so however, is \ac{ram} efficiency.
+We could also load an entire chat via the crypto storage but on a long chat this would be a waste of memory as not all
+messages are needed as soon as one opens a chat.
+Therefore, the text record storage only loads the latest messages as soon as they are requested.
+If nothing is requested, no data will be loaded and no \ac{ram} will be wasted.
+\begin{figure}[H]
+    \centering
+    \caption{Trale persistence library package}
+    \includegraphics[width=1\textwidth]{./graphics/classDiagramPersistenceLibrary}
+    \label{fig:figure38}
+\end{figure}
+
+\subsection{Utilities Library}\label{subsec:utilities-library}
+
+The utilities library contains various functionality which is of general use and not as specific as logic contained in
+prior libraries.
+It basically serves as a collection of shared code, which is used in all backend services as well as the frontend
+client.
+This functionality includes common helpers for security, express.js, and common data types.
+
+\begin{figure}[H]
+    \centering
+    \caption{Trale utilities library package}
+    \includegraphics[width=1\textwidth]{./graphics/classDiagramUtilitiesLibrary}
+    \label{fig:figure39}
+\end{figure}

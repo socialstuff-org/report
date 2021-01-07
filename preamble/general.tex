@@ -87,6 +87,7 @@
 \usepackage{eso-pic}                  % Watermark and other bag
 \usepackage{preamble/dtucolors}
 \graphicspath{{graphics/}}
+\usepackage{wrapfig}		          % Allows to align an image left or right
 
 % Language
 \usepackage{polyglossia}    % multilingual typesetting and appropriate hyphenation
@@ -125,7 +126,7 @@
 { and~(#2#1#3)}{, (#2#1#3)}{ and~(#2#1#3)}
 
 % Table of contents (TOC)
-\setcounter{tocdepth}{2}              % Depth of table of content
+\setcounter{tocdepth}{3}              % Depth of table of content
 \setcounter{secnumdepth}{2}           % Depth of section numbering
 \setcounter{maxsecnumdepth}{3}        % Max depth of section numbering
 
@@ -164,6 +165,9 @@
 \makechapterstyle{mychapterstyle}{
     \chapterstyle{default}
     \def\format{\normalfont\sffamily}
+
+    % set font in whole project
+    \renewcommand\familydefault{\sfdefault}
 
     \setlength\beforechapskip{0mm}
 
@@ -290,6 +294,7 @@
 \newcommand{\frieze}{%
     \AddToShipoutPicture*{
         \put(0,0){
+            \hspace*{2.5cm}
             \parbox[b][\paperheight]{\paperwidth}{%
                 \includegraphics[scale=2.5]{fontys}
                 \vspace*{2.5cm}

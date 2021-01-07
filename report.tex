@@ -7,13 +7,13 @@
 \newcommand{\papersizeswitch}[3]{\ifnum\strcmp{\papersize}{#1}=0#2\else#3\fi}
 \papersizeswitch{b5paper}{\def\classfontsize{10pt}}{\def\classfontsize{12pt}}
 
-\documentclass[\classfontsize,\papersize,twoside,showtrims,extrafontsizes]{memoir}
+\documentclass[\classfontsize,\papersize,oneside,showtrims,extrafontsizes]{memoir}
 
 \input{preamble/general}
 \input{preamble/fonts}
 \input{preamble/etc}
 
-\addbibresource{bibliography/Bibliography.bib}
+\addbibresource{bibliography/bibliography.bib}
 
 \begin{document}
 
@@ -24,9 +24,7 @@
 \clearforchapter
 
 \frontmatter
-\include{frontmatter/Summary}
-\include{frontmatter/Preface}
-\include{frontmatter/Acknowledgements}
+\include{frontmatter/summary}
 \clearforchapter
 \tableofcontents
 \clearforchapter
@@ -35,7 +33,7 @@
 
 \mainmatter
 \include{chapters/introduction}
-\blinddocument
+\include{chapters/context}
 \include{chapters/research}
 \include{chapters/projectManagement}
 \include{chapters/srs}
@@ -44,11 +42,12 @@
 \include{chapters/visualDesign}
 \include{chapters/technologyStack}
 \include{chapters/implementation}
+\include{chapters/tools}
 \include{chapters/conclusion}
 
 \appendix
-\include{appendices/Appendix}
-\include{appendices/Acronyms}
+\include{appendices/appendix}
+\include{appendices/acronyms}
 
 \backmatter
 \printbibliography

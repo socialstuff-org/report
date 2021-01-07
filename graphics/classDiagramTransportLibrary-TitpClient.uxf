@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>9</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>711</x>
+      <y>603</y>
+      <w>441</w>
+      <h>540</h>
+    </coordinates>
+    <panel_attributes>TitpClient
+--
+-_rsa: {priv: KeyObject, pub: KeyObject}
+-_ecdh: ECDH
+#_key: Buffer
+#_onIncomingMessage: Subject&lt;ChatMessage&gt;
+-_hostname: String
+-_keyRegistry: UserKeyRegistry &amp; ConversationKeyRegistry
++hostname: String
++userHandle: String
+--
++constructor(
+    username: String, 
+    rsa: {priv: KeyObject, pub: KeyObject} | string, 
+    ecdh: ECDH, 
+    _keyRegistry: UserKeyRegistry &amp; ConversationKeyRegistry
+)
++rsaPublicKey(): KeyObject
++connect(
+    hostRsaPub: KeyObject, 
+    host: string, 
+    port: number = 8087
+): Promise&lt;void&gt; 
++end(): Promise&lt;void&gt;
++sendChatMessageTo(
+    message: ChatMessage, 
+    recipients: string[], 
+    groupId?: string
+): Promise&lt;void&gt;
++incomingMessage(): Observable&lt;ChatMessage&gt;
++_parseChatMessage(data: Buffer): Promise&lt;ChatMessage&gt;
++negotiateKeyWith(
+username: string, 
+type: ChatMessageType = ChatMessageType.handshakeInitialization
+): Promise&lt;ChatMessage&gt;
+-_parseInitialHandshake(data: Buffer): Promise&lt;ChatMessage&gt;
+-_interpretIncomingData(data: Buffer): Promise&lt;void&gt;
+
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>765</x>
+      <y>333</y>
+      <w>342</w>
+      <h>234</h>
+    </coordinates>
+    <panel_attributes>/CommonTitpClient/
+--
+/#_key: Buffer/
+#_onData: Subject&lt;Buffer&gt;
+#_onDisconnect: Subject&lt;boolean&gt;
+#_username: String
+#_socket: Socket
+--
+#constructor(_username: string, _socket: Socket)
++onDisconnect(): Observable&lt;boolean&gt;
++key(): Buffer
++username(): String
+#_init(): void
++data(): Observable&lt;Buffer&gt;
++write(data: BinaryLike): Promise&lt;void&gt;
+#_write(data: BinaryLike): Promise&lt;void&gt;</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>927</x>
+      <y>558</y>
+      <w>27</w>
+      <h>63</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>423</y>
+      <w>279</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>/HandshakeState/
+--
+
+--
++enter(handshake: Handshake): void
++exit(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1242</x>
+      <y>801</y>
+      <w>297</w>
+      <h>288</h>
+    </coordinates>
+    <panel_attributes>Handshake
+--
++_syncKey: Buffer
++_handshakeResult = Subject&lt;void&gt;
++username: String
++socket: Socket
++ecdh: ECDH
++rsa: { priv: KeyObject, pub: KeyObject }
++serverRsaPublicKey: KeyObject
+-_state: HandshakeState = Initial
+--
++constructor(
+    username: String,
+    socket: Socket,
+    ecdh: ECDH,
+    rsa: { priv: KeyObject, pub: KeyObject },
+    serverRsaPublicKey: KeyObject
+)
++write(data: BinaryLike): Promise&lt;void&gt;
++_goToState(state: HandshakeState): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>666</y>
+      <w>279</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>Initial
+--
+
+--
++enter(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1206</x>
+      <y>441</y>
+      <w>72</w>
+      <h>279</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>60.0;10.0;10.0;10.0;10.0;290.0;60.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>549</y>
+      <w>279</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>WaitForEcdh
+--
+
+--
++enter(handshake: Handshake): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>477</y>
+      <w>54</w>
+      <h>126</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0;10.0;120.0;40.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1224</x>
+      <y>594</y>
+      <w>54</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;10.0;10.0;110.0;40.0;110.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1377</x>
+      <y>738</y>
+      <w>27</w>
+      <h>81</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1143</x>
+      <y>774</y>
+      <w>207</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>210.0;30.0;210.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>684</x>
+      <y>270</y>
+      <w>927</w>
+      <h>891</h>
+    </coordinates>
+    <panel_attributes>Titp Client</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1188</x>
+      <y>351</y>
+      <w>396</w>
+      <h>792</h>
+    </coordinates>
+    <panel_attributes>Handshake</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1296</x>
+      <y>135</y>
+      <w>270</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>ConversationKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>720</x>
+      <y>189</y>
+      <w>90</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>ChatMessage</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>747</x>
+      <y>207</y>
+      <w>27</w>
+      <h>414</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>702</x>
+      <y>135</y>
+      <w>270</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>Message</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1008</x>
+      <y>135</y>
+      <w>270</w>
+      <h>117</h>
+    </coordinates>
+    <panel_attributes>UserKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1116</x>
+      <y>207</y>
+      <w>27</w>
+      <h>414</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1134</x>
+      <y>207</y>
+      <w>216</w>
+      <h>414</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>220.0;10.0;220.0;70.0;10.0;70.0;10.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1026</x>
+      <y>189</y>
+      <w>144</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>UserKeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1314</x>
+      <y>189</y>
+      <w>189</w>
+      <h>27</h>
+    </coordinates>
+    <panel_attributes>ConversationkeyRegistry</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
