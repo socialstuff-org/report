@@ -87,10 +87,21 @@ Taking all the above listed considerations into account we have come up with the
 \subsection{Backend}\label{subsec:backend}
 
 \begin{itemize}
-    \item \textbf{NodeJS:} % TODO @joernneumeyer
-    \item \textbf{Express:} % TODO @joernneumeyer
-    \item \textbf{MongoDB:} % TODO @joernneumeyer
-    \item \textbf{MySQL:} % TODO @joernneumeyer
+    \item \textbf{NodeJS:} The reason we utilized NodeJS as we wanted to use TypeScript.
+        With NodeJS we are able to write code in just one programming language (TypeScript).
+        With this approach we can compile the code to plain JavaScript, so we can share code between the frontend and
+        backend as well as writing less code overall.
+    \item \textbf{Express:} Express is a wrapper around the native \ac{http} module of NodeJS.
+        It makes it easier to create routes and middlewares and to compose them together into an application.
+    \item \textbf{MongoDB:} We decided to go with MongoDB for the chat service so that we can store data loosely
+    (i.e.\ it does not require a schema).
+        We also wanted to have a database for the chat service which can easily handle reading and writing lots of data
+        that does not require checking of any constraints regarding links to foreign / other objects.
+    \item \textbf{MySQL:} In addition to the NoSQL database MongoDB, we used MySQL for the cases in which we had some
+        more complex structured data where data integrity was very important.
+        Since we only needed the database to store the data and not performing any complex operations immediately on
+        the database level, we chose MySQL.
+        A slim database implementation without additional features.
     \item \textbf{Prisma client:} During development of the settings service, we found the prisma client library.
     This client functions on the database access layer and makes writing queries easier.
     Setting up the client was very simple thanks to the excellent documentation of the library provider.
