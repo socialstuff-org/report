@@ -4,8 +4,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>700</x>
-      <y>350</y>
+      <x>880</x>
+      <y>430</y>
       <w>550</w>
       <h>100</h>
     </coordinates>
@@ -20,8 +20,8 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>700</x>
-      <y>560</y>
+      <x>880</x>
+      <y>610</y>
       <w>550</w>
       <h>160</h>
     </coordinates>
@@ -41,8 +41,8 @@
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>680</x>
-      <y>310</y>
+      <x>860</x>
+      <y>390</y>
       <w>590</w>
       <h>160</h>
     </coordinates>
@@ -52,8 +52,8 @@
   <element>
     <id>UMLPackage</id>
     <coordinates>
-      <x>680</x>
-      <y>520</y>
+      <x>860</x>
+      <y>570</y>
       <w>590</w>
       <h>220</h>
     </coordinates>
