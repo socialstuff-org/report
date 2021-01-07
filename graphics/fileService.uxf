@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.3.0">
+  <zoom_level>15</zoom_level>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>600</x>
+      <y>315</y>
+      <w>405</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Server A</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLDeployment</id>
+    <coordinates>
+      <x>1185</x>
+      <y>315</y>
+      <w>405</w>
+      <h>360</h>
+    </coordinates>
+    <panel_attributes>Server B</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>450</y>
+      <w>180</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+
+
+
+
+
+
+
+
+
+
+
+1. uploads file</panel_attributes>
+    <additional_attributes>30.0;20.0;80.0;20.0;80.0;260.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>615</x>
+      <y>405</y>
+      <w>150</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>File Service</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>615</x>
+      <y>540</y>
+      <w>150</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Trale Server</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1215</x>
+      <y>405</y>
+      <w>150</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>File Service</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>1215</x>
+      <y>540</y>
+      <w>150</w>
+      <h>105</h>
+    </coordinates>
+    <panel_attributes>Trale Server</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>735</x>
+      <y>840</y>
+      <w>225</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Alice
+(Desktop Client)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>450</y>
+      <w>270</w>
+      <h>420</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+
+
+
+
+
+2. file ID</panel_attributes>
+    <additional_attributes>100.0;260.0;100.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>660</x>
+      <y>630</y>
+      <w>225</w>
+      <h>285</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+
+3. send message
+(with file ID)</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;170.0;50.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>585</y>
+      <w>495</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+4. forward message</panel_attributes>
+    <additional_attributes>310.0;20.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1260</x>
+      <y>630</y>
+      <w>240</w>
+      <h>345</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+5. deliver message</panel_attributes>
+    <additional_attributes>10.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1320</x>
+      <y>465</y>
+      <w>180</w>
+      <h>510</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+
+
+
+
+
+
+
+
+
+
+
+6. request file</panel_attributes>
+    <additional_attributes>30.0;20.0;80.0;20.0;80.0;320.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>750</x>
+      <y>420</y>
+      <w>495</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+7. request file</panel_attributes>
+    <additional_attributes>10.0;20.0;310.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>675</x>
+      <y>360</y>
+      <w>870</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+8. send file</panel_attributes>
+    <additional_attributes>460.0;60.0;480.0;60.0;480.0;10.0;10.0;10.0;10.0;50.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1350</x>
+      <y>465</y>
+      <w>345</w>
+      <h>555</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-
+
+
+
+9. deliver file</panel_attributes>
+    <additional_attributes>90.0;350.0;120.0;350.0;120.0;10.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>1260</x>
+      <y>945</y>
+      <w>225</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Bob
+(Desktop Client)</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
