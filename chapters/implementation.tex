@@ -43,11 +43,11 @@ following things:
 
 \begin{itemize}
   \setlength\itemsep{-.5em}
-  \item an \ac{ECDH} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
+  \item an \ac{ecdh} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
   \item an \ac{rsa} public and private key pair of length 4096-bit
 \end{itemize}
 
-The \ac{ECDH} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
+The \ac{ecdh} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
 The \ac{rsa} keys are used to verify one's identity by means of digital signatures, so the other party knows that a
 message has not been tampered with.
 
@@ -56,10 +56,10 @@ How the handshake works:
 \begin{enumerate}
   \setlength\itemsep{-.5em}
   \item Client connects to server.
-  \item Client sends initial message: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
+  \item Client sends initial message: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
   \item Server calculates shared secret.
-  \item Server sends reply: [\ac{ECDH}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ECDH}$_{pub}$)]
-  \item Client verifies the server's \ac{ECDH} signature.
+  \item Server sends reply: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+  \item Client verifies the server's \ac{ecdh} signature.
     If the verification fails, the handshake and connection will be terminated.
   \item Client calculates shared secret and sends their username in \ac{utf8}.
   \item Server loads the proper client \ac{rsa} public key and verifies their identity.

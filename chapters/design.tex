@@ -165,7 +165,7 @@ encryption the public key of the recipient needs to be fetched.
 The conversation key registry serves multiple purposes in the realm of managing various keys needed for conversation
 initialization.
 Mainly, it is responsible for loading and updating synchronous conversation keys.
-Additionally, it takes care of temporarily storing ECDH key pairs during handshake initialization.
+Additionally, it takes care of temporarily storing \ac{ecdh} key pairs during handshake initialization.
 This is necessary in case one starts a handshake with another user who is currently not reachable, so the handshake can
 be completed later on.
 
@@ -214,11 +214,31 @@ consumer to persist the messages of users who are offline.
     \label{fig:figure36}
 \end{figure}
 
-\paragraph{Trale Client}
+\paragraph{Trale Transport Client}
+The foundation of the Trale transport client builds the abstract \textit{CommonTitpClient} class (\ref{fig:figure37}).
+It is utilized by the server as well as the client application, as both parts need lots of the same logic.
+This logic mainly includes the secure send and receive procedures for data.
+The \textit{CommonTitpClient} builds a wrapper around a raw socket connection.
+In comparison to regular sockets we are not transferring a continuous stream of data, but rather packages of data.
+Those packages of bytes start with the length of the full package to indicate how many of the following bytes belong to
+one package.
+This is necessary in order to properly decrypt and deserialize the messages that will be transferred via this
+connection.
 
+The \textit{TitpClient} implementation will be utilized in the actual application parts.
+It provides a higher abstraction level on which directly chat messages can be extracted from a connection instead of
+having to manually parse them from the \textit{data()} observable.
+Further, the \textit{TitpClient} provides the option to directly send a message to a set of users.
+The implementation will take care of serialization on its own.
 
+Further, the \textit{TitpClient} is able to initialize the key negotiation via \ac{ecdh} with another user.
+The handshake procedure is designed as a state machine, so it can be easily extended in the future, if further steps will
+become necessary.
+In case the client receives an incoming handshake, it will automatically calculate a shared secret and reply with its
+own \ac{ecdh} public key.
 
-
+It also provides a \textit{connect()} method which takes care of connecting to the server and performing the handshake
+to establish a secure connection.
 
 \begin{figure}[H]
     \centering
