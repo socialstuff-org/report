@@ -134,7 +134,7 @@ After establishing a connection to the \ac{titp} server, the underlying \ac{titp
 and receive data (i.e.\ messages).
 The client also automatically notifies the consumer about connection state changes (going online or offline).
 
-\subsection{Components}\label{subsec:components}
+\subsection{Frontend Components}\label{subsec:components}
 
 \subsubsection{Chat App Component}
 The chat app component combines nearly all services with each other to an actual working chat application.
@@ -440,15 +440,35 @@ one test server is online.
 
 \subsection{Services}\label{subsec:services2}
 
-\subsubsection{Authentication Service}
-% TODO @joernneumeyer
+\subsubsection{Identity Service}\label{subsubsec:identitySer}
+The identity service is responsible for managing user identification and authentication.
+It is \ac{rest} based, so it is not handling user sessions, rather authentication tokens to authenticate users.
+It provides functions for registration, login, logout and forgot password operations.
+
+As we want to stay as anonymous as possible we are requesting as little data as possible during the registration
+process.
+For the registration, the only data we request is a username, password and an \ac{rsa} public key.
+If the server has been configured to require an invitation code, one code has to be provided upon registration.
+As the service is operating stateless, and a successful login is performed, the requesting user will receive an
+authentication token.
+This token may be used in other services to prove a user's identity.
+The service therefore operates as an access point for all other services which require authentication functionality.
+During a logout, the token of the individual user will be destroyed.
+Lastly, the identity service is handling password resets as well.
 
 \subsubsection{File Service}
-% TODO @all shall we just briefly mention that this might be a service for future features / development
+The file service is as-of-day not implemented.
+However, in the future, the service shall serve as a file sharing server which can be used as an intermediate storage
+for media files being referenced in messages sent via the \ac{titp} server.
 
-\subsubsection{Identity Service}
-\label{subsubsec:identitySer}
-% TODO @joernneumeyer
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/fileService}
+    \caption{Example message transfer with file}
+    \label{fig:figure43}
+\end{figure}
+
+\pagebreak
 
 \subsubsection{Settings Service}\label{subsubsec:settingsSer}
 
