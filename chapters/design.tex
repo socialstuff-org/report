@@ -248,3 +248,34 @@ to establish a secure connection.
     \label{fig:figure37}
 \end{figure}
 
+\subsubsection{Persistence Library}
+
+\paragraph{Crypto Storage \ac{api}}
+
+The crypto storage \ac{api} provides a simple and intuitive way to read and write data to a local directory.
+A base directory as the root for all operations is set centrally during the initialization of the crypto storage
+(~/.trale).
+This is very useful in order to abstract away the necessity to know the full path to the file one is trying to access.
+Since our application aims to run on as many platforms as possible, it also removes the necessity to remove the path
+separator on a given operating system (e.g.\ Windows \enquote{\textbackslash} vs.\ Linux \enquote{/}).
+
+Additionally, the crypto storage manages the encryption and decryption of files automatically, while the desired
+mechanism of said encryption and decryption can be set by the one instantiating the crypto storage.
+
+\paragraph{Text Record Storage}
+
+In addition to the crypto storage \ac{api}, the text record storage is able to load files partially line by line.
+The lines are accessed as last-in first-out (LIFO).
+This is especially useful in our use-case, since we are going to use the text record storage to save and load chat
+messages.
+The most important reason to do so however, is \ac{ram} efficiency.
+We could also load an entire chat via the crypto storage but on a long chat this would be a waste of memory as not all
+messages are needed as soon as one opens a chat.
+Therefore, the text record storage only loads the latest messages as soon as they are requested.
+If nothing is requested, no data will be loaded and no \ac{ram} will be wasted.
+\begin{figure}[H]
+    \centering
+    \caption{Trale persistence library package}
+    \includegraphics[width=1\textwidth]{./graphics/classDiagramPersistenceLibrary}
+    \label{fig:figure38}
+\end{figure}

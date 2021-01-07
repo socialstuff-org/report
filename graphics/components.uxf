@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>14</zoom_level>
+  <zoom_level>12</zoom_level>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>560</x>
-      <y>420</y>
-      <w>196</w>
-      <h>112</h>
+      <x>576</x>
+      <y>432</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Identity</panel_attributes>
@@ -16,10 +16,10 @@ Identity</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>784</x>
-      <y>420</y>
-      <w>196</w>
-      <h>112</h>
+      <x>768</x>
+      <y>432</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Chat</panel_attributes>
@@ -28,10 +28,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>546</x>
-      <y>350</y>
-      <w>462</w>
-      <h>350</h>
+      <x>564</x>
+      <y>372</y>
+      <w>396</w>
+      <h>300</h>
     </coordinates>
     <panel_attributes>Trale Server Instance A</panel_attributes>
     <additional_attributes/>
@@ -39,10 +39,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>546</x>
-      <y>784</y>
-      <w>196</w>
-      <h>84</h>
+      <x>564</x>
+      <y>744</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Alice
 (Desktop Client)</panel_attributes>
@@ -51,10 +51,10 @@ Chat</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>686</y>
-      <w>42</w>
-      <h>126</h>
+      <x>636</x>
+      <y>660</y>
+      <w>36</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -62,10 +62,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>784</x>
-      <y>784</y>
-      <w>196</w>
-      <h>84</h>
+      <x>768</x>
+      <y>744</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Bob
 (Desktop Client)</panel_attributes>
@@ -74,10 +74,10 @@ Chat</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>868</x>
-      <y>686</y>
-      <w>42</w>
-      <h>126</h>
+      <x>840</x>
+      <y>660</y>
+      <w>36</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -85,10 +85,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1204</x>
-      <y>420</y>
-      <w>196</w>
-      <h>112</h>
+      <x>1128</x>
+      <y>432</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Identity</panel_attributes>
@@ -97,10 +97,10 @@ Identity</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1428</x>
-      <y>420</y>
-      <w>196</w>
-      <h>112</h>
+      <x>1320</x>
+      <y>432</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Chat</panel_attributes>
@@ -109,10 +109,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>1190</x>
-      <y>350</y>
-      <w>462</w>
-      <h>350</h>
+      <x>1116</x>
+      <y>372</y>
+      <w>396</w>
+      <h>300</h>
     </coordinates>
     <panel_attributes>Trale Server Instance B</panel_attributes>
     <additional_attributes/>
@@ -120,10 +120,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1204</x>
-      <y>784</y>
-      <w>196</w>
-      <h>84</h>
+      <x>1128</x>
+      <y>744</y>
+      <w>168</w>
+      <h>72</h>
     </coordinates>
     <panel_attributes>Charlie
 (Desktop Client)</panel_attributes>
@@ -132,10 +132,10 @@ Chat</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1288</x>
-      <y>686</y>
-      <w>42</w>
-      <h>126</h>
+      <x>1200</x>
+      <y>660</y>
+      <w>36</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;70.0</additional_attributes>
@@ -143,10 +143,10 @@ Chat</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>994</x>
-      <y>462</y>
-      <w>224</w>
-      <h>42</h>
+      <x>948</x>
+      <y>468</y>
+      <w>192</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;140.0;10.0</additional_attributes>
@@ -154,10 +154,10 @@ Chat</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>994</x>
-      <y>546</y>
-      <w>224</w>
-      <h>42</h>
+      <x>948</x>
+      <y>540</y>
+      <w>192</w>
+      <h>36</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
     <additional_attributes>140.0;10.0;10.0;10.0</additional_attributes>
@@ -165,10 +165,10 @@ Chat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>560</x>
-      <y>560</y>
-      <w>196</w>
-      <h>112</h>
+      <x>576</x>
+      <y>552</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Settings</panel_attributes>
@@ -177,10 +177,10 @@ Settings</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1204</x>
-      <y>560</y>
-      <w>196</w>
-      <h>112</h>
+      <x>1128</x>
+      <y>552</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Settings</panel_attributes>
@@ -189,10 +189,10 @@ Settings</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>784</x>
-      <y>560</y>
-      <w>196</w>
-      <h>112</h>
+      <x>768</x>
+      <y>552</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Reporting</panel_attributes>
@@ -201,10 +201,10 @@ Reporting</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>1428</x>
-      <y>560</y>
-      <w>196</w>
-      <h>112</h>
+      <x>1320</x>
+      <y>552</y>
+      <w>168</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>symbol=component
 Reporting</panel_attributes>
