@@ -109,31 +109,39 @@ If no records are requested, no data will be loaded, and the machine's memory wi
 
 \section{Frontend}\label{sec:frontend}
 
+This part of the report will describe the results of the implementation phase of the frontend describing the services
+and components.
+
 \subsection{Services}\label{subsec:services}
 
-% TODO rework introduction section
-The following part of the dossier will describe the different services which have been developed during the time of the project.
-This will include a description of each service, followed by an \ac{rest} \ac{api} specification.
+The following part of the report will cover the different frontend services which have been developed during the
+project.
+By \textit{service} we refer to Angular services which enable automated dependency injection as well as application
+wide state management.
 
 \subsubsection{API Service}\label{subsubsec:api-service}
 
 The \ac{api} service is a rather small service located in the desktop client.
-The service is responsible for managing the global state of all relevant \ac{api} information in the desktop application.
-In the current state of development this includes the following information
+The service is responsible for managing the global state of all relevant \ac{api} information in the desktop
+application.
+In the current state of development this includes the following information:
 
 \begin{itemize}\setlength\itemsep{-0.5em}
     \item hostname - the hostname of the server (e.g.\ trale.org)
-    \item port - the default port on which the service is listening for incoming connections (default: 8086)
-    \item the remote endpoint - a constructed string for building a connection to the server (e.g.\ http://trale.org:8086)
-    \item trale port - the default port on which the service is listening for encrypted messages (default: 8087)
+    \item port - the default \ac{http} port on which the other services and comments may perform \ac{rest} calls
+        (default: 8086)
+    \item the remote endpoint - a constructed string for building a connection to the server
+        (e.g.\ https://trale.org:8086)
+    \item trale port - the default port on which the server is listening for encrypted connections (default: 8087)
 \end{itemize}
 
 Further, the service provides several helper methods for retrieving and updating the remote endpoint as well as several
 getters and setters for all above mentioned attributes.
 
-\subsubsection{Auth Service}\label{subsubsec:auth-service}
-The auth service is responsible for managing authentication related tasks such as login, logout, registration and
-minor helper functions (e.g.\ forgot password).
+\subsubsection{Authentication Service}\label{subsubsec:auth-service}
+
+The authentication service is responsible for managing authentication related tasks such as login, logout, registration
+and minor helper functions (e.g.\ forgot password).
 
 \paragraph{Login function}
 The login takes a username and a password as parameters and executes a post request to the remote endpoint specified in
@@ -141,9 +149,23 @@ the \textbf{\hyperref[subsubsec:api-service]{API service}}.
 On a successful login a token will be provided for future authentication, otherwise an error stating 'Invalid
 credentials - Status code 400' will be returned.
 
-% TODO @joernneumeyer maybe add register / logout etc. here as well? refactor code? not in auth service yet
+\paragraph{Register function}
+The registration takes username, a password and an optional invitation code (depending on the server settings) as
+parameters.
+Firstly, a new \ac{rsa} key pair is being generated with a length of 4096 bits.
+A post request to the remote endpoint specified in the \textbf{\hyperref[subsubsec:api-service]{API service}} will be
+performed containing the username, password, \ac{rsa} public key and invite code if one is necessary.
 
-Due to the mentioned responsibilities, this service is only injected in authentication related components.
+If the post request fails an error message will be displayed, and the function is done.
+If its succeeds, the client will receive a response containing a token.
+This token is a piece of data which has been encrypted by the server using the given \ac{rsa} public key, and it will
+be decrypted by the client in order to prove ownership of the \ac{rsa} public key.
+
+Secondly, a second \ac{rest} call will be made in order to confirm the registration (i.e.\ ownership of the \ac{rsa}
+public key).
+This is achieved by posting the decrypted token to the identity service.
+If the registration is completed, the local crypto storage will be initialized and the \ac{rsa} public and private keys
+are stored.
 
 \subsubsection{Contact Service}\label{subsubsec:contact-service}
 
@@ -152,64 +174,159 @@ It owns a contact array holding all contacts for the currently logged-in user.
 On application startup the contact service will load all contacts from drive by utilizing the
 \textbf{\hyperref[subsubsec:crypto-storage-service]{Crypto Storage Service}}.
 
-Besides providing a loading wrapper for retrieving encrypted contacts from the drive it also manages actions such as
-adding contacts, updating contacts or fetching the latest message of all contacts to display those in the contact list.
+Besides, providing a loading wrapper for retrieving encrypted contacts from the drive, it also manages actions such as
+adding contacts, updating contacts or fetching the latest message of all contacts to display those in the sidenav.
 
-Lastly, the contact service provides a function to load the actual chat of a specific contact with the currently
-logged-in user.
-
-% TODO @joernneumeyer any additional remarks / information to be added?
-
-\subsubsection{Debug Service?}
-% TODO @joernneumeyer & @mauritsvanderzee
-% @joernneumeyer shall we include debug service?
+Lastly, the contact service provides a function to load the actual chat (a text record storage) of a specific contact
+with the currently logged-in user.
 
 \subsubsection{Crypto Storage Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+
+The crypto storage service implements a crypto provider (\ref{fig:figure38}) which specifies an encryption via \ac{aes}
+with a 256bit key in cbc mode.
+The service itself is a wrapper around the crypto storage library (\ref{fig:figure38}).
+In addition, it provides a load function to initialize the underlying crypto storage instance for the user who is
+currently logged in.
+It also automatically generates a master password which is used for the actual encryption.
+The user password however, is used to encrypt and decrypt that master password.
+
+The service also provides several getters for retrieving the mentioned master key for external encryption operations as
+well as the base directory and underlying crypto storage instance.
 
 \subsubsection{Key Registry Service}
-% TODO @joernneumeyer & @mauritsvanderzee
+
+The key registry service implements both the conversation key registry, and the user key registry (\ref{fig:figure34}).
+
+\paragraph{User Key Registration Implementation}
+The user key registry is responsible for retrieving \ac{rsa} public keys from users.
+It always tries to load the requested key from a build in cache for optimal performance.
+In case the cache does not know the requested key, it will try to fetch the key from the contact service by loading
+the corresponding contact.
+If this operation succeeds the key will be added to the cache and returned to the one requesting it.
+If the contact service is unable to provide the requested key, the user key registry will request the key from the
+identity backend service.
+
+This procedure saves a lot of time and resources, as it always tries to fetch the key in the best performant way
+possible.
+
+\paragraph{Conversation Key Registration Implementation}
+The conversation key registry serves two main purposes.
+Firstly, it is responsible for temporarily storing \ac{ecdh} private keys for key negotiation (handshake).
+This is necessary because one may start a handshake with another user who is currently offline so the \ac{ecdh} private
+key has to be temporarily stored since they are always regenerated, for security reasons, if the application is
+restarted.
+
+Secondly, storing of negotiated conversation keys with other users.
+Assuming a contact already exists, this function will simply load the contact overwrite the conversation key and saves
+the contact.
+If that contact does not exist, the method will automatically create a new contact for the given username and
+conversation key, and it also automatically loads the \ac{rsa} public key via the previously described
+\textit{fetchRSA()} method.
 
 \subsubsection{Titp Service}
-% TODO @joernneumeyer & @mauritsvanderzee
 
-\subsubsection{Util Service}
-% TODO @mauritsvanderzee
+The \ac{titp} service is technically a wrapper around the \ac{titp} client from
+the~\hyperref[subsec:transport]{\textbf{transport library}}.
+It is mainly responsible for initializing said instance with concrete parameters (i.e.\ username, \ac{rsa} key pair,
+\ac{ecdh} key pair and key registries).
 
-\subsection{Components}\label{subsec:components}
+Additionally, it provides a \textit{connect()} method which is responsible for establishing a connection to the
+\ac{titp} server.
+Todo so it either loads existing / known values (e.g.\ the servers \ac{rsa} public key) or generates needed values like
+the \ac{ecdh} key pair.
+After establishing a connection to the \ac{titp} server, the underlying \ac{titp} client instance may be used to send
+and receive data (i.e.\ messages).
+The client also automatically notifies the consumer about connection state changes (going online or offline).
+
+\subsection{Frontend Components}\label{subsec:components}
+
+\subsubsection{Chat App Component}
+The chat app component combines nearly all services with each other to an actual working chat application.
+It listens to incoming messages from the \ac{titp} client via the \ac{titp} service.
+This is done in order to properly add the incoming messages to the appropriate chat log if the sender of the message
+exists as a contact.
+It will also trigger push notifications in the frontend with a minimum of five seconds between the notifications if a
+new message has been received.
+This push notification will contain an adequate summary of the message (e.g.\ the beginning of a text message, or the
+length of a voice message).
+
+\subsubsection{Chat View Component}
+The chat view component is contains the actual chat view, displaying all fetched chat messages from a chat log as well
+as the sub-component \enquote{message box} which contains the actual logic of writing or recording (voice) a message.
+However, it does not send the message directly, but it passes the full message to the chat view, which makes use of the
+\ac{titp} service.
+
+If a new incoming message is recognized, it will be added the chat view component and therefore displayed to the user.
+
+\subsubsection{Sidenav Component}
+The sidenav component displays all present contacts including the latest message of the corresponding chat log.
+On an incoming message, the sidenav will update automatically, displaying the latest message.
 
 \subsubsection{Admin Panel}
 
 \paragraph{Security Setting}
-The Security Settings component gives the admins of the SocialStuff server the possibility to change the behaviour of the SocialStuff server
-regarding the security standards. The user can change the settings and send them to the backend via the settings service in the gateway.
+The Security Settings component gives the admins of the Trale server the possibility to change the behaviour of the
+Trale server regarding security standards.
+The user can change the settings and send them to the backend via the settings service in the gateway.
 These settings influence other functions depending on the current settings.
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/security_settings}
     \caption{Visualisation of the security-settings component}
     \label{fig:secset}
 \end{figure}
-The HTML contains the headline component and a lot of switch buttons. The headline component is given two attributes,
-a title as a string and a Boolean called \enquote{showSave}. The headline component also has two output events called \enquote{save} and \enquote{revert}.
-The TypeScript file (.ts file) of the Security Settings component loads a SecuritySettings object (the corresponding interface can be found in the folder \enquote{admin/interfaces}) with the function getSettings (l. 41 - 50).
-This function retrieves the current settings from the server via the settings service of the admin panel (folder \enquote{services}).
+
+The HTML contains the headline component, and a lot of switch buttons.
+The headline component is given two attributes,
+a title as a string and a boolean called \textit{showSave}.
+The headline component also has two output events called \textit{save} and \textit{revert}.
+The TypeScript file (.ts file) of the Security Settings component loads a SecuritySettings object (the corresponding
+interface can be found in the folder \textit{admin/interfaces}) with the function getSettings (l. 41 - 50).
+This function retrieves the current settings from the server via the settings service of the admin panel (folder
+\textit{services}).
+
 \begin{itemize}
-    \item You can find a brief explanation about how all services in Angular acts inside the \hyperref[subsec:services]{\textbf{services}} chapter
+    \item You can find a brief explanation about how all services in Angular acts inside the
+        \hyperref[subsec:services]{\textbf{services}} chapter.
 \end{itemize}
-The received SecuritySettings object is then stored simultaneously in two attributes \enquote{settings} (l. 22) and \enquote{settingsBackup} (l. 22).
-All buttons are bound to the SecuritySettings object containing the attribute \enquote{settings} via the expression \enquote{[(ngModel)]}.
-If you change the value of one of the switch buttons, you will see that the headline module displays two buttons \enquote{Save} and \enquote{Reset}. /newline As mentioned earlier, the headline component has an input directive called \enquote{showSave}. This controls whether the \enquote{Save} and \enquote{Reset} buttons are displayed or not. The passed attribute, is a computed attribute (l. 33). A computed attribute is a mixture of attribute and method. It is seen as an attribute by the invoker, but it consists of two methods, a getter and a setter method. In our case, only one getter method is defined.
-It uses the function \enquote{isEqual} from the installed package \enquote{lodash}.
+
+The received \textit{SecuritySettings} object is then stored simultaneously in two attributes \textit{settings}
+(l. 22) and \textit{settingsBackup} (l. 22).
+All buttons are bound to the SecuritySettings object containing the attribute \textit{settings} via the expression
+\textit{[(ngModel)]}.
+If you change the value of one of the switch buttons, you will see that the headline module displays two buttons
+\textit{Save} and \textit{Reset}.
+As mentioned earlier, the headline component has an input directive called \textit{showSave}.
+This controls whether the \textit{Save} and \textit{Reset} buttons are displayed or not.
+The passed attribute, is a computed attribute (l. 33).
+A computed attribute is a mixture of attribute and method.
+It is seen as an attribute by the invoker, but it consists of two methods, a getter and a setter method.
+In our case, only one getter method is defined.
+It uses the function \textit{isEqual} from the installed package \textit{lodash}.
+
 \begin{itemize}
     \item You can find the full documentation of lodash under: https://lodash.com/docs/4.17.15
 \end{itemize}
-The moment changes are made via the switch buttons, the attribute settings also change. The calculated attribute \enquote{isEqual} is then changed from false to true. This causes the headline component to display the \enquote{Save} and \enquote{Reset} button. When the user presses a button, the headline component sends an event to the Security Settings component that triggers the call of the Save or Revert function. \\
-The save function calls a function within the admin panel settings service that sends a \enquote{PUT} request to the endpoint.
+
+The moment changes are made via the switch buttons, the attribute settings also change.
+The calculated attribute \textit{isEqual} is then changed from false to true.
+This causes the headline component to display the \textit{Save} and \textit{Reset} button.
+When the user presses a button, the headline component sends an event to the \textit{Security Settings} component that
+triggers the call of the Save or Revert function. \\
+The save function calls a function within the admin panel settings service that sends a \enquote{PUT} request to the
+endpoint.
 The revert function clones the SecuritySettings object from the settingsBackup attribute into settings, undoing any changes made without saving.
 
 \paragraph{Report Settings}
-This feature includes a reporting system. Users of our web application can report each other, which makes it possible to detect users who violate the rules set by the administrators. In the administration interface, it is possible to change the settings of the current reporting system and turn it on or off. This feature also offers the possibility to add, edit or delete report reasons. Each ReportReason (finadable in \enquote{admin/interfaces}) has three fields:
+This feature includes a reporting system.
+Users of our web application can report each other, which makes it possible to detect users who violate the rules set
+by the administrators.
+In the administration interface, it is possible to change the settings of the current reporting system and turn it on
+or off.
+This feature also offers the possibility to add, edit or delete report reasons.
+Each ReportReason (findable in \enquote{admin/interfaces}) has three fields:
+
 \begin{verbatim}
 export interface ReportReason {
   id: string;
@@ -217,89 +334,168 @@ export interface ReportReason {
   max_report_violations: number;
 }
 \end{verbatim}
-The parent component and the entry for the whole feature is the report-settings component.
-\begin{figure}[h]
+
+The parent component, and the entry for the whole feature is the report-settings component.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/report_settings_1}
     \caption{Visualisation of the report-settings component}
     \label{fig:reportset}
 \end{figure}
-\\
-For this component only the HTML file is visualized because there is nothing important going on inside the TypeScript file of this component. The HTML includes the headline component which shows the title of this feature and is used in all of the features of the admin panel. Next to the headline component two switch buttons are shown. At the moment these Buttons have no influence and are just bind to a dummy attribute. The creating, editing and deleting of report reasons are done in the embedded report-reasons component.
-\begin{figure}[h]
+
+For this component only the HTML file is visualized because there is nothing important going on inside the TypeScript
+file of this component.
+The HTML includes the headline component which shows the title of this feature and is used in all of the features of
+the admin panel.
+Next to the headline component two switch buttons are shown.
+At the moment these Buttons have no influence and are just bind to a dummy attribute.
+The creating, editing and deleting of report reasons are done in the embedded report-reasons component.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/report_reasons_2}
     \caption{Visualisation of the report-reasons component}
     \label{fig:reportreason}
 \end{figure}
 \vspace{5mm}
-\\
-The report-reasons component is responsible for showing all report reasons previously created. They are loaded with the method getReportReason and stored inside the variable reportReasons. Through this array the ngFor Method itterates, embedding for each ReportReason Object inside the array a report-reason-entry component inside the HTML. The TypeScript File holds a second variable called \enquote{reload}. Here an instance of a new EventEmitter is created. An EvenEmitter is used to emit custom events synchronously through multiple components and register handlers for those events by subscribing to the instance. The reload instance is passed via the Input directive to the report-reason-entry and via the subscribe method, emits can be detected. If any emit is done inside another component holding the same instance, the getReportReasons function is called which will lead to an update of the Array of ReportReasons. This is important to trigger an update as soon as a report reason has been edited. Next to the ngFor loop the the HTML file embeds another report-reason-entry component and passing over the input directive \enquote{newEntry} a true. This will change the behaviour of the component so that it can be used to create a new report reason.
-So now we have a list of all report reasons and the possibility to add a new one. Next, it will be explained how
-the report-reason-entry component works.
-\begin{figure}[h]
+
+The report-reasons component is responsible for showing all report reasons previously created.
+They are loaded with the method \textit{getReportReason} and stored inside the variable reportReasons.
+Through this array the ngFor Method iterates, embedding for each ReportReason Object inside the array a
+report-reason-entry component inside the HTML.
+The TypeScript File holds a second variable called \textit{reload}.
+Here an instance of a new EventEmitter is created.
+An EvenEmitter is used to emit custom events synchronously through multiple components and register handlers for
+those events by subscribing to the instance.
+The reload instance is passed via the Input directive to the report-reason-entry and via the subscribe method,
+emits can be detected.
+If any emit is done inside another component holding the same instance, the getReportReasons function is called which
+will lead to an update of the Array of ReportReasons.
+This is important to trigger an update as soon as a report reason has been edited.
+Next to the ngFor loop the HTML file embeds another report-reason-entry component and passing over the input
+directive \textit{newEntry} a true.
+This will change the behaviour of the component so that it can be used to create a new report reason.
+So now we have a list of all report reasons, and the possibility to add a new one.
+Next, it will be explained how the report-reason-entry component works.
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/report_reason_entry_3}
     \caption{Visualisation of the report-reason-entry component}
     \label{fig:reportreasonent}
 \end{figure}
 \vspace{5mm}
-\\
-The report-reason-entry component can act in three different ways based on the variable \enquote{editable} and the input directive \enquote{newEntry} inside the TypeScript file of the component. If the component got a \enquote{true} via the input directive, the HTML is showing a button to add a new entry. By clicking the button the function editReportReason() is called and the variable editable is set to \enquote{true}. This change will again trigger the HTML to change its appearance showing two text fields, a save and a cancel button. If neither of those two variables is set to true the component just shows the report reason text, the number of valuations, an edit, and a delete button. The delete button does not trigger the deleteReportReason method, but the openDialog method, which embeds a confirmation dialogue warning the user that the deletion cannot be undone. For this dialogue, we used a pre-built UI component from Angular Material (found in the technology stack). Only when the user confirms the decision, the deleteReportReason method is called. If the deletion was successful, an event is emitted via the instance \enquote{reload}.
-This triggers a reload within the parent component. While editing or creating a new reason the users can either save or cancel their changes. When the \enquote{Save} button is pressed, all changes are sent to the server and are persisted in the database. An event is only emitted when a new reason has been created. If an existing reason has been edited, there is no need to do a reload within the parent component. Calling the \enquote{cancelEditing} method causes the variable reportReason to be reset to the state before editing and the variable
-\enquote{editable} to be set to false.
+
+The report-reason-entry component can act in three different ways based on the variable \textit{editable} and the input
+directive \textit{newEntry} inside the TypeScript file of the component.
+If the component got a \textit{true} via the input directive, the HTML is showing a button to add a new entry.
+By clicking the button the function editReportReason() is called, and the variable editable is set to \textit{true}.
+This change will again trigger the HTML to change its appearance showing two text fields, a save and a cancel button.
+If neither of those two variables is set to true the component just shows the report reason text, the number of
+valuations, an edit, and a delete button.
+The delete button does not trigger the deleteReportReason method, but the openDialog method, which embeds a confirmation
+dialogue warning the user that the deletion cannot be undone.
+For this dialogue, we used a pre-built UI component from Angular Material (found in the technology stack).
+Only when the user confirms the decision, the deleteReportReason method is called.
+If the deletion was successful, an event is emitted via the instance \textit{reload}.
+This triggers a reload within the parent component.
+While editing or creating a new reason the users can either save or cancel their changes.
+When the \textit{Save} button is pressed, all changes are sent to the server and are persisted in the database.
+An event is only emitted when a new reason has been created.
+If an existing reason has been edited, there is no need to do a reload within the parent component.
+Calling the \textit{cancelEditing} method causes the variable reportReason to be reset to the state before editing and
+the variable \textit{editable} to be set to false.
 
 \paragraph{Reported Users}
-The graphical user interface for displaying all reported users is completed and can be found in the folder \enquote{ReportSystem/ReportedUsers}.
+As soon as a user reported an other user, it should be displayed in this component.
+It shows a table of all users who got reported.
+Each row shows the username hash (real name is not displayed, because of privacy reasons) and the total number of
+reports made.
+The admin can expand each row, to show more information about the reasons for the reports.
+All reasons are then displayed, including the times a report for the reason have been created.
+The graphical user interface for displaying all reported users is completed and can be found in the folder
+\textit{ReportSystem/ReportedUsers}.
 There you will find a total of 4 components for creating the list that displays all reported users.
-\\
-\begin{figure}[h]
+
+\begin{figure}[H]
     \centering
     \includegraphics[width=1.0\textwidth]{./images/report_component}
     \caption{Visualisation of the reported-users component}
     \label{fig:reportedusers}
 \end{figure}
-\\
+
 \begin{enumerate}
-\item Reported-users
-   \begin{itemize}
-     \item This is the parent component just includes the headline and the report-list component.
-   \end{itemize}
-\item Report-list
-   \begin{itemize}
-        \item Includes a table with the labels \enquote{Username} and \enquote{Times Reported}. The table rows are loaded with ngFor over a next component called report-row. Currently the data for the reported users is dummy data generated in the TypeScript file of this component. Here it is still need to embed a function, retrieving all reports from the endpoint. (Use the gateway and create a service in the “services” folder) In the end you need an array of userReport objects (You find the interface for those objects already in the folder \enquote{admin/interfaces}). Iterate through this array with ngFor and pass the current userReport to the report-row component.
-   \end{itemize}
-\item Report-row
-   \begin{itemize}
-       \item This component shows all information regarding a userReport. When clicking the dropdown icon, the row will expand, showing all reasons the report reason includes. (line 6-11) This is done by another component which gets as an input
-       directive an array of all the reasons connected to the reportReason.
-   \end{itemize}
-\item Reasons-for-report
-   \begin{itemize}
-      \item This is a simple component iterating through all the reasons passed.
-      It contains two functions, one computed function for retrieving the highest number of all reportReasons (l. 18-24) and a function retrieving a string (\enquote{ok}, \enquote{low}, \enquote{middle} or \enquote{high}) based on the percentage towards the highest number retrieved by the computed function. The string is attached to the class name \enquote{times-reported} (html-file, l.4) and regulates the color of the number.
-   \end{itemize}
+    \item Reported-users
+    \begin{itemize}
+        \item This is the parent component just includes the headline and the report-list component.
+    \end{itemize}
+    \item Report-list
+    \begin{itemize}
+        \item Includes a table with the labels \textit{Username} and \textit{Times Reported}.
+            The table rows are loaded with ngFor over a next component called report-row.
+            Currently the data for the reported users is dummy data generated in the TypeScript file of this component.
+            Here it is still need to embed a function, retrieving all reports from the endpoint.
+            (Use the gateway and create a service in the \textit{services} folder).
+            In the end you need an array of userReport objects (You find the interface for those objects already in the
+            folder \textit{admin/interfaces}).
+            Iterate through this array with ngFor and pass the current userReport to the report-row component.
+    \end{itemize}
+    \item Report-row
+    \begin{itemize}
+        \item This component shows all information regarding a userReport.
+            When clicking the dropdown icon, the row will expand, showing all reasons the report reason includes.
+            (line 6-11) This is done by another component which gets as an input directive an array of all the reasons
+            connected to the reportReason.
+    \end{itemize}
+    \item Reasons-for-report
+    \begin{itemize}
+        \item This is a simple component iterating through all the reasons passed.
+        It contains two functions, one computed function for retrieving the highest number of all reportReasons
+        (l. 18-24) and a function retrieving a string (\textit{ok}, \textit{low}, \textit{middle} or \textit{high})
+        based on the percentage towards the highest number retrieved by the computed function.
+        The string is attached to the class name \textit{times-reported} (html-file, l.4) and regulates the color of
+        the number.
+    \end{itemize}
 \end{enumerate}
 
 \paragraph{Create Invite}
-This feature includes two main component, which again are splitted up in smaller components.
+In the security settings, admins can decide, either an invite code is required for registration or every one can join
+the application.
+If an invite code is required, the admins can create one using this feature.
+They can set the date until it is valid, the times it can be used and write or generate the code to get access.
+Administrators can also see which invite codes already exist and have the option to delete them.\\
+This feature includes two main component, which again are split up in smaller components.
 
 \begin{enumerate}
-\item invite-code-list
-	\begin{itemize}
-		\item This Component holds the table with all existing invite codes. It is responsible for loading all entries from the back-end through the function getInviteCodes from the Gateway and presenting them in a table. The component iterates through all entries and passing the data of each entry towards another component presenting a row in the table. The Component has as input an EventEmitter to pass it towards the InviteCodeRow component, making it possible to trigger the getInviteCodes function after deleting an InviteCode from the InviteCodeRow component and update the data.
-	\end{itemize}
-\item create-new-invite
-	\begin{itemize}
-		\item This Component holds the functionality to create a new InviteCode and save it on the server. It has three fields: \\  
-		\textbf{1.	Expiration Date:} This field uses the ngx-mat-datetime package which adds the functionality of not choosing just a date but also a time. \\
-		\textbf{2.	Usage Limitation:} A number indicating how often the invite code can be used. Optional, default is 0 and specify that the invite code has no usage limitation. \\
-		\textbf{3.	Invite Code:} A string which will be used when register onto the platform. A 10-character-long string (numbers and uc characters) can be generated using the generate button.\\	
-	\end{itemize}	
+    \item invite-code-list
+    \begin{itemize}
+        \item This Component holds the table with all existing invite codes.
+        It is responsible for loading all entries from the back-end through the function getInviteCodes from the
+        Gateway and presenting them in a table.
+        The component iterates through all entries and passing the data of each entry towards another component
+        presenting a row in the table.
+        The Component has as input an EventEmitter to pass it towards the InviteCodeRow component, making it possible
+        to trigger the getInviteCodes function after deleting an InviteCode from the InviteCodeRow component and update
+        the data.
+    \end{itemize}
+    \item create-new-invite
+    \begin{itemize}
+        \item This Component holds the functionality to create a new InviteCode and save it on the server.
+        It has three fields:\\
+        \textbf{1.	Expiration Date:} This field uses the ngx-mat-datetime package which adds the functionality of not
+        choosing just a date but also a time. \\
+        \textbf{2.	Usage Limitation:} A number indicating how often the invite code can be used.
+        Optional, default is 0 and specify that the invite code has no usage limitation. \\
+        \textbf{3.	Invite Code:} A string which will be used when register onto the platform.
+        A 10-character-long string (numbers and uc characters) can be generated using the generate button.\\
+    \end{itemize}
 \end{enumerate}
 
 \section{Backend}\label{sec:backend}
 
+The following part of the report will cover the different services which have been developed during the project.
+This will include a description of each service, followed by a \ac{rest} \ac{api} specification where applicable.
 
 \subsection{Database Connections}\label{subsec:database-connections}
 
@@ -348,15 +544,35 @@ one test server is online.
 
 \subsection{Services}\label{subsec:services2}
 
-\subsubsection{Authentication Service}
-% TODO @joernneumeyer
+\subsubsection{Identity Service}\label{subsubsec:identitySer}
+The identity service is responsible for managing user identification and authentication.
+It is \ac{rest} based, so it is not handling user sessions, rather authentication tokens to authenticate users.
+It provides functions for registration, login, logout and forgot password operations.
+
+As we want to stay as anonymous as possible we are requesting as little data as possible during the registration
+process.
+For the registration, the only data we request is a username, password and an \ac{rsa} public key.
+If the server has been configured to require an invitation code, one code has to be provided upon registration.
+As the service is operating stateless, and a successful login is performed, the requesting user will receive an
+authentication token.
+This token may be used in other services to prove a user's identity.
+The service therefore operates as an access point for all other services which require authentication functionality.
+During a logout, the token of the individual user will be destroyed.
+Lastly, the identity service is handling password resets as well.
 
 \subsubsection{File Service}
-% TODO @all shall we just briefly mention that this might be a service for future features / development
+The file service is as-of-day not implemented.
+However, in the future, the service shall serve as a file sharing server which can be used as an intermediate storage
+for media files being referenced in messages sent via the \ac{titp} server.
 
-\subsubsection{Identity Service}
-\label{subsubsec:identitySer}
-% TODO @joernneumeyer
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.0\textwidth]{./graphics/fileService}
+    \caption{Example message transfer with file}
+    \label{fig:figure43}
+\end{figure}
+
+\pagebreak
 
 \subsubsection{Settings Service}\label{subsubsec:settingsSer}
 
@@ -380,7 +596,7 @@ The use cases as well as their descriptions are located in the
 
 \paragraph{Rest interface}
 
-The settings service provides the following rest endpoints:
+The settings service provides the following \ac{rest} endpoints:
 
 \begin{lstlisting}[label={lst:lstlisting}]
 GET: /settings/report-reason
@@ -481,11 +697,12 @@ This includes administrative tasks like managing for which reasons users can be 
 system itself (reporting users and banning them).
 The administrative tasks, like adding new report reasons, manually blocking and unblocking users, can be done via the
 \hyperref[subsubsec:settingsSer]{\textbf{settings service}}.
-This service was added in the later stages of the project.
+This service was added in the latter stages of the project.
 
 First the entire reporting was handled via the \hyperref[subsubsec:settingsSer]{\textbf{settings service}}, however it
-was decided that the reporting itself should possess its own service. The reason for this being that we early on decided
-to build the application in a modular manner, so users can decide which services they want to have and which once they do not.
+was decided that the reporting itself should possess its own service.
+The reason for this being that we early on decided to build the application in a modular manner, so users can decide
+which services they want to have and which once they do not.
 It could be that some users do not want to have a reporting service.
 Therefore, it was necessary to outsource the report related functionality from the
 \hyperref[subsubsec:settingsSer]{\textbf{settings service}} to the

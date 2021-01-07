@@ -82,7 +82,81 @@ went into the application.
 As integrated development environment (IDE) we had no given specification so everyone utilized their IDE of choice.
 The utilized IDEs were mainly Visual Studio Code and PHPStorm by Jetbrains.
 
-% TODO @all enrich this section with more information
+\subsection{Git Guide}\label{subsec:git-guide}
+
+\begin{enumerate}
+    \item \textbf{Create a new repository} \\
+    First step is to create a new local directory.
+    Open the directory in the console and perform following command:
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git init
+    \end{lstlisting}
+    \item \textbf{Checkout a repository} \\
+    The repository for this project already have been created, you can check it out with the following command:
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git clone https://github.com/socialstuff-org/socialstuff.git
+    \end{lstlisting}
+    \item \textbf{Create a branch} \\
+    Most important when working in a team is the usage of branches.
+    Branches allow users to develop features isolated from each other.
+    In our project, a so-called feature branch workflow was used.
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=1.0\textwidth]{./images/git_branching}
+        \caption{Git Feature-Branch}
+        \label{fig:gitbranching}
+    \end{figure}
+    A feature branch has two layers, first it has a master branch that contains the most up-to-date status of the
+    project, containing all finalized features.
+    Next to the master, many branches for the features that are currently being worked on exists.
+    For every new feature, a branch is created.
+    No work is ever done directly on the master, the master branch only contains fully finalised features.
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git checkout -b feature_1
+    \end{lstlisting}
+    \item \textbf{Add and commit} \\
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.8\textwidth]{./images/git_workflow}
+        \caption{Git Workflow}
+        \label{fig:gitworkflow}
+    \end{figure} \\
+    Git consists of three components in a tree.
+    The first one is the Working directory, it holds all actual files of your current project.
+    The second component of this tree is the index, also called \enquote{Staging Area}.
+    Here you can decide what parts of the program should be taken into account for the next commit.
+    The last component is called HEAD, it represents the local working repository of the current branch.
+    If new files were created and you want to commit them, it is important to first add them to the index, so they are
+    recognized during your commit to the HEAD. Every commit needs to have a commit message.
+    Be wise and choose a message which shows which functionalities you added to the branch.
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git add <name of the file>
+		git add *
+		git commit -m "Commit Message"
+    \end{lstlisting}
+    \item \textbf{Push Changes} \\
+    Right now, all changes are in the HEAD of the local repository.
+    To send them to the remote repository run the following command:
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git push
+		git push origin <branchname>
+    \end{lstlisting}
+    \item \textbf{Update} \\
+    To update the local repository and getting the newest commits made to the remote repository run the command:
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git pull
+		git pull origin <branchname>
+    \end{lstlisting}
+    The local repository is now merged with all changes from the remote repository.
+    Doing a pull can result in merge conflicts.
+    This happens for example, when there are differences in same part of the code between the local and the remote
+    repository.
+    Two avoid conflicts, all differences between two branches can be priviously be checked: \\
+    \begin{lstlisting}[label={lst:lstlisting2}]
+		git diff <branch1> <branch2>
+    \end{lstlisting}
+
+\end{enumerate}
 
 \section{Project Management Tools}\label{sec:project-management-tools}
 

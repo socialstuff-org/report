@@ -121,12 +121,12 @@ around.
     \label{fig:figure32}
 \end{figure}
 
+\pagebreak
 \subsection{Port distribution}\label{subsec:port-distribution}
 
 The following table shows all utilized ports of the server side.
 External ports are reachable from client applications.
 The internal ports are used for inter-service communication.
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|}
@@ -141,17 +141,45 @@ The internal ports are used for inter-service communication.
         \midrule
         3001          & Internal & Chat service over \ac{http}                         \\
         \midrule
-        3002          & Internal & Chat service over Trale connection \\
+        3002          & Internal & Settings Service \\
+        \midrule
+        3003          & Internal & Reporting Service \\
         \bottomrule
     \end{tabular}\label{tab:table}
 \end{table}
 
-\subsection{Trale Library Design}\label{subsec:trale-library-design}
+\section{Trale Library Design}\label{sec:trale-library-design}
 
 This section will cover a detailed overview over all self-developed libraries.
 The trale library utilizes a combination of synchronous encryption, \ac{aes} and asynchronous encryption \ac{rsa}.
 
-\subsubsection{Transport Library}
+In the project, we tried to re-use as much code as possible.
+Since the client and server-side projects are both implemented in TypeScript, we moved shared logic between the projects
+into separate libraries.
+
+Each library serves a different purpose in the Trale system, and is in-fact independent of each other.
+Code contained in the libraries is more of a general approach to solve a certain problem.
+Through delegation of specific tasks, the library stays flexible, while the concrete way of performing a task is
+implemented in the actual client application.
+I.e\ you may want to store data in an encrypted manner, so the library will take care of applying an encryption
+algorithm, while the consumer of the library provides the specific algorithm to be used.
+
+However, due to some constraints of the TypeScript compiler, working with these libraries did not work by creating a
+local connection to the package, but we had to upload them to npm and install them afterwards.
+This lead to some issues in the development process, such as version mismatches between the server and client, where
+both had to use the newest version, but one was using an older version.
+
+\subsection{Transport Library}\label{subsec:transport-library}
+
+One of the big questions during the project was: \textit{how can we get data (messages) from one client to another one
+and temporarily save data, which shall be sent to a user who is currently offline?}
+The former part of this question will be addressed by the transport library, whilst the latter part is delegated to the
+library consumer, i.e.\ the node.js based chat server.
+
+The transport library, as the name suggests, is responsible for transporting data from one client to another
+(technically from a client to a server, and then to another client).
+It only provides transport security for client-server connections!
+The actual content of a message packet has to be properly encrypted by the client.
 
 \paragraph{User Key Registry}
 The user key registry is a functional interface.
@@ -248,7 +276,47 @@ to establish a secure connection.
     \label{fig:figure37}
 \end{figure}
 
-\subsubsection{Persistence Library}
+\paragraph{Establishing a Secure Client-Server Connection}
+Although the content, and most metadata (e.g.\ time sent, sender name) of messages shall be encrypted by clients, some
+data has to be apparent to the server, in order to have the ability to forward the message to the proper recipient.
+
+In order to establish a secure connection between a client and a server, both parties must be in possession of the
+following things:
+
+\begin{itemize}
+    \setlength\itemsep{-.5em}
+    \item an \ac{ecdh} public and private key pair of curve P-384~\cite{nist-digital-signature-standard}
+    \item an \ac{rsa} public and private key pair of length 4096-bit
+\end{itemize}
+
+The \ac{ecdh} keys are used to negotiate a common key, which can be used to encrypt data using \ac{aes}.
+The \ac{rsa} keys are used to verify one's identity by means of digital signatures, so the other party knows that a
+message has not been tampered with.
+
+\textbf{How the handshake works:}
+\vspace{-.75em}
+\begin{enumerate}
+    \setlength\itemsep{-.5em}
+    \item Client connects to server.
+    \item Client sends initial message: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+    \item Server calculates shared secret.
+    \item Server sends reply: [\ac{ecdh}$_{pub}$ || RSA-SHA512$_{priv}$(\ac{ecdh}$_{pub}$)]
+    \item Client verifies the server's \ac{ecdh} signature.
+    If the verification fails, the handshake and connection will be terminated.
+    \item Client calculates shared secret and sends their username in \ac{utf8}.
+    \item Server loads the proper client \ac{rsa} public key and verifies their identity.
+    If the verification fails, the handshake and connection will be terminated.
+    \item If the handshake/connection have not been terminated due to prior errors, a secure connection has been
+    established, via which all future data will be sent.
+\end{enumerate}
+
+\subsection{Persistence Library}\label{subsec:persistence-library}
+
+Security by means of encryption does not only apply to the transport step of data, but also to the way data is
+persisted.
+However, it would be quite redundant to always manually specify the full path to a file one wants to operate on, or the
+way data should be encrypted and decrypted.
+Therefore, we created an abstraction to address these issues.
 
 \paragraph{Crypto Storage \ac{api}}
 
@@ -280,7 +348,8 @@ If nothing is requested, no data will be loaded and no \ac{ram} will be wasted.
     \label{fig:figure38}
 \end{figure}
 
-\subsubsection{Utilities Library}
+\subsection{Utilities Library}\label{subsec:utilities-library}
+
 The utilities library contains various functionality which is of general use and not as specific as logic contained in
 prior libraries.
 It basically serves as a collection of shared code, which is used in all backend services as well as the frontend
