@@ -121,12 +121,12 @@ around.
     \label{fig:figure32}
 \end{figure}
 
+\pagebreak
 \subsection{Port distribution}\label{subsec:port-distribution}
 
 The following table shows all utilized ports of the server side.
 External ports are reachable from client applications.
 The internal ports are used for inter-service communication.
-
 \begin{table}[H]
     \centering
     \begin{tabular}{|l|l|l|}
@@ -141,7 +141,9 @@ The internal ports are used for inter-service communication.
         \midrule
         3001          & Internal & Chat service over \ac{http}                         \\
         \midrule
-        3002          & Internal & Chat service over Trale connection \\
+        3002          & Internal & Settings Service \\
+        \midrule
+        3003          & Internal & Reporting Service \\
         \bottomrule
     \end{tabular}\label{tab:table}
 \end{table}
