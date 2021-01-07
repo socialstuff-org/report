@@ -500,49 +500,42 @@ This will include a description of each service, followed by a \ac{rest} \ac{api
 \subsection{Database Connections}\label{subsec:database-connections}
 
 For the project we used two database management systems, MongoDB and MySQL, depending on the requirements of the backend
-services.
+service.
 
 \subsubsection{MongoDB}
 MongoDB is a non-relational, document based database management system.
-This brings a few advantages ad disadvantages, depending on the use case.
-MongoDB is best when you want the flexibility of schema.
+This brings a few advantages and disadvantages, depending on the use-case and requirements.
+MongoDB is best when you want the flexibility of no schema.
 You can easily use replica sets with MongoDB and can take advantage of scalability.
-Expansion plans are flexible and can be easily achieved by adding more machines and RAM to the system.
+Expansion plans are flexible and can be easily achieved by adding more machines and \ac{ram} to the system.
 It also includes document validations and integrated systems.
 
-A big disadvantage of MongoDB is that over time the data size will increase drastically over time.
-Compared to other DBMS systems the speed is comparatively low.
+A big disadvantage of MongoDB is that over time the data size will increase drastically.
 
 \paragraph{Why and where was MongoDB used?}
-Mongo DB was used for the messages.
-This is because the messages are non-relational data in the case of SocialStuff.
-The disadvantage of low speed once the data amount increases is neglectable in the case of SocialStuff, as the data will
-only be stored temporarily on the server.
-The data amount is therefore not that high.
-Of course local machines will still store the messages on a longer period, however as only the messages with chat
-partners are stored the amount of data is still comparatively low.
-
-Due to the high scalability of MongoDB it is excellent for SocialStuff, as the entire system is based on users adding
-more servers to the system to increase the security of the system.
+Mongo DB was used for the messages of the chat backend service.
+This is because the messages are non-relational data in the case of Trale.
+Due to the high scalability of MongoDB it is excellent for Trale, as the entire system is based on users adding
+more servers to the network to increase the security of the network.
 
 \subsubsection{MySQL}
-MySQL is a relational database management system, this also features advantages and disadvantages.
-For starters MySQL provides a high performance and runs on almost every system which is important for SocialStuff as
-users will be able to setup the servers themselves.
-Using MySQL will make this process simpler for them.
+MySQL is a relational database management system, which also features advantages and disadvantages.
+For starters, MySQL provides a high performance and runs on almost every system, which is important for Trale, as
+users will be able to set up the servers themselves.
 MySQL also provides a high security, because the database administrator can grant appropriate permissions to
-applications that access stored procedures in the database without giving any permissions on the underlying database
+applications that access stored procedures in the database, without giving any permissions on the internal database
 tables.
 A disadvantage of MySQL is that it becomes slower the more data is stored on it due to a high memory usage.
 
 \paragraph{Why and where was MySQL used?}
 MySQL was used for all the relational data, like the data used in the identity service (user data) and reporting
 service.
-This was done as this data is not mere transactional data (like the messages) but data that is meant to stay.
-Furthermore, the high scalability will proof useful once the application will be used by more users and more than our
-one test server is online.
+This was done as this data is not mere transactional data (like the messages), but data that is meant to stay.
+Furthermore, the high scalability will proof useful, once the application will be used by more users.
 
 \subsection{Services}\label{subsec:services2}
+
+This subsection will describe our backend services (i.e.\ micro-services).
 
 \subsubsection{Identity Service}\label{subsubsec:identitySer}
 The identity service is responsible for managing user identification and authentication.
@@ -578,7 +571,7 @@ for media files being referenced in messages sent via the \ac{titp} server.
 
 The Settings service provides an interface to the admin panel frontend and carries out the settings to the other
 services.
-This service was developed in parallel to the admin panel frontend. %TODO @maltecastner insert reference to component, once it has been added
+This service was developed in parallel to the admin panel frontend.
 First only the for the UI necessary functionality would be added, later on the actual functionality was added
 (e.g.\ that users can actually be reported for the report reasons added in the settings).
 As it can be seen from the use case diagram~\ref{fig:ucd} the settings service carries out a few tasks by itself whilst
@@ -761,4 +754,3 @@ Reports a user based of the report reason, and the users' username hash.
 A user can only be reported by the same user for the same reason after 15 minutes to prevent spamming.
 Otherwise, the report will be processed by the backend, and the user will be set to \enquote{blocked} in case one
 exceeds the maximum report violation counter.
-
