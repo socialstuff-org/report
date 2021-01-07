@@ -26,6 +26,6 @@ www.fontysvenlo.nl
 
 ### Other
 
-Word count: TBA  
-Published on: TBA  
-PDF Version available at: TBA
+Word count: 16,969  
+Published on: Friday, 8th of January, 2021  
+PDF Version available at: [Release 1.0.0](https://github.com/socialstuff-org/report/releases/tag/1.0.0)
